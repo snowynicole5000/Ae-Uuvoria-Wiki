@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oa'Veyra — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="planet-page.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html" class="current">Planets</a></li>
+      <li><a href="peoples.html">Peoples</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="#">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PREV / NEXT bar (sits under the main menu)
+  ════════════════════════════════════════════════════════ -->
+  <nav class="pager" aria-label="Other planets">
+    <a class="prev" href="ia-vorien.html">&larr; II &nbsp;Ia'Vorien</a>
+    <a class="all" href="planets.html">All planets</a>
+    <a class="next" href="iu-miruun.html">IV &nbsp;Iu'Miruun &rarr;</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════ -->
+  <header class="planet-hero">
+    <img class="hero-planet" src="svgs/planet3.svg" alt="Oa'Veyra with its rings and two moons">
+
+    <div class="hero-element">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><rect x="4" y="4" width="14" height="14"/></svg>
+      Planet III &nbsp;·&nbsp; Nature
+    </div>
+    <h1>Oa'Veyra</h1>
+    <div class="hero-meaning">&ldquo;The lush&rdquo; &mdash; the home world &nbsp;·&nbsp; <span class="hero-say">oh-ah-VAY-rah</span></div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         OVERVIEW + DATA SHEET
+    ════════════════════════════════════════════════════════ -->
+    <section class="overview">
+      <div class="prose">
+        <p>Oa'Veyra is the third world from <a href="ae-uuvoria.html">Ae'Uuvoria</a> and the planet of Nature. Nearly all the people on this wiki live here, spread across its continents and oceans.</p>
+        <p>Life here looks different from Earth's. Its plants grow orange, so on Oa'Veyra orange is the color associated with life instead of green. Its days are long, its air is thick, and its gravity is 1.5 times that of Earth's.</p>
+        <p>A ring circles the planet, tilted away from its equator, and two moons cross its sky. The Isikitem see them as sisters and build their whole calendar around them.</p>
+        <p>Around the entire planet hangs the barrier, a faint, aurora-like shimmer that blocks <em>almost</em> all magic from reaching the surface.</p>
+      </div>
+
+      <aside class="datasheet">
+        <h3>At a glance</h3>
+        <dl>
+          <div class="row"><dt>Distance</dt><dd>~80.2 AU</dd></div>
+          <div class="row"><dt>Year</dt><dd>~291 Earth years</dd></div>
+          <div class="row"><dt>Seasons</dt><dd>~73 Earth years each</dd></div>
+          <div class="row"><dt>Day</dt><dd>38.4 hours</dd></div>
+          <div class="row"><dt>Axial tilt</dt><dd>25&deg;</dd></div>
+          <div class="row"><dt>Radius</dt><dd>~1.03 Earth</dd></div>
+          <div class="row"><dt>Mass</dt><dd>~1.6 Earth</dd></div>
+          <div class="row"><dt>Gravity</dt><dd>1.5 g</dd></div>
+          <div class="row"><dt>Atmosphere</dt><dd>1.8 atm</dd></div>
+          <div class="row"><dt>Oxygen</dt><dd>28%</dd></div>
+          <div class="row"><dt>CO&#8322;</dt><dd>2.5%</dd></div>
+          <div class="row"><dt>Surface</dt><dd>10&ndash;20 &deg;C</dd></div>
+          <div class="row"><dt>Rings</dt><dd>Tilted 19&deg;</dd></div>
+          <div class="row"><dt>Moons</dt><dd>2</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MAPS
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Maps</div>
+
+    <div class="map-tabs">
+      <button class="map-tab active" data-src="images/oa-veyra-continents.png" data-caption="The continents and oceans of Oa'Veyra.">Continents</button>
+      <button class="map-tab" data-src="images/oa-veyra-elevation.png" data-caption="Elevation, from the ocean floor to the mountain that pierces the barrier.">Elevation</button>
+      <button class="map-tab" data-src="images/oa-veyra-biomes.png" data-caption="Biomes across the surface.">Biomes</button>
+	  <button class="map-tab" data-src="images/oa-veyra-political.png" data-caption="The countries and factions of Oa'Veyra.">Political</button>
+    </div>
+
+    <figure>
+      <div class="map-frame">
+        <img id="map-img" src="images/oa-veyra-continents.png" alt="Map of Oa'Veyra">
+        <div class="map-missing" id="map-missing"></div>
+      </div>
+      <figcaption class="map-caption" id="map-caption">The continents and oceans of Oa'Veyra.</figcaption>
+    </figure>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONTINENTS — delete for planets without continents.
+         Copy a <div class="continent"> block to add one.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Continents</div>
+
+    <div class="continents">
+      <div class="continent">
+        <h3>Western Continent</h3>
+        <p>Forests and rivers in the north, desert and fulgurite glass spikes in the middle, grassland to the west, and an ancient forest to the south.</p>
+        <div class="peoples">Makk'ar · Isikitem · Fulgari · The Grove</div>
+      </div>
+      <div class="continent">
+        <h3>Eastern Continent</h3>
+        <p>One of the tallest mountainranges to the north, deep canyons to the east, and a western desert crossed by a river. The central mountain peak is the tallest on the planet to the point that it pierces the barrier. </p>
+        <div class="peoples">Bovidians · Tassik · Ilsaru</div>
+      </div>
+      <div class="continent">
+        <h3>Southern Continent</h3>
+        <p>Volcanic regions to the east and coastal cliffs with water-level caves at its north-west tip.</p>
+        <div class="peoples">Ruefliti · Ventlings</div>
+      </div>
+      <div class="continent">
+        <h3>Central Continent</h3>
+        <p>A rainforest burning into wasteland, marked by a volcano at its heart. Home of the delvers' black market.</p>
+        <div class="peoples">Fire clan (in progress) · Seafaring people?</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MOONS — one <article class="moon"> per moon.
+         Delete the whole section for moonless planets.
+         To use a real picture, replace
+           <div class="moon-dot volcanic"></div>
+         with
+           <img class="moon-img" src="svgs/your-moon.svg" alt="...">
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Moons</div>
+
+    <div class="moons">
+      <article class="moon">
+        <div class="moon-dot volcanic"></div>
+        <div>
+          <h3>Moon A</h3>
+          <div class="moon-alt">Atathetem, &ldquo;the younger sister&rdquo; to the Isikitem</div>
+          <p>The small, close moon. Volcanic, glowing faintly at night. Its quick orbit sets the 8-day Isikitem week. Its return is greeted with small joyful prayers, and its disappearance is mourned.</p>
+          <ul class="moon-stats">
+            <li><b>Orbit</b> &nbsp;8 days (~12.8 Earth days)</li>
+            <li><b>Distance</b> &nbsp;~271,000 km</li>
+            <li><b>Radius</b> &nbsp;~1,200 km &nbsp;·&nbsp; <b>Gravity</b> &nbsp;0.18 g</li>
+			<li><b>Radius</b> &nbsp;~1,200 km</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="moon">
+        <div class="moon-dot watery"></div>
+        <div>
+          <h3>Moon B</h3>
+          <div class="moon-alt">Etathetem, &ldquo;the older sister&rdquo; to the Isikitem</div>
+          <p>The larger, watery blue moon on a slow, distant orbit. It is so much farther away that it looks smaller in the sky than Moon A. Each of its orbits is one Isikitem &ldquo;knot,&rdquo; and its return is celebrated with a great festival.</p>
+          <ul class="moon-stats">
+            <li><b>Orbit</b> &nbsp;64 days (~102 Earth days)</li>
+            <li><b>Distance</b> &nbsp;~1,082,000 km</li>
+            <li><b>Radius</b> &nbsp;~1,800 km &nbsp;·&nbsp; <b>Gravity</b> &nbsp;0.31 g</li>
+			<li><b>Radius</b> &nbsp;~1,800 km</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         EXTRA SECTION — a plain text section. Copy this pattern
+         for anything special about a planet.
+    ════════════════════════════════════════════════════════ -->
+
+    <div class="section-label">The barrier</div>
+
+    <div class="prose" style="max-width: 680px; margin: 0 auto;">
+      <p>At the end of the Era of Darkness, <del>six</del> five Au'Uuvori gave their lives to raise a barrier around Oa'Veyra. From the ground it shows as a faint, aurora-like shimmer across the sky.</p>
+      <p>Beneath it, most elemental magic is unusable. Only very faint light magic still gets through.</p>
+      <p>Only one place breaks through it: the peak of the tallest mountain, which pierces the barrier entirely.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAP SWITCHER — no need to edit this.
+  ════════════════════════════════════════════════════════ -->
+  <script>
+    const mapImg     = document.getElementById("map-img");
+    const mapCaption = document.getElementById("map-caption");
+    const mapMissing = document.getElementById("map-missing");
+
+    if (mapImg) {
+      document.querySelectorAll(".map-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".map-tab").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          mapImg.style.display = "";
+          mapMissing.style.display = "none";
+          mapImg.src = tab.dataset.src;
+          mapCaption.textContent = tab.dataset.caption;
+        });
+      });
+
+      // If a map image isn't in the folder yet, say which file it's looking for
+      function showMissing() {
+        mapImg.style.display = "none";
+        mapMissing.style.display = "flex";
+        mapMissing.innerHTML = "Map coming soon<br>(add " + mapImg.getAttribute("src") + ")";
+      }
+      mapImg.addEventListener("error", showMissing);
+      if (mapImg.complete && mapImg.naturalWidth === 0) showMissing();
+    }
+  </script>
+
+</body>
+</html>

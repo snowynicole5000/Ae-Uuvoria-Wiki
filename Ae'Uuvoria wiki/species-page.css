@@ -1,0 +1,213 @@
+/* ═══════════════════════════════════════════════════════════
+   species-page.css — EXTRA SECTIONS FOR SPECIES PAGES
+   Species pages link style.css, then figure-page.css (for the
+   splash, info strip, bio, gallery and "connected to" cards),
+   then this file for the sections only species have.
+═══════════════════════════════════════════════════════════ */
+
+.lede {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #9a8f7a;
+}
+
+/* ═════════════════════════════════════════════════════
+   ANATOMY — a grid of feature cards
+═════════════════════════════════════════════════════ */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 0.5px solid #2a2420;
+  border-left: 0.5px solid #2a2420;
+}
+.feature {
+  padding: 1.4rem 1.5rem;
+  border-right: 0.5px solid #2a2420;
+  border-bottom: 0.5px solid #2a2420;
+}
+.feature h3 {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.feature p { font-size: 14px; line-height: 1.7; color: #b8ae9a; }
+
+/* ═════════════════════════════════════════════════════
+   MORPHS + PRONOUNS
+═════════════════════════════════════════════════════ */
+.morphs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.morph {
+  border: 0.5px solid #2a2420;
+  padding: 1.4rem 1.4rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+.morph-kind {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7a7060;
+  margin-bottom: 0.25rem;
+}
+.morph h3 {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+.pronoun {
+  font-size: 22px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.7rem;
+}
+.forms {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.2rem;
+  margin-bottom: 0.9rem;
+  border-top: 0.5px solid #1a1814;
+  padding-top: 0.6rem;
+}
+.forms span { font-size: 13px; color: #e8e0d0; text-align: center; }
+.forms small {
+  display: block;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4a4440;
+  margin-top: 0.15rem;
+}
+.morph .example { font-size: 13.5px; font-style: italic; line-height: 1.6; color: #9a8f7a; margin-top: auto; }
+.morph .example b { color: #e8e0d0; font-weight: 400; font-style: normal; }
+.morph .who { font-size: 12px; color: #7a7060; margin-top: 0.6rem; }
+.morph .who a { color: var(--accent); text-decoration: none; }
+
+/* ═════════════════════════════════════════════════════
+   LANGUAGE — name breakdown + prefix table
+═════════════════════════════════════════════════════ */
+.name-break {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 auto 1rem;
+}
+.part { text-align: center; padding: 0 0.6rem; }
+.part .bit { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 0.06em; color: #e8e0d0; line-height: 1.1; }
+.part .gloss {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 0.5rem;
+  border-top: 0.5px solid #3a3430;
+  padding-top: 0.5rem;
+}
+.part.plus .bit { color: #4a4440; }
+.name-meaning { text-align: center; font-style: italic; color: #9a8f7a; margin-bottom: 3rem; }
+
+.lang-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.prefixes { width: 100%; border-collapse: collapse; }
+.prefixes th {
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7a7060;
+  text-align: left;
+  padding: 0 0.6rem 0.6rem;
+  border-bottom: 0.5px solid #3a3430;
+}
+.prefixes td {
+  font-size: 14px;
+  color: #b8ae9a;
+  padding: 0.6rem;
+  border-bottom: 0.5px solid #1a1814;
+}
+.prefixes td:first-child { color: var(--accent); font-size: 16px; letter-spacing: 0.06em; }
+.prefixes td.say { font-style: italic; color: #7a7060; }
+.lang-notes .detail + .detail { margin-top: 1rem; }
+
+/* ═════════════════════════════════════════════════════
+   HISTORY — a vertical timeline
+═════════════════════════════════════════════════════ */
+.timeline {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  padding-left: 2rem;
+}
+.timeline::before {           /* the line */
+  content: '';
+  position: absolute;
+  left: 5px; top: 6px; bottom: 6px;
+  width: 0.5px;
+  background: #3a3430;
+}
+.tl {
+  position: relative;
+  padding-bottom: 1.8rem;
+}
+.tl::before {                 /* the dot */
+  content: '';
+  position: absolute;
+  left: calc(-2rem + 1px);
+  top: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  border: 1px solid var(--accent);
+}
+.tl.dark::before { background: #a479f5; border-color: #a479f5; }
+.tl-when { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #7a7060; margin-bottom: 0.25rem; }
+.tl h3 { font-size: 15px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.tl p { font-size: 14.5px; line-height: 1.75; color: #9a8f7a; }
+.tl a { color: var(--accent); text-decoration: none; border-bottom: 0.5px solid #4a4440; }
+
+/* ═════════════════════════════════════════════════════
+   LEGACY — cards for what they left behind
+═════════════════════════════════════════════════════ */
+.legacy {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.legacy-card {
+  display: block;
+  border: 0.5px solid #2a2420;
+  padding: 1.4rem 1.5rem;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+a.legacy-card:hover { border-color: var(--accent); }
+.legacy-card h3 { font-size: 12px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.55rem; }
+.legacy-card p { font-size: 14px; line-height: 1.7; color: #9a8f7a; }
+.legacy-card .go { display: block; margin-top: 0.8rem; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+
+/* ─── Phones ──────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .features, .morphs, .legacy { grid-template-columns: 1fr 1fr; }
+  .lang-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .features, .morphs, .legacy { grid-template-columns: 1fr; }
+}
