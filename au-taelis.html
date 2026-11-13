@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Au'Taelis — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="planet-page.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html" class="current">Planets</a></li>
+      <li><a href="peoples.html">Peoples</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="#">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PREV / NEXT bar (sits under the main menu)
+  ════════════════════════════════════════════════════════ -->
+  <nav class="pager" aria-label="Other planets">
+    <a class="prev" href="ae-uuvoria.html">&larr; 0 &nbsp;Ae'Uuvoria</a>
+    <a class="all" href="planets.html">All planets</a>
+    <a class="next" href="ia-vorien.html">II &nbsp;Ia'Vorien &rarr;</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════ -->
+  <header class="planet-hero">
+    <img class="hero-planet" src="svgs/planet1.svg" alt="Au'Taelis, half lit and half in shadow">
+
+    <div class="hero-element">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><circle cx="11" cy="11" r="8"/></svg>
+      Planet I &nbsp;·&nbsp; Order
+    </div>
+    <h1>Au'Taelis</h1>
+    <div class="hero-meaning">&ldquo;The still one&rdquo; &nbsp;·&nbsp; <span class="hero-say">ow-TAY-lis</span></div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         OVERVIEW + DATA SHEET
+    ════════════════════════════════════════════════════════ -->
+    <section class="overview">
+      <div class="prose">
+        <p>Au'Taelis is the innermost planet of <a href="ae-uuvoria.html">Ae'Uuvoria</a> and the world of Order. It is small, airless and perfectly still.</p>
+        <p>The planet is tidally locked: one side always faces the star and the other always faces away. There is no sunrise and no sunset. Each side keeps its own weather forever, frozen in place.</p>
+        <p>Its surface is iron-silicate rock streaked with carbon deposits, darkened and worn by open space. With no atmosphere to carry heat around the planet, the difference between its two halves is extreme.</p>
+        <p>No life has ever been confirmed there.</p>
+      </div>
+
+      <aside class="datasheet">
+        <h3>At a glance</h3>
+        <dl>
+          <div class="row"><dt>Distance</dt><dd>~19.3 AU</dd></div>
+          <div class="row"><dt>Year</dt><dd>~34.3 Earth years</dd></div>
+          <div class="row"><dt>Day</dt><dd>None (tidally locked)</dd></div>
+          <div class="row"><dt>Axial tilt</dt><dd>0&deg;</dd></div>
+          <div class="row"><dt>Radius</dt><dd>~0.46 Earth</dd></div>
+          <div class="row"><dt>Mass</dt><dd>~0.08 Earth</dd></div>
+          <div class="row"><dt>Gravity</dt><dd>~0.38 g</dd></div>
+          <div class="row"><dt>Atmosphere</dt><dd>None</dd></div>
+          <div class="row"><dt>Moons</dt><dd>None</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         THREE ZONES (uses the continents grid, three across)
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Three zones</div>
+
+    <div class="continents three">
+      <div class="continent">
+        <h3>Dayside</h3>
+        <div class="temp">250&ndash;420 &deg;C</div>
+        <p>Facing the star forever. In places it is hot enough to melt lead.</p>
+      </div>
+      <div class="continent">
+        <h3>Terminator</h3>
+        <div class="temp">&minus;30&ndash;80 &deg;C</div>
+        <p>The thin ring of permanent twilight between the two halves. The only mild ground on the planet.</p>
+      </div>
+      <div class="continent">
+        <h3>Nightside</h3>
+        <div class="temp">&minus;220&ndash;&minus;180 &deg;C</div>
+        <p>Turned away from the star forever, in endless darkness.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>

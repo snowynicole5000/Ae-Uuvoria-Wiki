@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Planets — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ═════════════════════════════════════════════════════
+       HERO — the chart with a fade at the bottom
+       The trick: the image sits in a box, and a see-through
+       gradient (::after) is laid on top of it. The gradient
+       goes from transparent to the page background color,
+       so the image looks like it melts into the page.
+    ═════════════════════════════════════════════════════ */
+    .chart-hero {
+      position: relative;          /* lets the title and fade sit on top */
+    }
+    .chart-hero img {
+      display: block;
+      width: 100%;
+      max-height: 85vh;            /* never taller than most of the screen */
+      object-fit: cover;
+	  padding-top: 56px;
+    }
+    .chart-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;                    /* cover the whole image */
+      background: linear-gradient(to bottom,
+                    rgba(10,10,10,0) 45%,     /* fade starts 45% of the way down */
+                    #0a0a0a 100%);            /* fully page-colored at the bottom */
+      pointer-events: none;
+    }
+    .chart-title {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 2.5rem;
+      z-index: 2;                  /* above the fade */
+      text-align: center;
+    }
+    .chart-title h1 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .chart-title .kicker {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c8b882;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ─── Page body ───────────────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    .section-label { margin: 3.5rem 0 1.6rem; }
+
+    .intro {
+      font-size: 16px;
+      line-height: 1.85;
+      color: #b8ae9a;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ─── At-a-glance facts ───────────────────────────────── */
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 0.5px solid #2a2420;
+      margin-top: 2.5rem;
+    }
+    .fact {
+      padding: 1.2rem 1rem;
+      text-align: center;
+      border-right: 0.5px solid #2a2420;
+    }
+    .fact:last-child { border-right: none; }
+    .fact-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #7a7060;
+      margin-bottom: 0.5rem;
+    }
+    .fact-value { font-size: 15px; color: #e8e0d0; }
+
+    /* ─── Planet rows ─────────────────────────────────────── */
+	  .star{
+	  text-align:center;
+	  }
+	  .star-name{
+	  text-align: center
+	  }
+	  .star-head{
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		justify-content: center;
+	  }
+	  .star-img{
+		  width: 280px
+	  }
+	  .planet {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 0;
+      border-bottom: 0.5px solid #2a2420;
+    }
+    .planet:last-child { border-bottom: none; }
+
+    .planet-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;           
+      display: block;
+    }
+	.planet-img2 {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;           
+      display: block;
+	  filter: drop-shadow(0 0 20px rgba(200, 184, 130, 0.25));
+    }
+    .planet-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.3rem;
+    }
+    .planet-num {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: #7a7060;
+    }
+    .planet-name {
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .planet-meaning {
+      font-size: 13px;
+      font-style: italic;
+      color: #9a8f7a;
+      margin-bottom: 0.9rem;
+    }
+    .planet-meaning .element { color: #c8b882; font-style: normal; letter-spacing: 0.1em; }
+    .planet p, .star p {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: #b8ae9a;
+    }
+    .planet-more {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9a8f7a;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .planet-more:hover { color: #c8b882; }
+
+    /* ─── Phones: stack everything ────────────────────────── */
+    @media (max-width: 700px) {
+      .facts  { grid-template-columns: repeat(2, 1fr); }
+      .fact:nth-child(2) { border-right: none; }
+      .fact:nth-child(-n+2) { border-bottom: 0.5px solid #2a2420; }
+      .planet { grid-template-columns: 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAV — same as the homepage. "current" highlights this page.
+  ════════════════════════════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html" class="current">Planets</a></li>
+      <li><a href="peoples.html">Peoples</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="#">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — your chart, fading into the page
+  ════════════════════════════════════════════════════════ -->
+  <header class="chart-hero">
+    <img src="images/system-chart.png" alt="Chart of the Ae'Uuvoria system: the star and its six planets">
+    <div class="chart-title">
+      <div class="kicker">Planets</div>
+      <h1>The Ae'Uuvoria System</h1>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════
+         OVERVIEW
+    ════════════════════════════════════════════════════════ -->
+    <p class="intro">
+      At the center burns Ae'Uuvoria, a blue-white star that is also the creator
+      of everything in the solar system. Its six planets each embody one of the six major
+      elements of magic. Three of them harbor life, and one is home to nearly
+      all the people on this wiki.
+    </p>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="fact-label">Star</div>
+        <div class="fact-value">Class B</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Mass</div>
+        <div class="fact-value">~6.1 solar masses</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Planets</div>
+        <div class="fact-value">6</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Habitable Zone</div>
+        <div class="fact-value">~56&ndash;81 AU</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         THE PLANETS
+         To add a page for a planet: make a new file (like
+         au-taelis.html), then change that planet's href="#"
+         below to href="au-taelis.html".
+    ════════════════════════════════════════════════════════ -->
+	  
+	<div class="section-label">The Star</div>
+	  <!-- 0 · The Core -->
+	  <article class="star" id="ae-uuvoria">
+      <img class="star-img" src="svgs/star.svg" alt="Ae'Uuvoria">
+      <div>
+        <div class="star-head">
+          <svg width="30" height="30" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.8">
+  <polygon points="6.5,3.2 15.5,3.2 20,11 15.5,18.8 6.5,18.8 2,11"/>
+  <circle cx="11" cy="11" r="1.6" fill="#c8b882"/>
+</svg>
+          <h2 class="planet-name star-name">Ae'Uuvoria</h2>
+</div>
+        <div class="planet-meaning"><span class="element">THE CORE</span> · &ldquo;The Primordial Light&rdquo;</div>
+        <p>The blue-white star at the center of the system, a Δ Architect, a <em>god</em>. The star and the creator are one and the same. It made all six worlds and set the rules of magic and life within them.</p>
+        <a class="planet-more" href="ae-uuvoria.html">Explore &rarr;</a>
+      </div>
+    </article>
+	  
+    <div class="section-label">The six worlds</div>
+
+    <!-- I · ORDER -->
+    <article class="planet" id="au-taelis">
+      <img class="planet-img" src="svgs/planet1.svg" alt="Au'Taelis">
+      <div>
+        <div class="planet-head">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><circle cx="11" cy="11" r="8"/></svg>
+          <span class="planet-num">I</span>
+          <h2 class="planet-name">Au'Taelis</h2>
+        </div>
+        <div class="planet-meaning"><span class="element">ORDER</span> · &ldquo;The still one&rdquo;</div>
+        <p>The innermost world, about 19 AU from the star. Au'Taelis is tidally locked, with one side always facing the star.</p>
+        <a class="planet-more" href="au-taelis.html">Explore &rarr;</a>
+      </div>
+    </article>
+
+    <!-- II · LIGHT -->
+    <article class="planet" id="ia-vorien">
+      <img class="planet-img" src="svgs/planet2.1.svg" alt="Ia'Vorien">
+      <div>
+        <div class="planet-head">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><polygon points="11,4 12.73,12.71 20,8.8 11,18 2,8.8 9.27,12.71"/></svg>
+          <span class="planet-num">II</span>
+          <h2 class="planet-name">Ia'Vorien</h2>
+        </div>
+        <div class="planet-meaning"><span class="element">LIGHT</span> · &ldquo;The bright child&rdquo;</div>
+        <p>A world of silicon-based life, tilted 38° on its axis, about 39 AU out. Since losing their connection to Oa'Veyra, the creator has turned their attention here.</p>
+        <a class="planet-more" href="ia-vorien.html">Explore &rarr;</a>
+      </div>
+    </article>
+
+    <!-- III · NATURE -->
+    <article class="planet" id="oa-veyra">
+      <img class="planet-img" src="svgs/planet3.svg" alt="Oa'Veyra">
+      <div>
+        <div class="planet-head">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><rect x="4" y="4" width="14" height="14"/></svg>
+          <span class="planet-num">III</span>
+          <h2 class="planet-name">Oa'Veyra</h2>
+        </div>
+        <div class="planet-meaning"><span class="element">NATURE</span> · &ldquo;The lush&rdquo;</div>
+        <p>The home world, about 80 AU out. Its plants grow orange, its rings tilt at 19°, and two moons circle it: a small volcanic one and a larger watery one. A faint shimmering barrier wraps the whole planet, keeping most magic out.</p>
+        <a class="planet-more" href="oa-veyra.html">Explore &rarr;</a>
+      </div>
+    </article>
+
+    <!-- IV · WATER -->
+    <article class="planet" id="iu-miruun">
+      <img class="planet-img" src="svgs/planet4.svg" alt="Iu'Miruun">
+      <div>
+        <div class="planet-head">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><polygon points="11,3.2 20,18.8 2,18.8"/></svg>
+          <span class="planet-num">IV</span>
+          <h2 class="planet-name">Iu'Miruun</h2>
+        </div>
+        <div class="planet-meaning"><span class="element">WATER</span> · &ldquo;The deep water&rdquo;</div>
+        <p>A world covered by a single global ocean. Microbes tint its atmosphere purple, and a volcanic moon keeps it company.</p>
+        <a class="planet-more" href="iu-miruun.html">Explore &rarr;</a>
+      </div>
+    </article>
+
+    <!-- V · CHAOS -->
+    <article class="planet" id="ui-zhaera">
+      <img class="planet-img" src="svgs/planet5.svg" alt="Ui'Zhaera">
+      <div>
+        <div class="planet-head">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><polygon points="3.4,20 7.84,10.93 3.49,2 18.51,2 14.16,10.93 18.61,20"/></svg>
+          <span class="planet-num">V</span>
+          <h2 class="planet-name">Ui'Zhaera</h2>
+        </div>
+        <div class="planet-meaning"><span class="element">CHAOS</span> · &ldquo;The storm&rdquo;</div>
+        <p>A green gas giant knocked almost onto its side, with an 83° tilt. More than 100 moons orbit it.</p>
+        <a class="planet-more" href="ui-zhaera.html">Explore &rarr;</a>
+      </div>
+    </article>
+
+    <!-- VI · DARKNESS -->
+    <article class="planet" id="eu-nyhl">
+      <img class="planet-img2" src="svgs/planet6.svg" alt="Eu'Nyhl">
+      <div>
+        <div class="planet-head">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.9"><path d="M2,6.5 H20 A9,9 0 0 1 2,6.5 Z"/></svg>
+          <span class="planet-num">VI</span>
+          <h2 class="planet-name">Eu'Nyhl</h2>
+        </div>
+        <div class="planet-meaning"><span class="element">DARKNESS</span> · &ldquo;The long night&rdquo;</div>
+        <p>A dark carbon-silicate world on a long, stretched-out orbit that takes about 5,000 years to complete. It has a very low albedo, making it nearly invisible even at its closest orbit.</p>
+        <a class="planet-more" href="eu-nyhl.html">Explore &rarr;</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>

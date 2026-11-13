@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magic — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ═════════════════════════════════════════════════════
+       MAGIC PAGE — styles used only on this page.
+       The element colors come from your magic chart.
+    ═════════════════════════════════════════════════════ */
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-label { margin: 5rem 0 1.8rem; }
+    .lede {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: #b8ae9a;
+    }
+    .lede + .lede { margin-top: 1rem; }
+    .muted { color: #7a7060; }
+
+    /* ─── Hero ────────────────────────────────────────────── */
+    .magic-hero {
+      padding: 120px 1.5rem 0;
+      text-align: center;
+    }
+    .magic-hero .kicker {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c8b882;
+      margin-bottom: 0.8rem;
+    }
+    .magic-hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ═════════════════════════════════════════════════════
+       THE WHEEL — click an element to see it in the panel
+    ═════════════════════════════════════════════════════ */
+    .wheel-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .wheel { width: 100%; height: auto; display: block; }
+    .wheel .outline { fill: none; stroke: #3a3430; stroke-width: 1; }
+    .wheel .el { cursor: pointer; outline: none; }
+    .wheel .el polygon {
+      fill: transparent;
+      stroke: var(--c);
+      stroke-width: 1;
+      transition: fill 0.25s;
+    }
+    .wheel .major polygon { fill: color-mix(in srgb, var(--c) 14%, transparent); }
+    .wheel .major.core polygon { fill: transparent; stroke: #4a4440; }
+    .wheel .minor polygon { stroke: none; }
+    .wheel .hit { fill: transparent; }     /* bigger click target around the minor labels */
+    .wheel .el text {
+      font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-anchor: middle;
+      fill: #b8ae9a;
+      pointer-events: none;
+      transition: fill 0.25s;
+    }
+    .wheel .minor text { font-size: 10.5px; fill: #7a7060; font-style: italic; text-transform: none; letter-spacing: 0.08em; }
+    .wheel .el:hover polygon,
+    .wheel .el:focus-visible polygon { fill: color-mix(in srgb, var(--c) 30%, transparent); }
+    .wheel .el.active polygon { fill: color-mix(in srgb, var(--c) 45%, transparent); }
+    .wheel .el.active text,
+    .wheel .el:hover text { fill: #f4ecdc; }
+    .wheel-hint {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #4a4440;
+      margin-top: 0.4rem;
+    }
+
+    .panel {
+      border: 0.5px solid #2a2420;
+      padding: 1.8rem 1.8rem 1.6rem;
+      min-height: 360px;
+    }
+    .panel-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+    .panel-kind {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #7a7060;
+      margin-bottom: 0.3rem;
+    }
+    .panel h2 {
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .panel p { font-size: 14.5px; line-height: 1.75; color: #b8ae9a; margin-bottom: 0.8rem; }
+    .panel p b { color: #e8e0d0; font-weight: 400; }
+    .panel a { color: #c8b882; text-decoration: none; border-bottom: 0.5px solid #4a4440; }
+    .panel a:hover { border-color: #c8b882; }
+    .panel dl { margin: 1rem 0 0; border-top: 0.5px solid #2a2420; }
+    .panel .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 0.5px solid #1a1814;
+    }
+    .panel dt { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #7a7060; white-space: nowrap; }
+    .panel dd { font-size: 13.5px; color: #e8e0d0; text-align: right; }
+    .panel dd.line { flex: 1; max-width: 180px; }
+    .panel .cons-list { font-style: italic; color: #b8ae9a; }
+
+    /* ─── Tiers (major / minor / lesser) ──────────────────── */
+    .tiers3 { display: grid; grid-template-columns: repeat(3, 1fr); border: 0.5px solid #2a2420; }
+    .tier3 { padding: 1.5rem; border-right: 0.5px solid #2a2420; }
+    .tier3:last-child { border-right: none; }
+    .tier3 .count { font-size: 30px; color: #c8b882; line-height: 1; margin-bottom: 0.4rem; }
+    .tier3 h3 { font-size: 12px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .tier3 p { font-size: 14px; line-height: 1.7; color: #9a8f7a; }
+    .tier3 .meter { height: 3px; background: #1a1814; margin: 1rem 0 0.3rem; position: relative; }
+    .tier3 .meter span { position: absolute; inset: 0 auto 0 0; background: #c8b882; }
+    .tier3 .meter-label { font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #4a4440; }
+    .analogy { text-align: center; font-size: 13.5px; font-style: italic; color: #7a7060; max-width: 620px; margin: 1.2rem auto 0; line-height: 1.7; }
+
+    /* ─── The cost ────────────────────────────────────────── */
+    .cost {
+      max-width: 720px;
+      margin: 0 auto;
+      border-left: 1px solid #c8b882;
+      padding: 0.4rem 0 0.4rem 1.6rem;
+    }
+    .cost p { font-size: 16px; line-height: 1.85; color: #b8ae9a; margin-bottom: 0.9rem; }
+    .cost .taken { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+    .cost .taken span {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9a8f7a;
+      border: 0.5px solid #3a3430;
+      padding: 0.35rem 0.7rem;
+    }
+
+    /* ─── Eras ────────────────────────────────────────────── */
+    .eras { max-width: 760px; margin: 0 auto; }
+    .era {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 1.6rem;
+      padding: 1.5rem 0;
+      border-bottom: 0.5px solid #2a2420;
+    }
+    .era:first-child { border-top: 0.5px solid #2a2420; }
+    .era-when { font-size: 12px; color: #7a7060; letter-spacing: 0.04em; line-height: 1.6; }
+    .era-when b { display: block; font-weight: 400; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #c8b882; margin-bottom: 0.2rem; }
+    .era h3 { font-size: 15px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .era p { font-size: 14.5px; line-height: 1.75; color: #9a8f7a; }
+    .era.dark h3 { color: #a479f5; }
+
+    /* ─── Writing systems ─────────────────────────────────── */
+    .scripts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .script { border: 0.5px solid #2a2420; padding: 1.5rem; }
+    .script h3 { font-size: 13px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .script > p { font-size: 13.5px; line-height: 1.7; color: #9a8f7a; margin-bottom: 1.2rem; }
+    .g-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem 0.4rem; }
+    .g-grid + .g-grid { margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid #1a1814; }
+    .g-item { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+    .g-item span { font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #7a7060; }
+    .node-svg { display: block; width: 160px; margin: 0 auto 1rem; }
+    .script ul { list-style: none; font-size: 13px; line-height: 1.6; color: #9a8f7a; }
+    .script li { padding-left: 1rem; position: relative; margin-bottom: 0.5rem; }
+    .script li::before { content: '·'; position: absolute; left: 0.2rem; color: #c8b882; }
+    .line-row { display: grid; grid-template-columns: 74px 1fr; align-items: center; gap: 0.6rem; margin-bottom: 0.55rem; }
+    .line-name { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+
+    /* ─── Constellations ──────────────────────────────────── */
+    .rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem 2rem; max-width: 760px; margin: 2rem auto 2.4rem; }
+    .rules div { font-size: 14px; line-height: 1.65; color: #9a8f7a; padding-left: 1.2rem; position: relative; }
+    .rules div::before { content: '✦'; position: absolute; left: 0; color: #c8b882; font-size: 10px; top: 3px; }
+    .rules b { color: #e8e0d0; font-weight: 400; }
+    .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.45rem; margin-bottom: 1.6rem; }
+    .chip {
+      background: none;
+      border: 0.5px solid #3a3430;
+      color: #7a7060;
+      font-family: inherit;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.5rem 0.9rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .chip:hover { color: #c8b882; }
+    .chip.active { color: #c8b882; border-color: #c8b882; }
+    .con-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1rem; }
+    .con {
+      border: 0.5px solid #2a2420;
+      border-top: 1px solid var(--c);
+      padding: 0.6rem 1rem 1.1rem;
+      background: linear-gradient(to bottom, color-mix(in srgb, var(--c) 6%, transparent), transparent 60%);
+    }
+    .con[hidden] { display: none; }
+    .con svg { display: block; width: 100%; height: auto; margin-bottom: 0.4rem; }
+    .con svg line { stroke: #c8b882; stroke-width: 0.8; stroke-opacity: 0.6; }
+    .con svg circle { fill: #f4ecdc; }
+    .con h3 { font-size: 13px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; }
+    .con-region { font-size: 11px; font-style: italic; color: var(--c); margin: 0.15rem 0 0.5rem; }
+    .con p { font-size: 13px; line-height: 1.6; color: #9a8f7a; }
+
+    /* ─── Practices today ─────────────────────────────────── */
+    .practices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .practice { border: 0.5px solid #2a2420; padding: 1.5rem; }
+    .practice h3 { font-size: 13px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .practice .who { font-size: 12px; font-style: italic; color: #7a7060; margin-bottom: 0.8rem; }
+    .practice p { font-size: 14px; line-height: 1.7; color: #9a8f7a; }
+    .practice .verdict {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
+      border: 0.5px solid #3a3430;
+      color: #9a8f7a;
+    }
+    .practice .verdict.real { color: #c8b882; border-color: #6a6050; }
+
+    footer { margin-top: 5rem; }
+
+    /* ─── Phones ──────────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .wheel-wrap, .scripts, .practices, .rules, .tiers3 { grid-template-columns: 1fr; }
+      .tier3 { border-right: none; border-bottom: 0.5px solid #2a2420; }
+      .tier3:last-child { border-bottom: none; }
+      .era { grid-template-columns: 1fr; gap: 0.5rem; }
+      .panel { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html">Planets</a></li>
+      <li><a href="peoples.html">Peoples</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html" class="current">Magic</a></li>
+      <li><a href="#">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO + THE ELEMENT WHEEL
+       The wheel and panel are built from data in the script
+       at the bottom. Click any element to see it.
+  ════════════════════════════════════════════════════════ -->
+  <header class="magic-hero">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8b882" stroke-width="1.1" stroke-linejoin="round" aria-hidden="true"><polygon points="7,4.2 17,4.2 21.5,12 17,19.8 7,19.8 2.5,12"/><circle cx="12" cy="12" r="1.7" fill="#c8b882"/></svg>
+    <div class="kicker" style="margin-top:1rem">The Ae'Uuvoria system</div>
+    <h1>Magic</h1>
+    <p class="lede">Magic on Oa'Veyra was set up by the creator, Ae'Uuvoria, but it runs mostly on its own. It is built from six major elements arranged in a hexagon, six minor elements between them, and the core at the center that holds it all together.</p>
+  </header>
+
+  <div class="wrap">
+
+    <section class="wheel-wrap" id="elements">
+      <div>
+        <svg class="wheel" viewBox="0 0 440 420" role="group" aria-label="The elements of magic. Select one to learn more.">
+        <polygon class="outline" points="80.0,161.5 108.0,113.0 192.0,64.5 248.0,64.5 332.0,113.0 360.0,161.5 360.0,258.5 332.0,307.0 248.0,355.5 192.0,355.5 108.0,307.0 80.0,258.5"/>
+        <g class="el minor" data-el="cold" tabindex="0" role="button" aria-label="Cold" style="--c:#7ab598"><polygon points="108.0,113.0 164.0,113.0 192.0,64.5"/><circle class="hit" cx="152.7" cy="93.4" r="20"/><text x="152.7" y="97.4">Cold</text></g>
+        <g class="el minor" data-el="war" tabindex="0" role="button" aria-label="War" style="--c:#8090e8"><polygon points="248.0,64.5 276.0,113.0 332.0,113.0"/><circle class="hit" cx="287.3" cy="93.4" r="20"/><text x="287.3" y="97.4">War</text></g>
+        <g class="el minor" data-el="death" tabindex="0" role="button" aria-label="Death" style="--c:#be68c7"><polygon points="360.0,161.5 332.0,210.0 360.0,258.5"/><circle class="hit" cx="354.7" cy="210.0" r="20"/><text x="354.7" y="214.0">Death</text></g>
+        <g class="el minor" data-el="heat" tabindex="0" role="button" aria-label="Heat" style="--c:#de776a"><polygon points="332.0,307.0 276.0,307.0 248.0,355.5"/><circle class="hit" cx="287.3" cy="326.6" r="20"/><text x="287.3" y="330.6">Heat</text></g>
+        <g class="el minor" data-el="love" tabindex="0" role="button" aria-label="Love" style="--c:#e9af4b"><polygon points="192.0,355.5 164.0,307.0 108.0,307.0"/><circle class="hit" cx="152.7" cy="326.6" r="20"/><text x="152.7" y="330.6">Love</text></g>
+        <g class="el minor" data-el="life" tabindex="0" role="button" aria-label="Life" style="--c:#c3c558"><polygon points="80.0,258.5 108.0,210.0 80.0,161.5"/><circle class="hit" cx="85.3" cy="210.0" r="20"/><text x="85.3" y="214.0">Life</text></g>
+        <g class="el major core" data-el="core" tabindex="0" role="button" aria-label="Core" style="--c:#c8b882"><polygon points="276.0,210.0 248.0,161.5 192.0,161.5 164.0,210.0 192.0,258.5 248.0,258.5"/><text x="220.0" y="215.0">Core</text></g>
+        <g class="el major" data-el="water" tabindex="0" role="button" aria-label="Water" style="--c:#5da8dc"><polygon points="276.0,113.0 248.0,64.5 192.0,64.5 164.0,113.0 192.0,161.5 248.0,161.5"/><text x="220.0" y="118.0">Water</text></g>
+        <g class="el major" data-el="darkness" tabindex="0" role="button" aria-label="Darkness" style="--c:#a479f5"><polygon points="360.0,161.5 332.0,113.0 276.0,113.0 248.0,161.5 276.0,210.0 332.0,210.0"/><text x="304.0" y="166.5">Darkness</text></g>
+        <g class="el major" data-el="chaos" tabindex="0" role="button" aria-label="Chaos" style="--c:#d9579a"><polygon points="360.0,258.5 332.0,210.0 276.0,210.0 248.0,258.5 276.0,307.0 332.0,307.0"/><text x="304.0" y="263.5">Chaos</text></g>
+        <g class="el major" data-el="nature" tabindex="0" role="button" aria-label="Nature" style="--c:#e3973b"><polygon points="276.0,307.0 248.0,258.5 192.0,258.5 164.0,307.0 192.0,355.5 248.0,355.5"/><text x="220.0" y="312.0">Nature</text></g>
+        <g class="el major" data-el="light" tabindex="0" role="button" aria-label="Light" style="--c:#f0c75c"><polygon points="192.0,258.5 164.0,210.0 108.0,210.0 80.0,258.5 108.0,307.0 164.0,307.0"/><text x="136.0" y="263.5">Light</text></g>
+        <g class="el major" data-el="order" tabindex="0" role="button" aria-label="Order" style="--c:#97c355"><polygon points="192.0,161.5 164.0,113.0 108.0,113.0 80.0,161.5 108.0,210.0 164.0,210.0"/><text x="136.0" y="166.5">Order</text></g>
+        </svg>
+        <div class="wheel-hint">Select an element</div>
+      </div>
+      <aside class="panel" id="panel" aria-live="polite"></aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MAJOR / MINOR / LESSER
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="kinds">Three kinds of element</div>
+
+    <div class="tiers3">
+      <div class="tier3">
+        <div class="count">6</div>
+        <h3>Major elements</h3>
+        <p>Order, Light, Nature, Water, Chaos and Darkness. The broadest and most all-encompassing, but also the weakest.</p>
+        <div class="meter"><span style="width:100%"></span></div><div class="meter-label">Reach</div>
+        <div class="meter"><span style="width:25%"></span></div><div class="meter-label">Strength</div>
+      </div>
+      <div class="tier3">
+        <div class="count">6</div>
+        <h3>Minor elements</h3>
+        <p>Cold, Life, Love, Heat, Death and War. Each sits between two majors. More specific, and so more powerful.</p>
+        <div class="meter"><span style="width:60%"></span></div><div class="meter-label">Reach</div>
+        <div class="meter"><span style="width:60%"></span></div><div class="meter-label">Strength</div>
+      </div>
+      <div class="tier3">
+        <div class="count">~30</div>
+        <h3>Lesser elements</h3>
+        <p>Combinations of major and minor elements. Narrow enough that they work more like spells.</p>
+        <div class="meter"><span style="width:25%"></span></div><div class="meter-label">Reach</div>
+        <div class="meter"><span style="width:100%"></span></div><div class="meter-label">Strength</div>
+      </div>
+    </div>
+    <p class="analogy">Think of the hierarchy problem in physics: gravity is the weakest force but reaches the farthest, while the strong nuclear force is the strongest but only works at the smallest scale.</p>
+
+    <!-- ═══════════════════════════════════════════════════════
+         THE COST
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="cost">The cost</div>
+
+    <div class="cost">
+      <p>All magic costs a piece of the soul. Objects have no soul, so items used to channel magic don't really pay it. Living beings do, and every use takes or corrupts the parts of themselves they cherish most.</p>
+      <div class="taken">
+        <span>Empathy</span><span>Self-awareness</span><span>Consciousness</span><span>Memories</span><span>Self-control</span><span>Intelligence</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ERAS OF MAGIC
+         SKM = Nicole's dating system. Add a new <div class="era">
+         block to add an era.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="eras">Eras of magic</div>
+
+    <div class="eras">
+      <div class="era">
+        <div class="era-when"><b>~4 million years</b>~20,700,000 &ndash; 16,700,000 SKM</div>
+        <div>
+          <h3>The Era of Magic</h3>
+          <p>The golden age. The Au'Uuvori used magic under the guidance and rules of Ae'Uuvoria, rules meant to protect their people from its heavy cost.</p>
+        </div>
+      </div>
+      <div class="era dark">
+        <div class="era-when"><b>~50 years</b>~16,700,000 &ndash; 16,699,950 SKM</div>
+        <div>
+          <h3>The Era of Darkness</h3>
+          <p>A group of Au'Uuvori overloaded the core and locked Ae'Uuvoria out of the system. The lockout was brief, but the creator felt so betrayed that they stepped away from the planet anyway. With magic ungoverned, anyone could use it, creatures included. Heavy use corrupted many of them, and the world fell into a magical apocalypse.</p>
+        </div>
+      </div>
+      <div class="era">
+        <div class="era-when"><b>To the present</b>~16,699,950 SKM &ndash; now</div>
+        <div>
+          <h3>The Era of Rebirth</h3>
+          <p>In the last years of the apocalypse, <del>six</del> five Au'Uuvori sacrificed themselves to block magic from the planet. Only a few thousand people were left, scattered and broken, and the Au'Uuvori almost entirely died out. The block was never total: light still had to reach the planet for life to restart. Magic today is weak and only reachable through convoluted methods.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         WRITING SYSTEMS
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="writing">Writing magic</div>
+    <p class="lede" style="margin-bottom:2rem">The Au'Uuvori wrote magic down in several ways.</p>
+
+    <div class="scripts">
+      <div class="script">
+        <h3>Glyph based</h3>
+        <p>Each major element has its own glyph. Combine two neighbors to get the minor element between them.</p>
+        <div class="g-grid">
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c8b882" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><polygon points="7,4.2 17,4.2 21.5,12 17,19.8 7,19.8 2.5,12"/><circle cx="12" cy="12" r="1.7" fill="#c8b882"/></svg><span>Core</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#97c355" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg><span>Order</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f0c75c" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><polygon points="12,3 13.9,13.4 21.5,9 12,21 2.5,9 10.1,13.4"/></svg><span>Light</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#e3973b" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/></svg><span>Nature</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#5da8dc" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><polygon points="12,3.5 21.5,20 2.5,20"/></svg><span>Water</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#d9579a" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><polygon points="4,3 20,3 15,12 20,21 4,21 9,12"/></svg><span>Chaos</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#a479f5" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M3,7 H21 A9,9 0 0 1 3,7 Z"/></svg><span>Darkness</span></div>
+        </div>
+        <div class="g-grid">
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><g stroke="#97c355"><circle cx="12" cy="12" r="9"/></g><g stroke="#5da8dc"><polygon points="12,3 19.8,16.5 4.2,16.5"/></g></svg><span>Cold</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><g stroke="#f0c75c"><polygon points="12,5 13.5,13.2 19.6,9.6 12,19.2 4.4,9.6 10.5,13.2"/></g><g stroke="#97c355"><circle cx="12" cy="12" r="9"/></g></svg><span>Life</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><g stroke="#e3973b"><rect x="3.5" y="3.5" width="17" height="17"/></g><g stroke="#f0c75c"><polygon points="12,5 13.5,13.2 19.6,9.6 12,19.2 4.4,9.6 10.5,13.2"/></g></svg><span>Love</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><g stroke="#d9579a"><polygon points="3.5,3.5 20.5,3.5 15,12 20.5,20.5 3.5,20.5 9,12"/></g><g stroke="#e3973b"><rect x="3.5" y="3.5" width="17" height="17"/></g></svg><span>Heat</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><g stroke="#a479f5"><path d="M3,11 H21 A9,9 0 0 1 3,11 Z"/></g><g stroke="#d9579a"><polygon points="5,2.5 19,2.5 14.5,11 9.5,11"/></g></svg><span>Death</span></div>
+        <div class="g-item"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><g stroke="#5da8dc"><polygon points="12,0.5 21,12 3,12"/></g><g stroke="#a479f5"><path d="M3,12 H21 A9,9 0 0 1 3,12 Z"/></g></svg><span>War</span></div>
+        </div>
+      </div>
+
+      <div class="script">
+        <h3>Node based</h3>
+        <p>Six nodes, one for each major element, around the core. Every other symbol, combination and spell is written by connecting them.</p>
+        <svg class="node-svg" viewBox="0 0 180 180" aria-hidden="true"><line x1="90.0" y1="20.0" x2="150.6" y2="55.0" stroke="#4a4440" stroke-width="0.8"/><line x1="90.0" y1="20.0" x2="150.6" y2="125.0" stroke="#4a4440" stroke-width="0.8"/><line x1="90.0" y1="20.0" x2="90.0" y2="160.0" stroke="#4a4440" stroke-width="0.8"/><line x1="90.0" y1="20.0" x2="29.4" y2="125.0" stroke="#4a4440" stroke-width="0.8"/><line x1="90.0" y1="20.0" x2="29.4" y2="55.0" stroke="#4a4440" stroke-width="0.8"/><line x1="150.6" y1="55.0" x2="150.6" y2="125.0" stroke="#4a4440" stroke-width="0.8"/><line x1="150.6" y1="55.0" x2="90.0" y2="160.0" stroke="#4a4440" stroke-width="0.8"/><line x1="150.6" y1="55.0" x2="29.4" y2="125.0" stroke="#4a4440" stroke-width="0.8"/><line x1="150.6" y1="55.0" x2="29.4" y2="55.0" stroke="#4a4440" stroke-width="0.8"/><line x1="150.6" y1="125.0" x2="90.0" y2="160.0" stroke="#4a4440" stroke-width="0.8"/><line x1="150.6" y1="125.0" x2="29.4" y2="125.0" stroke="#4a4440" stroke-width="0.8"/><line x1="150.6" y1="125.0" x2="29.4" y2="55.0" stroke="#4a4440" stroke-width="0.8"/><line x1="90.0" y1="160.0" x2="29.4" y2="125.0" stroke="#4a4440" stroke-width="0.8"/><line x1="90.0" y1="160.0" x2="29.4" y2="55.0" stroke="#4a4440" stroke-width="0.8"/><line x1="29.4" y1="125.0" x2="29.4" y2="55.0" stroke="#4a4440" stroke-width="0.8"/><circle cx="90" cy="90" r="3" fill="#c8b882"/><circle cx="90.0" cy="20.0" r="6" fill="#0a0a0a" stroke="#5da8dc" stroke-width="1.6"/><circle cx="150.6" cy="55.0" r="6" fill="#0a0a0a" stroke="#a479f5" stroke-width="1.6"/><circle cx="150.6" cy="125.0" r="6" fill="#0a0a0a" stroke="#d9579a" stroke-width="1.6"/><circle cx="90.0" cy="160.0" r="6" fill="#0a0a0a" stroke="#e3973b" stroke-width="1.6"/><circle cx="29.4" cy="125.0" r="6" fill="#0a0a0a" stroke="#f0c75c" stroke-width="1.6"/><circle cx="29.4" cy="55.0" r="6" fill="#0a0a0a" stroke="#97c355" stroke-width="1.6"/></svg>
+        <ul>
+          <li>Any node can connect to any other.</li>
+          <li>One line must wrap around the core once. Its two nodes are the spell's dominant elements.</li>
+          <li>A line drawn off into nothing, the void, stands for a single node, but makes the spell unstable.</li>
+          <li>Position/rotation matters unlike the other systems.&nbsp;</li>
+        </ul>
+      </div>
+
+      <div class="script">
+        <h3>Line based</h3>
+        <p>Used mostly in the ancients' technology. Each major element is a different kind of line. Their machines ran on six states instead of binary's two, with each line type as a different function.</p>
+        <div class="line-row"><span class="line-name" style="color:#5da8dc">Water</span><svg width="100%" height="28" viewBox="0 0 164 28" preserveAspectRatio="none" fill="none" stroke="#5da8dc" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4,18 Q17,2 30,18 Q43,2 56,18 Q69,2 82,18 Q95,2 108,18 Q121,2 134,18 Q147,2 160,18" /></svg></div>
+        <div class="line-row"><span class="line-name" style="color:#97c355">Order</span><svg width="100%" height="28" viewBox="0 0 164 28" preserveAspectRatio="none" fill="none" stroke="#97c355" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="12" x2="160" y2="12"/></svg></div>
+        <div class="line-row"><span class="line-name" style="color:#f0c75c">Light</span><svg width="100%" height="28" viewBox="0 0 164 28" preserveAspectRatio="none" fill="none" stroke="#f0c75c" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="12" x2="160" y2="12" stroke-dasharray="6 6"/></svg></div>
+        <div class="line-row"><span class="line-name" style="color:#e3973b">Nature</span><svg width="100%" height="28" viewBox="0 0 164 28" preserveAspectRatio="none" fill="none" stroke="#e3973b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="8.0,10.0 7.6,10.0 7.2,10.2 6.8,10.4 6.4,10.7 6.1,11.1 5.9,11.6 5.7,12.2 5.5,12.8 5.5,13.4 5.6,14.1 5.7,14.9 5.9,15.6 6.3,16.4 6.7,17.1 7.2,17.9 7.8,18.6 8.5,19.2 9.3,19.8 10.1,20.4 11.0,20.9 12.0,21.3 13.0,21.6 14.0,21.8 15.1,22.0 16.2,22.0 17.2,22.0 18.3,21.8 19.4,21.6 20.4,21.3 21.3,20.9 22.2,20.4 23.1,19.8 23.8,19.2 24.5,18.6 25.1,17.9 25.7,17.1 26.1,16.4 26.4,15.6 26.6,14.9 26.8,14.1 26.8,13.4 26.8,12.8 26.7,12.2 26.5,11.6 26.2,11.1 25.9,10.7 25.6,10.4 25.2,10.2 24.8,10.0 24.3,10.0 23.9,10.0 23.5,10.2 23.1,10.4 22.8,10.7 22.4,11.1 22.2,11.6 22.0,12.2 21.9,12.8 21.8,13.4 21.9,14.1 22.0,14.9 22.3,15.6 22.6,16.4 23.0,17.1 23.5,17.9 24.1,18.6 24.8,19.2 25.6,19.8 26.4,20.4 27.3,20.9 28.3,21.3 29.3,21.6 30.4,21.8 31.4,22.0 32.5,22.0 33.6,22.0 34.7,21.8 35.7,21.6 36.7,21.3 37.7,20.9 38.6,20.4 39.4,19.8 40.2,19.2 40.9,18.6 41.5,17.9 42.0,17.1 42.4,16.4 42.7,15.6 43.0,14.9 43.1,14.1 43.2,13.4 43.1,12.8 43.0,12.2 42.8,11.6 42.6,11.1 42.3,10.7 41.9,10.4 41.5,10.2 41.1,10.0 40.7,10.0 40.2,10.0 39.8,10.2 39.4,10.4 39.1,10.7 38.8,11.1 38.5,11.6 38.3,12.2 38.2,12.8 38.2,13.4 38.2,14.1 38.4,14.9 38.6,15.6 38.9,16.4 39.4,17.1 39.9,17.9 40.5,18.6 41.2,19.2 41.9,19.8 42.8,20.4 43.7,20.9 44.6,21.3 45.7,21.6 46.7,21.8 47.8,22.0 48.8,22.0 49.9,22.0 51.0,21.8 52.0,21.6 53.0,21.3 54.0,20.9 54.9,20.4 55.8,19.8 56.5,19.2 57.2,18.6 57.8,17.9 58.3,17.1 58.7,16.4 59.1,15.6 59.3,14.9 59.4,14.1 59.5,13.4 59.5,12.8 59.3,12.2 59.2,11.6 58.9,11.1 58.6,10.7 58.2,10.4 57.8,10.2 57.4,10.0 57.0,10.0 56.6,10.0 56.2,10.2 55.8,10.4 55.4,10.7 55.1,11.1 54.9,11.6 54.7,12.2 54.6,12.8 54.5,13.4 54.6,14.1 54.7,14.9 54.9,15.6 55.3,16.4 55.7,17.1 56.2,17.9 56.8,18.6 57.5,19.2 58.3,19.8 59.1,20.4 60.0,20.9 61.0,21.3 62.0,21.6 63.0,21.8 64.1,22.0 65.2,22.0 66.3,22.0 67.3,21.8 68.4,21.6 69.4,21.3 70.3,20.9 71.2,20.4 72.1,19.8 72.9,19.2 73.5,18.6 74.2,17.9 74.7,17.1 75.1,16.4 75.4,15.6 75.6,14.9 75.8,14.1 75.8,13.4 75.8,12.8 75.7,12.2 75.5,11.6 75.2,11.1 74.9,10.7 74.6,10.4 74.2,10.2 73.8,10.0 73.3,10.0 72.9,10.0 72.5,10.2 72.1,10.4 71.8,10.7 71.5,11.1 71.2,11.6 71.0,12.2 70.9,12.8 70.9,13.4 70.9,14.1 71.0,14.9 71.3,15.6 71.6,16.4 72.0,17.1 72.5,17.9 73.1,18.6 73.8,19.2 74.6,19.8 75.4,20.4 76.4,20.9 77.3,21.3 78.3,21.6 79.4,21.8 80.4,22.0 81.5,22.0 82.6,22.0 83.7,21.8 84.7,21.6 85.7,21.3 86.7,20.9 87.6,20.4 88.4,19.8 89.2,19.2 89.9,18.6 90.5,17.9 91.0,17.1 91.4,16.4 91.7,15.6 92.0,14.9 92.1,14.1 92.2,13.4 92.1,12.8 92.0,12.2 91.8,11.6 91.6,11.1 91.3,10.7 90.9,10.4 90.5,10.2 90.1,10.0 89.7,10.0 89.3,10.0 88.8,10.2 88.5,10.4 88.1,10.7 87.8,11.1 87.5,11.6 87.3,12.2 87.2,12.8 87.2,13.4 87.2,14.1 87.4,14.9 87.6,15.6 87.9,16.4 88.4,17.1 88.9,17.9 89.5,18.6 90.2,19.2 90.9,19.8 91.8,20.4 92.7,20.9 93.7,21.3 94.7,21.6 95.7,21.8 96.8,22.0 97.8,22.0 98.9,22.0 100.0,21.8 101.0,21.6 102.0,21.3 103.0,20.9 103.9,20.4 104.8,19.8 105.5,19.2 106.2,18.6 106.8,17.9 107.3,17.1 107.8,16.4 108.1,15.6 108.3,14.9 108.5,14.1 108.5,13.4 108.5,12.8 108.4,12.2 108.2,11.6 107.9,11.1 107.6,10.7 107.2,10.4 106.9,10.2 106.4,10.0 106.0,10.0 105.6,10.0 105.2,10.2 104.8,10.4 104.4,10.7 104.1,11.1 103.9,11.6 103.7,12.2 103.6,12.8 103.5,13.4 103.6,14.1 103.7,14.9 104.0,15.6 104.3,16.4 104.7,17.1 105.2,17.9 105.8,18.6 106.5,19.2 107.3,19.8 108.1,20.4 109.0,20.9 110.0,21.3 111.0,21.6 112.0,21.8 113.1,22.0 114.2,22.0 115.3,22.0 116.3,21.8 117.4,21.6 118.4,21.3 119.3,20.9 120.3,20.4 121.1,19.8 121.9,19.2 122.6,18.6 123.2,17.9 123.7,17.1 124.1,16.4 124.4,15.6 124.7,14.9 124.8,14.1 124.8,13.4 124.8,12.8 124.7,12.2 124.5,11.6 124.2,11.1 123.9,10.7 123.6,10.4 123.2,10.2 122.8,10.0 122.4,10.0 121.9,10.0 121.5,10.2 121.1,10.4 120.8,10.7 120.5,11.1 120.2,11.6 120.0,12.2 119.9,12.8 119.9,13.4 119.9,14.1 120.1,14.9 120.3,15.6 120.6,16.4 121.0,17.1 121.5,17.9 122.2,18.6 122.8,19.2 123.6,19.8 124.5,20.4 125.4,20.9 126.3,21.3 127.3,21.6 128.4,21.8 129.4,22.0 130.5,22.0 131.6,22.0 132.7,21.8 133.7,21.6 134.7,21.3 135.7,20.9 136.6,20.4 137.4,19.8 138.2,19.2 138.9,18.6 139.5,17.9 140.0,17.1 140.4,16.4 140.8,15.6 141.0,14.9 141.1,14.1 141.2,13.4 141.1,12.8 141.0,12.2 140.8,11.6 140.6,11.1 140.3,10.7 139.9,10.4 139.5,10.2 139.1,10.0 138.7,10.0"/></svg></div>
+        <div class="line-row"><span class="line-name" style="color:#d9579a">Chaos</span><svg width="100%" height="28" viewBox="0 0 164 28" preserveAspectRatio="none" fill="none" stroke="#d9579a" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="4,18 12,6 20,18 28,6 36,18 44,6 52,18 60,6 68,18 76,6 84,18 92,6 100,18 108,6 116,18 124,6 132,18 140,6 148,18 156,6"/></svg></div>
+        <div class="line-row"><span class="line-name" style="color:#a479f5">Darkness</span><svg width="100%" height="28" viewBox="0 0 164 28" preserveAspectRatio="none" fill="none" stroke="#a479f5" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6,3 A76,21 0 0 0 158,3"/></svg></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONSTELLATION ENCHANTING
+         Cards are drawn from your Constellation Atlas.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="constellations">Constellation enchanting</div>
+    <p class="lede">The sky is divided into hexagonal regions, one for each element. Carve, paint, or mark an object with a constellation from a region, and it can channel that element. It's used almost entirely by the Makk'ar and the people of the Glass City. The ancients read these star patterns as writing. The Makk'ar see the animals of their pantheon.</p>
+
+    <div class="rules">
+      <div><b>Elements only.</b> Constellations channel elements, never spells.</div>
+      <div><b>&nbsp;Light  channels</b> &nbsp;the other elements allowing the major and minor elements to still have an affect.</div>
+      <div><b>Accuracy matters.</b> &nbsp;An unclear carving gives a weak, flickering effect.</div>
+      <div><b>One per object,</b> unless a Light constellation like <em>the Prism</em> holds two together.</div>
+    </div>
+
+    <div class="chips" id="chips"><button class="chip active" data-filter="all">All</button><button class="chip" data-filter="water">Water</button><button class="chip" data-filter="darkness">Darkness</button><button class="chip" data-filter="chaos">Chaos</button><button class="chip" data-filter="nature">Nature</button><button class="chip" data-filter="light">Light</button><button class="chip" data-filter="order">Order</button><button class="chip" data-filter="heat">Heat</button><button class="chip" data-filter="cold">Cold</button><button class="chip" data-filter="life">Life</button><button class="chip" data-filter="love">Love</button><button class="chip" data-filter="war">War</button><button class="chip" data-filter="death">Death</button></div>
+    <div class="con-grid" id="con-grid">
+      <article class="con" data-region="water" style="--c:#5da8dc"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="38.4" y1="66.8" x2="52.6" y2="102.3"/><line x1="52.6" y1="102.3" x2="81.0" y2="116.5"/><line x1="81.0" y1="116.5" x2="109.4" y2="102.3"/><line x1="109.4" y1="102.3" x2="123.6" y2="66.8"/><circle cx="38.4" cy="66.8" r="2.0"/><circle cx="52.6" cy="102.3" r="1.8"/><circle cx="81.0" cy="116.5" r="4.3"/><circle cx="109.4" cy="102.3" r="1.8"/><circle cx="123.6" cy="66.8" r="2.0"/><circle cx="81.0" cy="41.2" r="2.5"/></svg><h3>The Wellspring</h3><div class="con-region">Water</div><p>A flask slowly refills itself from the air.</p></article>
+      <article class="con" data-region="water" style="--c:#5da8dc"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="24.2" y1="88.1" x2="49.8" y2="66.8"/><line x1="49.8" y1="66.8" x2="75.3" y2="92.4"/><line x1="75.3" y1="92.4" x2="100.9" y2="69.6"/><line x1="100.9" y1="69.6" x2="126.4" y2="95.2"/><line x1="126.4" y1="95.2" x2="140.6" y2="78.2"/><circle cx="24.2" cy="88.1" r="1.8"/><circle cx="49.8" cy="66.8" r="2.3"/><circle cx="75.3" cy="92.4" r="4.3"/><circle cx="100.9" cy="69.6" r="2.3"/><circle cx="126.4" cy="95.2" r="1.8"/><circle cx="140.6" cy="78.2" r="1.4"/></svg><h3>The Current</h3><div class="con-region">Water</div><p>Always points toward running water.</p></article>
+      <article class="con" data-region="darkness" style="--c:#a479f5"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="38.4" y1="45.5" x2="81.0" y2="38.4"/><line x1="81.0" y1="38.4" x2="123.6" y2="48.3"/><line x1="38.4" y1="45.5" x2="44.1" y2="109.4"/><line x1="81.0" y1="38.4" x2="81.0" y2="88.1"/><line x1="123.6" y1="48.3" x2="117.9" y2="112.2"/><circle cx="38.4" cy="45.5" r="2.3"/><circle cx="81.0" cy="38.4" r="4.3"/><circle cx="123.6" cy="48.3" r="2.3"/><circle cx="44.1" cy="109.4" r="1.8"/><circle cx="81.0" cy="88.1" r="1.4"/><circle cx="117.9" cy="112.2" r="1.8"/></svg><h3>The Veil</h3><div class="con-region">Darkness</div><p>A cloak blurs into shadow.</p></article>
+      <article class="con" data-region="chaos" style="--c:#d9579a"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="52.6" y1="38.4" x2="73.9" y2="59.7"/><line x1="73.9" y1="59.7" x2="102.3" y2="81.0"/><line x1="102.3" y1="81.0" x2="73.9" y2="102.3"/><line x1="73.9" y1="102.3" x2="52.6" y2="123.6"/><line x1="102.3" y1="81.0" x2="130.7" y2="81.0"/><circle cx="52.6" cy="38.4" r="2.0"/><circle cx="102.3" cy="81.0" r="4.3"/><circle cx="52.6" cy="123.6" r="2.0"/><circle cx="130.7" cy="81.0" r="2.3"/><circle cx="73.9" cy="59.7" r="1.4"/><circle cx="73.9" cy="102.3" r="1.4"/></svg><h3>The Rebuke</h3><div class="con-region">Chaos</div><p>A shield shoves back whatever strikes it.</p></article>
+      <article class="con" data-region="nature" style="--c:#e3973b"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="81.0" y1="31.3" x2="81.0" y2="81.0"/><line x1="81.0" y1="81.0" x2="52.6" y2="123.6"/><line x1="81.0" y1="81.0" x2="83.8" y2="132.1"/><line x1="81.0" y1="81.0" x2="115.1" y2="120.8"/><circle cx="81.0" cy="31.3" r="2.3"/><circle cx="81.0" cy="81.0" r="4.3"/><circle cx="52.6" cy="123.6" r="1.8"/><circle cx="83.8" cy="132.1" r="2.0"/><circle cx="115.1" cy="120.8" r="1.8"/></svg><h3>The Root</h3><div class="con-region">Nature</div><p>A stake or anchor never slips.</p></article>
+      <article class="con" data-region="nature" style="--c:#e3973b"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="81.0" y1="81.0" x2="81.0" y2="41.2"/><line x1="81.0" y1="81.0" x2="117.9" y2="66.8"/><line x1="81.0" y1="81.0" x2="103.7" y2="112.2"/><line x1="81.0" y1="81.0" x2="58.3" y2="112.2"/><line x1="81.0" y1="81.0" x2="44.1" y2="66.8"/><circle cx="81.0" cy="81.0" r="4.3"/><circle cx="81.0" cy="41.2" r="2.0"/><circle cx="117.9" cy="66.8" r="2.0"/><circle cx="103.7" cy="112.2" r="2.0"/><circle cx="58.3" cy="112.2" r="2.0"/><circle cx="44.1" cy="66.8" r="2.0"/></svg><h3>The Bloom</h3><div class="con-region">Nature</div><p>Growth is accelerated.</p></article>
+      <article class="con" data-region="light" style="--c:#f0c75c"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="38.4" y1="81.0" x2="59.7" y2="52.6"/><line x1="59.7" y1="52.6" x2="102.3" y2="52.6"/><line x1="102.3" y1="52.6" x2="123.6" y2="81.0"/><line x1="123.6" y1="81.0" x2="102.3" y2="109.4"/><line x1="102.3" y1="109.4" x2="59.7" y2="109.4"/><line x1="59.7" y1="109.4" x2="38.4" y2="81.0"/><circle cx="38.4" cy="81.0" r="2.0"/><circle cx="59.7" cy="52.6" r="1.8"/><circle cx="102.3" cy="52.6" r="1.8"/><circle cx="123.6" cy="81.0" r="4.3"/><circle cx="102.3" cy="109.4" r="1.8"/><circle cx="59.7" cy="109.4" r="1.8"/></svg><h3>The Lens</h3><div class="con-region">Light</div><p>Strengthens any other enchantment on the object.</p></article>
+      <article class="con" data-region="light" style="--c:#f0c75c"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="31.3" y1="112.2" x2="59.7" y2="49.8"/><line x1="59.7" y1="49.8" x2="83.8" y2="112.2"/><line x1="83.8" y1="112.2" x2="31.3" y2="112.2"/><line x1="72.5" y1="81.0" x2="126.4" y2="52.6"/><line x1="72.5" y1="81.0" x2="135.0" y2="81.0"/><line x1="72.5" y1="81.0" x2="126.4" y2="109.4"/><circle cx="31.3" cy="112.2" r="2.0"/><circle cx="59.7" cy="49.8" r="4.3"/><circle cx="83.8" cy="112.2" r="2.0"/><circle cx="72.5" cy="81.0" r="1.8"/><circle cx="126.4" cy="52.6" r="1.4"/><circle cx="135.0" cy="81.0" r="1.4"/><circle cx="126.4" cy="109.4" r="1.4"/></svg><h3>The Prism</h3><div class="con-region">Light</div><p>Lets an object carry two enchantments safely.</p></article>
+      <article class="con" data-region="light" style="--c:#f0c75c"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="81.0" y1="130.7" x2="81.0" y2="59.7"/><line x1="81.0" y1="59.7" x2="81.0" y2="44.1"/><circle cx="81.0" cy="130.7" r="2.0"/><circle cx="81.0" cy="59.7" r="1.8"/><circle cx="81.0" cy="44.1" r="4.3"/><circle cx="61.1" cy="38.4" r="1.4"/><circle cx="100.9" cy="38.4" r="1.4"/><circle cx="81.0" cy="24.2" r="1.4"/></svg><h3>The Beacon</h3><div class="con-region">Light</div><p>Glass or a lantern glows on its own.</p></article>
+      <article class="con" data-region="order" style="--c:#97c355"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="31.3" y1="59.7" x2="31.3" y2="102.3"/><line x1="31.3" y1="102.3" x2="64.0" y2="81.0"/><line x1="64.0" y1="81.0" x2="31.3" y2="59.7"/><line x1="130.7" y1="59.7" x2="130.7" y2="102.3"/><line x1="130.7" y1="102.3" x2="98.0" y2="81.0"/><line x1="98.0" y1="81.0" x2="130.7" y2="59.7"/><line x1="64.0" y1="81.0" x2="98.0" y2="81.0"/><circle cx="31.3" cy="59.7" r="1.8"/><circle cx="31.3" cy="102.3" r="1.8"/><circle cx="64.0" cy="81.0" r="2.3"/><circle cx="130.7" cy="59.7" r="1.8"/><circle cx="130.7" cy="102.3" r="1.8"/><circle cx="98.0" cy="81.0" r="4.3"/></svg><h3>The Binding</h3><div class="con-region">Order</div><p>Two enchanted pieces snap together and hold.</p></article>
+      <article class="con" data-region="order" style="--c:#97c355"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="81.0" y1="32.7" x2="119.3" y2="49.8"/><line x1="119.3" y1="49.8" x2="129.3" y2="92.4"/><line x1="129.3" y1="92.4" x2="100.9" y2="126.4"/><line x1="100.9" y1="126.4" x2="61.1" y2="129.3"/><line x1="61.1" y1="129.3" x2="32.7" y2="95.2"/><line x1="32.7" y1="95.2" x2="41.2" y2="52.6"/><line x1="41.2" y1="52.6" x2="81.0" y2="32.7"/><circle cx="81.0" cy="32.7" r="4.3"/><circle cx="119.3" cy="49.8" r="2.0"/><circle cx="129.3" cy="92.4" r="1.8"/><circle cx="100.9" cy="126.4" r="2.0"/><circle cx="61.1" cy="129.3" r="1.8"/><circle cx="32.7" cy="95.2" r="2.0"/><circle cx="41.2" cy="52.6" r="1.8"/></svg><h3>The Unbroken</h3><div class="con-region">Order</div><p>An object can't break, bend, or dull. Works on tools, weapons, anything.</p></article>
+      <article class="con" data-region="heat" style="--c:#de776a"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="31.3" y1="59.7" x2="130.7" y2="59.7"/><line x1="130.7" y1="59.7" x2="109.4" y2="81.0"/><line x1="109.4" y1="81.0" x2="98.0" y2="116.5"/><line x1="98.0" y1="116.5" x2="64.0" y2="116.5"/><line x1="64.0" y1="116.5" x2="52.6" y2="81.0"/><line x1="52.6" y1="81.0" x2="31.3" y2="59.7"/><circle cx="31.3" cy="59.7" r="2.0"/><circle cx="130.7" cy="59.7" r="4.3"/><circle cx="109.4" cy="81.0" r="1.8"/><circle cx="98.0" cy="116.5" r="2.0"/><circle cx="64.0" cy="116.5" r="2.0"/><circle cx="52.6" cy="81.0" r="1.8"/></svg><h3>The Forge</h3><div class="con-region">Heat</div><p>Makes a heat source.</p></article>
+      <article class="con" data-region="heat" style="--c:#de776a"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="81.0" y1="130.7" x2="49.8" y2="95.2"/><line x1="49.8" y1="95.2" x2="64.0" y2="66.8"/><line x1="64.0" y1="66.8" x2="81.0" y2="31.3"/><line x1="81.0" y1="31.3" x2="98.0" y2="64.0"/><line x1="98.0" y1="64.0" x2="112.2" y2="95.2"/><line x1="112.2" y1="95.2" x2="81.0" y2="130.7"/><circle cx="81.0" cy="130.7" r="2.3"/><circle cx="49.8" cy="95.2" r="1.8"/><circle cx="64.0" cy="66.8" r="1.8"/><circle cx="81.0" cy="31.3" r="4.3"/><circle cx="98.0" cy="64.0" r="1.8"/><circle cx="112.2" cy="95.2" r="1.8"/><circle cx="81.0" cy="88.1" r="1.4"/></svg><h3>The Kindling</h3><div class="con-region">Heat / Nature border</div><p>Gives an object the &ldquo;flame&rdquo; enchantment.</p></article>
+      <article class="con" data-region="cold" style="--c:#7ab598"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="81.0" y1="81.0" x2="81.0" y2="35.6"/><line x1="81.0" y1="81.0" x2="120.8" y2="58.3"/><line x1="81.0" y1="81.0" x2="120.8" y2="103.7"/><line x1="81.0" y1="81.0" x2="81.0" y2="126.4"/><line x1="81.0" y1="81.0" x2="41.2" y2="103.7"/><line x1="81.0" y1="81.0" x2="41.2" y2="58.3"/><circle cx="81.0" cy="81.0" r="4.3"/><circle cx="81.0" cy="35.6" r="1.8"/><circle cx="120.8" cy="58.3" r="1.8"/><circle cx="120.8" cy="103.7" r="1.8"/><circle cx="81.0" cy="126.4" r="1.8"/><circle cx="41.2" cy="103.7" r="1.8"/><circle cx="41.2" cy="58.3" r="1.8"/></svg><h3>The Frost</h3><div class="con-region">Cold</div><p>Cools the area around it.</p></article>
+      <article class="con" data-region="life" style="--c:#c3c558"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="81.0" y1="27.0" x2="55.4" y2="64.0"/><line x1="81.0" y1="27.0" x2="106.6" y2="64.0"/><line x1="55.4" y1="64.0" x2="41.2" y2="103.7"/><line x1="106.6" y1="64.0" x2="120.8" y2="103.7"/><line x1="41.2" y1="103.7" x2="81.0" y2="103.7"/><line x1="81.0" y1="103.7" x2="120.8" y2="103.7"/><line x1="81.0" y1="103.7" x2="81.0" y2="135.0"/><circle cx="81.0" cy="27.0" r="4.3"/><circle cx="55.4" cy="64.0" r="2.0"/><circle cx="106.6" cy="64.0" r="2.0"/><circle cx="41.2" cy="103.7" r="1.8"/><circle cx="120.8" cy="103.7" r="1.8"/><circle cx="81.0" cy="103.7" r="1.8"/><circle cx="81.0" cy="135.0" r="2.0"/></svg><h3>The Evergreen</h3><div class="con-region">Life</div><p>A plant or cut flower never wilts.</p></article>
+      <article class="con" data-region="love" style="--c:#e9af4b"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="66.8" y1="83.8" x2="52.6" y2="52.6"/><line x1="52.6" y1="52.6" x2="81.0" y2="41.2"/><line x1="81.0" y1="41.2" x2="109.4" y2="52.6"/><line x1="109.4" y1="52.6" x2="95.2" y2="83.8"/><line x1="66.8" y1="83.8" x2="81.0" y2="117.9"/><line x1="81.0" y1="117.9" x2="95.2" y2="83.8"/><circle cx="66.8" cy="83.8" r="3.7"/><circle cx="95.2" cy="83.8" r="3.7"/><circle cx="52.6" cy="52.6" r="1.8"/><circle cx="81.0" cy="41.2" r="1.4"/><circle cx="109.4" cy="52.6" r="1.8"/><circle cx="81.0" cy="117.9" r="1.8"/></svg><h3>The Bond</h3><div class="con-region">Love</div><p>Two paired objects feel warm when near each other.</p></article>
+      <article class="con" data-region="love" style="--c:#e9af4b"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="31.3" y1="116.5" x2="45.5" y2="129.3"/><line x1="45.5" y1="129.3" x2="41.2" y2="103.7"/><line x1="41.2" y1="103.7" x2="31.3" y2="116.5"/><line x1="41.2" y1="103.7" x2="88.1" y2="78.2"/><line x1="88.1" y1="78.2" x2="135.0" y2="35.6"/><circle cx="31.3" cy="116.5" r="1.8"/><circle cx="45.5" cy="129.3" r="1.4"/><circle cx="41.2" cy="103.7" r="1.4"/><circle cx="88.1" cy="78.2" r="1.8"/><circle cx="135.0" cy="35.6" r="4.3"/></svg><h3>The Longing</h3><div class="con-region">Love</div><p>Carved onto one piece, which is then broken in two. When one holder touches their half, the other half glows a little.</p></article>
+      <article class="con" data-region="war" style="--c:#8090e8"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="45.5" y1="135.0" x2="45.5" y2="81.0"/><line x1="45.5" y1="81.0" x2="45.5" y2="69.6"/><line x1="45.5" y1="69.6" x2="45.5" y2="31.3"/><line x1="45.5" y1="31.3" x2="116.5" y2="49.8"/><line x1="116.5" y1="49.8" x2="45.5" y2="69.6"/><circle cx="45.5" cy="135.0" r="2.0"/><circle cx="45.5" cy="81.0" r="1.8"/><circle cx="45.5" cy="31.3" r="4.3"/><circle cx="116.5" cy="49.8" r="2.3"/><circle cx="45.5" cy="69.6" r="1.4"/></svg><h3>The Rally</h3><div class="con-region">War</div><p>A banner steadies nearby allies against fear.</p></article>
+      <article class="con" data-region="war" style="--c:#8090e8"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="45.5" y1="38.4" x2="116.5" y2="38.4"/><line x1="116.5" y1="38.4" x2="120.8" y2="81.0"/><line x1="120.8" y1="81.0" x2="81.0" y2="130.7"/><line x1="81.0" y1="130.7" x2="41.2" y2="81.0"/><line x1="41.2" y1="81.0" x2="45.5" y2="38.4"/><circle cx="45.5" cy="38.4" r="2.0"/><circle cx="116.5" cy="38.4" r="2.0"/><circle cx="120.8" cy="81.0" r="1.8"/><circle cx="81.0" cy="130.7" r="2.0"/><circle cx="41.2" cy="81.0" r="1.8"/><circle cx="81.0" cy="73.9" r="4.3"/></svg><h3>The Challenge</h3><div class="con-region">War</div><p>Draws enemies' attention to whoever carries it.</p></article>
+      <article class="con" data-region="death" style="--c:#be68c7"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="52.6" y1="130.7" x2="55.4" y2="88.1"/><line x1="55.4" y1="88.1" x2="73.9" y2="55.4"/><line x1="73.9" y1="55.4" x2="102.3" y2="52.6"/><line x1="102.3" y1="52.6" x2="120.8" y2="73.9"/><circle cx="52.6" cy="130.7" r="1.8"/><circle cx="55.4" cy="88.1" r="1.8"/><circle cx="73.9" cy="55.4" r="4.3"/><circle cx="102.3" cy="52.6" r="1.8"/><circle cx="120.8" cy="73.9" r="1.8"/><circle cx="126.4" cy="109.4" r="1.4"/></svg><h3>The Wither</h3><div class="con-region">Death</div><p>Wounds from an enchanted blade are slow to close.</p></article>
+      <article class="con" data-region="death" style="--c:#be68c7"><svg viewBox="0 20 162 160" aria-hidden="true"><line x1="31.3" y1="52.6" x2="55.4" y2="66.8"/><line x1="69.6" y1="75.3" x2="92.4" y2="88.1"/><line x1="106.6" y1="98.0" x2="130.7" y2="115.1"/><circle cx="31.3" cy="52.6" r="1.8"/><circle cx="55.4" cy="66.8" r="1.8"/><circle cx="69.6" cy="75.3" r="1.8"/><circle cx="92.4" cy="88.1" r="4.3"/><circle cx="106.6" cy="98.0" r="1.8"/><circle cx="130.7" cy="115.1" r="1.8"/><circle cx="81.0" cy="49.8" r="1.4"/><circle cx="98.0" cy="126.4" r="1.4"/></svg><h3>The Rot</h3><div class="con-region">Death</div><p>Wood or metal it touches slowly decays.</p></article>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MAGIC TODAY
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="today">Magic today</div>
+
+    <div class="practices">
+      <div class="practice">
+        <h3>Solar refraction</h3>
+        <div class="who">Anyone who can shape glass</div>
+        <p>Bent and shaped glass can focus light, especially sunlight, into powerful rays that work like laser beams. It can also amplify ordinary light magic.</p>
+      </div>
+      <div class="practice">
+        <h3>Spectral separation</h3>
+        <div class="who">A group working with stained glass and prisms</div>
+        <p>By picking out specific wavelengths of light with stained glass and prisms, they can channel both major and minor elements.</p>
+      </div>
+      <div class="practice">
+        <h3>Reflection divination</h3>
+        <div class="who">The peoples of the southern continent</div>
+        <p>Reflections really can reveal truths. But they also believe the ripples in their divine reflecting pools answer questions about relationships, choices and the future. That part works like tarot or astrology: vague enough to mean something to whoever is listening.</p>
+      </div>
+      <div class="practice">
+        <h3>Moon divination</h3>
+        <div class="who">The Isikitem</div>
+        <p>The Isikitem read the two moons to predict seasons and weather, and worship them as the gods who bring good harvests. It isn't light magic at all. It's science.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SCRIPT — the wheel panel and the constellation filter.
+       ELEMENTS holds what the panel shows for each element.
+  ════════════════════════════════════════════════════════ -->
+  <script>
+    const ELEMENTS = {"core": {"name": "Core", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#c8b882\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polygon points=\"7,4.2 17,4.2 21.5,12 17,19.8 7,19.8 2.5,12\"/><circle cx=\"12\" cy=\"12\" r=\"1.7\" fill=\"#c8b882\"/></svg>", "kind": "The foundation", "num": "Number 0 &nbsp;·&nbsp; prefix <em>Ae'</em>", "planet": "<a href=\"ae-uuvoria.html\">Ae'Uuvoria</a>", "note": "The foundation of the whole system, and the creator's own place in it. A faction of Au'Uuvori overloaded it, begining the Era of Darkness.", "cons": []}, "water": {"name": "Water", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#5da8dc\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polygon points=\"12,3.5 21.5,20 2.5,20\"/></svg>", "kind": "Major element", "num": "Number 4 &nbsp;·&nbsp; prefix <em>Iu'</em>", "planet": "<a href=\"iu-miruun.html\">Iu'Miruun</a>", "line": "<svg width=\"100%\" height=\"28\" viewBox=\"0 0 164 28\" preserveAspectRatio=\"none\" fill=\"none\" stroke=\"#5da8dc\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M4,18 Q17,2 30,18 Q43,2 56,18 Q69,2 82,18 Q95,2 108,18 Q121,2 134,18 Q147,2 160,18\" /></svg>", "cons": ["The Wellspring", "The Current"]}, "darkness": {"name": "Darkness", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#a479f5\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3,7 H21 A9,9 0 0 1 3,7 Z\"/></svg>", "kind": "Major element", "num": "Number 6 &nbsp;·&nbsp; prefix <em>Eu'</em>", "planet": "<a href=\"eu-nyhl.html\">Eu'Nyhl</a>", "line": "<svg width=\"100%\" height=\"28\" viewBox=\"0 0 164 28\" preserveAspectRatio=\"none\" fill=\"none\" stroke=\"#a479f5\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6,3 A76,21 0 0 0 158,3\"/></svg>", "cons": ["The Veil"]}, "chaos": {"name": "Chaos", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#d9579a\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polygon points=\"4,3 20,3 15,12 20,21 4,21 9,12\"/></svg>", "kind": "Major element", "num": "Number 5 &nbsp;·&nbsp; prefix <em>Ui'</em>", "planet": "<a href=\"ui-zhaera.html\">Ui'Zhaera</a>", "line": "<svg width=\"100%\" height=\"28\" viewBox=\"0 0 164 28\" preserveAspectRatio=\"none\" fill=\"none\" stroke=\"#d9579a\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><polyline points=\"4,18 12,6 20,18 28,6 36,18 44,6 52,18 60,6 68,18 76,6 84,18 92,6 100,18 108,6 116,18 124,6 132,18 140,6 148,18 156,6\"/></svg>", "cons": ["The Rebuke", "The Split"]}, "nature": {"name": "Nature", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e3973b\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\"/></svg>", "kind": "Major element", "num": "Number 3 &nbsp;·&nbsp; prefix <em>Oa'</em>", "planet": "<a href=\"oa-veyra.html\">Oa'Veyra</a>", "line": "<svg width=\"100%\" height=\"28\" viewBox=\"0 0 164 28\" preserveAspectRatio=\"none\" fill=\"none\" stroke=\"#e3973b\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><polyline points=\"8.0,10.0 7.6,10.0 7.2,10.2 6.8,10.4 6.4,10.7 6.1,11.1 5.9,11.6 5.7,12.2 5.5,12.8 5.5,13.4 5.6,14.1 5.7,14.9 5.9,15.6 6.3,16.4 6.7,17.1 7.2,17.9 7.8,18.6 8.5,19.2 9.3,19.8 10.1,20.4 11.0,20.9 12.0,21.3 13.0,21.6 14.0,21.8 15.1,22.0 16.2,22.0 17.2,22.0 18.3,21.8 19.4,21.6 20.4,21.3 21.3,20.9 22.2,20.4 23.1,19.8 23.8,19.2 24.5,18.6 25.1,17.9 25.7,17.1 26.1,16.4 26.4,15.6 26.6,14.9 26.8,14.1 26.8,13.4 26.8,12.8 26.7,12.2 26.5,11.6 26.2,11.1 25.9,10.7 25.6,10.4 25.2,10.2 24.8,10.0 24.3,10.0 23.9,10.0 23.5,10.2 23.1,10.4 22.8,10.7 22.4,11.1 22.2,11.6 22.0,12.2 21.9,12.8 21.8,13.4 21.9,14.1 22.0,14.9 22.3,15.6 22.6,16.4 23.0,17.1 23.5,17.9 24.1,18.6 24.8,19.2 25.6,19.8 26.4,20.4 27.3,20.9 28.3,21.3 29.3,21.6 30.4,21.8 31.4,22.0 32.5,22.0 33.6,22.0 34.7,21.8 35.7,21.6 36.7,21.3 37.7,20.9 38.6,20.4 39.4,19.8 40.2,19.2 40.9,18.6 41.5,17.9 42.0,17.1 42.4,16.4 42.7,15.6 43.0,14.9 43.1,14.1 43.2,13.4 43.1,12.8 43.0,12.2 42.8,11.6 42.6,11.1 42.3,10.7 41.9,10.4 41.5,10.2 41.1,10.0 40.7,10.0 40.2,10.0 39.8,10.2 39.4,10.4 39.1,10.7 38.8,11.1 38.5,11.6 38.3,12.2 38.2,12.8 38.2,13.4 38.2,14.1 38.4,14.9 38.6,15.6 38.9,16.4 39.4,17.1 39.9,17.9 40.5,18.6 41.2,19.2 41.9,19.8 42.8,20.4 43.7,20.9 44.6,21.3 45.7,21.6 46.7,21.8 47.8,22.0 48.8,22.0 49.9,22.0 51.0,21.8 52.0,21.6 53.0,21.3 54.0,20.9 54.9,20.4 55.8,19.8 56.5,19.2 57.2,18.6 57.8,17.9 58.3,17.1 58.7,16.4 59.1,15.6 59.3,14.9 59.4,14.1 59.5,13.4 59.5,12.8 59.3,12.2 59.2,11.6 58.9,11.1 58.6,10.7 58.2,10.4 57.8,10.2 57.4,10.0 57.0,10.0 56.6,10.0 56.2,10.2 55.8,10.4 55.4,10.7 55.1,11.1 54.9,11.6 54.7,12.2 54.6,12.8 54.5,13.4 54.6,14.1 54.7,14.9 54.9,15.6 55.3,16.4 55.7,17.1 56.2,17.9 56.8,18.6 57.5,19.2 58.3,19.8 59.1,20.4 60.0,20.9 61.0,21.3 62.0,21.6 63.0,21.8 64.1,22.0 65.2,22.0 66.3,22.0 67.3,21.8 68.4,21.6 69.4,21.3 70.3,20.9 71.2,20.4 72.1,19.8 72.9,19.2 73.5,18.6 74.2,17.9 74.7,17.1 75.1,16.4 75.4,15.6 75.6,14.9 75.8,14.1 75.8,13.4 75.8,12.8 75.7,12.2 75.5,11.6 75.2,11.1 74.9,10.7 74.6,10.4 74.2,10.2 73.8,10.0 73.3,10.0 72.9,10.0 72.5,10.2 72.1,10.4 71.8,10.7 71.5,11.1 71.2,11.6 71.0,12.2 70.9,12.8 70.9,13.4 70.9,14.1 71.0,14.9 71.3,15.6 71.6,16.4 72.0,17.1 72.5,17.9 73.1,18.6 73.8,19.2 74.6,19.8 75.4,20.4 76.4,20.9 77.3,21.3 78.3,21.6 79.4,21.8 80.4,22.0 81.5,22.0 82.6,22.0 83.7,21.8 84.7,21.6 85.7,21.3 86.7,20.9 87.6,20.4 88.4,19.8 89.2,19.2 89.9,18.6 90.5,17.9 91.0,17.1 91.4,16.4 91.7,15.6 92.0,14.9 92.1,14.1 92.2,13.4 92.1,12.8 92.0,12.2 91.8,11.6 91.6,11.1 91.3,10.7 90.9,10.4 90.5,10.2 90.1,10.0 89.7,10.0 89.3,10.0 88.8,10.2 88.5,10.4 88.1,10.7 87.8,11.1 87.5,11.6 87.3,12.2 87.2,12.8 87.2,13.4 87.2,14.1 87.4,14.9 87.6,15.6 87.9,16.4 88.4,17.1 88.9,17.9 89.5,18.6 90.2,19.2 90.9,19.8 91.8,20.4 92.7,20.9 93.7,21.3 94.7,21.6 95.7,21.8 96.8,22.0 97.8,22.0 98.9,22.0 100.0,21.8 101.0,21.6 102.0,21.3 103.0,20.9 103.9,20.4 104.8,19.8 105.5,19.2 106.2,18.6 106.8,17.9 107.3,17.1 107.8,16.4 108.1,15.6 108.3,14.9 108.5,14.1 108.5,13.4 108.5,12.8 108.4,12.2 108.2,11.6 107.9,11.1 107.6,10.7 107.2,10.4 106.9,10.2 106.4,10.0 106.0,10.0 105.6,10.0 105.2,10.2 104.8,10.4 104.4,10.7 104.1,11.1 103.9,11.6 103.7,12.2 103.6,12.8 103.5,13.4 103.6,14.1 103.7,14.9 104.0,15.6 104.3,16.4 104.7,17.1 105.2,17.9 105.8,18.6 106.5,19.2 107.3,19.8 108.1,20.4 109.0,20.9 110.0,21.3 111.0,21.6 112.0,21.8 113.1,22.0 114.2,22.0 115.3,22.0 116.3,21.8 117.4,21.6 118.4,21.3 119.3,20.9 120.3,20.4 121.1,19.8 121.9,19.2 122.6,18.6 123.2,17.9 123.7,17.1 124.1,16.4 124.4,15.6 124.7,14.9 124.8,14.1 124.8,13.4 124.8,12.8 124.7,12.2 124.5,11.6 124.2,11.1 123.9,10.7 123.6,10.4 123.2,10.2 122.8,10.0 122.4,10.0 121.9,10.0 121.5,10.2 121.1,10.4 120.8,10.7 120.5,11.1 120.2,11.6 120.0,12.2 119.9,12.8 119.9,13.4 119.9,14.1 120.1,14.9 120.3,15.6 120.6,16.4 121.0,17.1 121.5,17.9 122.2,18.6 122.8,19.2 123.6,19.8 124.5,20.4 125.4,20.9 126.3,21.3 127.3,21.6 128.4,21.8 129.4,22.0 130.5,22.0 131.6,22.0 132.7,21.8 133.7,21.6 134.7,21.3 135.7,20.9 136.6,20.4 137.4,19.8 138.2,19.2 138.9,18.6 139.5,17.9 140.0,17.1 140.4,16.4 140.8,15.6 141.0,14.9 141.1,14.1 141.2,13.4 141.1,12.8 141.0,12.2 140.8,11.6 140.6,11.1 140.3,10.7 139.9,10.4 139.5,10.2 139.1,10.0 138.7,10.0\"/></svg>", "cons": ["The Root", "The Bloom"]}, "light": {"name": "Light", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f0c75c\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polygon points=\"12,3 13.9,13.4 21.5,9 12,21 2.5,9 10.1,13.4\"/></svg>", "kind": "Major element", "num": "Number 2 &nbsp;·&nbsp; prefix <em>Ia'</em>", "planet": "<a href=\"ia-vorien.html\">Ia'Vorien</a>", "note": "The one element the barrier still lets through, so life could restart. Today, light magic is used to channel the others.", "line": "<svg width=\"100%\" height=\"28\" viewBox=\"0 0 164 28\" preserveAspectRatio=\"none\" fill=\"none\" stroke=\"#f0c75c\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><line x1=\"4\" y1=\"12\" x2=\"160\" y2=\"12\" stroke-dasharray=\"6 6\"/></svg>", "cons": ["The Lens", "The Prism", "The Beacon"]}, "order": {"name": "Order", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#97c355\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/></svg>", "kind": "Major element", "num": "Number 1 &nbsp;·&nbsp; prefix <em>Au'</em>", "planet": "<a href=\"au-taelis.html\">Au'Taelis</a>", "line": "<svg width=\"100%\" height=\"28\" viewBox=\"0 0 164 28\" preserveAspectRatio=\"none\" fill=\"none\" stroke=\"#97c355\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><line x1=\"4\" y1=\"12\" x2=\"160\" y2=\"12\"/></svg>", "cons": ["The Binding", "The Unbroken", "The Measure"]}, "cold": {"name": "Cold", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g stroke=\"#97c355\"><circle cx=\"12\" cy=\"12\" r=\"9\"/></g><g stroke=\"#5da8dc\"><polygon points=\"12,3 19.8,16.5 4.2,16.5\"/></g></svg>", "kind": "Minor element", "from": "Sits between <b>Order</b> and <b>Water</b>. Narrower than a major element, and stronger.", "cons": ["The Frost", "The Chill"]}, "war": {"name": "War", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g stroke=\"#5da8dc\"><polygon points=\"12,2 18.5,12 5.5,12\"/></g><g stroke=\"#a479f5\"><path d=\"M3,12 H21 A9,9 0 0 1 3,12 Z\"/></g></svg>", "kind": "Minor element", "from": "Sits between <b>Water</b> and <b>Darkness</b>. Narrower than a major element, and stronger.", "cons": ["The Rally", "The Challenge"]}, "death": {"name": "Death", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g stroke=\"#a479f5\"><path d=\"M3,11 H21 A9,9 0 0 1 3,11 Z\"/></g><g stroke=\"#d9579a\"><polygon points=\"5,2.5 19,2.5 14.5,11 9.5,11\"/></g></svg>", "kind": "Minor element", "from": "Sits between <b>Darkness</b> and <b>Chaos</b>. Narrower than a major element, and stronger.", "cons": ["The Wither", "The Rot"]}, "heat": {"name": "Heat", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g stroke=\"#d9579a\"><polygon points=\"3.5,3.5 20.5,3.5 15,12 20.5,20.5 3.5,20.5 9,12\"/></g><g stroke=\"#e3973b\"><rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\"/></g></svg>", "kind": "Minor element", "from": "Sits between <b>Chaos</b> and <b>Nature</b>. Narrower than a major element, and stronger.", "cons": ["The Forge", "The Kindling"]}, "love": {"name": "Love", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g stroke=\"#e3973b\"><rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\"/></g><g stroke=\"#f0c75c\"><polygon points=\"12,5 13.5,13.2 19.6,9.6 12,19.2 4.4,9.6 10.5,13.2\"/></g></svg>", "kind": "Minor element", "from": "Sits between <b>Nature</b> and <b>Light</b>. Narrower than a major element, and stronger.", "cons": ["The Bond", "The Longing"]}, "life": {"name": "Life", "glyph": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g stroke=\"#f0c75c\"><polygon points=\"12,5 13.5,13.2 19.6,9.6 12,19.2 4.4,9.6 10.5,13.2\"/></g><g stroke=\"#97c355\"><circle cx=\"12\" cy=\"12\" r=\"9\"/></g></svg>", "kind": "Minor element", "from": "Sits between <b>Light</b> and <b>Order</b>. Narrower than a major element, and stronger.", "cons": ["The Evergreen", "The Graft"]}};
+
+    const panel = document.getElementById("panel");
+
+    function show(key) {
+      const e = ELEMENTS[key];
+      let rows = "";
+      if (e.num)    rows += `<div class="row"><dt>Ancient number</dt><dd>${e.num}</dd></div>`;
+      if (e.planet) rows += `<div class="row"><dt>Planet</dt><dd>${e.planet}</dd></div>`;
+      if (e.line)   rows += `<div class="row"><dt>Line</dt><dd class="line">${e.line}</dd></div>`;
+      if (e.cons.length) rows += `<div class="row"><dt>Constellations</dt><dd class="cons-list">${e.cons.map(c => c.replace("The ", "")).join(", ")}</dd></div>`;
+
+      panel.innerHTML = `
+        <div class="panel-head">${e.glyph}<div><div class="panel-kind">${e.kind}</div><h2>${e.name}</h2></div></div>
+        ${e.from ? `<p>${e.from}</p>` : ""}
+        ${e.note ? `<p>${e.note}</p>` : ""}
+        ${rows ? `<dl>${rows}</dl>` : ""}`;
+
+      document.querySelectorAll(".wheel .el").forEach(g => g.classList.toggle("active", g.dataset.el === key));
+    }
+
+    document.querySelectorAll(".wheel .el").forEach(g => {
+      g.addEventListener("click", () => show(g.dataset.el));
+      g.addEventListener("keydown", ev => {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); show(g.dataset.el); }
+      });
+    });
+    // magic.html#el-heat (from the Index) opens that element in the panel
+    const fromHash = location.hash.startsWith("#el-") ? location.hash.slice(4) : "";
+    if (ELEMENTS[fromHash]) {
+      show(fromHash);
+      document.getElementById("elements").scrollIntoView();
+    } else {
+      show("core");
+    }
+
+    // constellation filter chips
+    document.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip));
+        const f = chip.dataset.filter;
+        document.querySelectorAll(".con").forEach(card => {
+          card.hidden = !(f === "all" || card.dataset.region === f);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
