@@ -96,18 +96,18 @@
     <div class="section-label">Maps</div>
 
     <div class="map-tabs">
-	  <button class="map-tab active" data-src="images/map.png" data-caption="Biomes across the surface.">Biomes</button>
-	  <button class="map-tab" data-src="images/map1.png" data-caption="The countries and factions of Oa'Veyra.">Political</button>
+	  <button class="map-tab active" data-src="images/map-web.webp" data-full="images/map.png" data-caption="Biomes across the surface.">Biomes</button>
+	  <button class="map-tab" data-src="images/map2-web.webp" data-full="images/map2.png" data-caption="The countries and factions of Oa'Veyra.">Political</button>
       <button class="map-tab" data-src="images/oa-veyra-continents.png" data-caption="The continents and oceans of Oa'Veyra.">Continents</button>
       <button class="map-tab" data-src="images/oa-veyra-elevation.png" data-caption="Elevation, from the ocean floor to the mountain that pierces the barrier.">Elevation</button>
     </div>
 
     <figure>
-      <div class="map-frame">
-        <img id="map-img" src="images/oa-veyra-continents.png" alt="Map of Oa'Veyra">
+      <div class="map-frame" data-zoom="images/map.png">
+        <img id="map-img" src="images/map-web.webp" alt="Map of Oa'Veyra">
         <div class="map-missing" id="map-missing"></div>
       </div>
-      <figcaption class="map-caption" id="map-caption">The continents and oceans of Oa'Veyra.</figcaption>
+      <figcaption class="map-caption" id="map-caption">Biomes across the surface. Click the map to see it full size.</figcaption>
     </figure>
 
     <!-- ═══════════════════════════════════════════════════════
@@ -217,6 +217,8 @@
           mapMissing.style.display = "none";
           mapImg.src = tab.dataset.src;
           mapCaption.textContent = tab.dataset.caption;
+          // clicking the map opens the full-size original (data-full), if there is one
+          mapImg.parentElement.dataset.zoom = tab.dataset.full || tab.dataset.src;
         });
       });
 
