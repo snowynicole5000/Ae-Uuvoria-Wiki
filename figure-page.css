@@ -99,7 +99,7 @@ body { --accent: #c8b882; }
   text-align: center;
   border-right: 0.5px solid #2a2420;
 }
-.info > div:last-child { border-right: none; }
+.info > div:last-of-type { border-right: none; }
 .info-label {
   font-size: 9.5px;
   letter-spacing: 0.22em;

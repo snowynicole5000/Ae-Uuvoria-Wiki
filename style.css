@@ -165,6 +165,38 @@ nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45d
   box-shadow: 0 6px 24px rgba(0,0,0,0.5);
   animation: egg-pop 0.2s ease-out;
 }
+/* ─── Pictures can never be wider than the space they're in ───
+   (so a huge image shrinks to fit instead of running off the page) */
+img { max-width: 100%; }
+
+/* A big picture in the middle of a page, like a chart or guide:
+     <a class="wide-img" data-zoom="images/big.png">
+       <img src="images/big-web.png" alt="...">
+     </a>
+   src = a lighter copy for the page, data-zoom = the full-size one
+   that opens when you click it. */
+.wide-img {
+  display: block;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 0.5px solid #2a2420;
+  cursor: zoom-in;
+  transition: border-color 0.2s;
+}
+.wide-img:hover { border-color: var(--accent, #c8b882); }
+.wide-img img { display: block; width: 100%; height: auto; }
+.wide-img::after {
+  content: "Click to enlarge";
+  display: block;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7a7060;
+  border-top: 0.5px solid #2a2420;
+}
+
 /* ─── Gallery ──────────────────────────────────────────────
    Used on species, figure and location pages:
      <div class="gallery">
@@ -210,12 +242,43 @@ nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45d
   cursor: zoom-out;
   animation: egg-pop 0.2s ease-out;
 }
-.lightbox img { max-width: 100%; max-height: 100%; background: #f4efe6; box-shadow: 0 10px 50px rgba(0,0,0,0.6); }
+.lightbox img { max-width: 100%; max-height: 100%; background: #f4efe6; box-shadow: 0 10px 50px rgba(0,0,0,0.6); cursor: zoom-in; }
+/* clicking the picture in the big view shows it at full size, scroll to look around */
+.lightbox.full { display: block; overflow: auto; padding: 0; }
+.lightbox.full img { max-width: none; max-height: none; cursor: zoom-out; }
 .lightbox.dark img { background: none; }
 .lightbox .lb-cap {
   position: absolute; left: 0; right: 0; bottom: 1rem;
   text-align: center; font-size: 12px; font-style: italic; color: #9a8f7a;
 }
+
+/* Hangers: a little picture hidden UNDER a bar, with just a thin
+   strip showing. Hover and it drops down; click for its box.
+     <section class="info" style="position: relative;">
+       ...
+       <span class="egg-hang" data-egg="..." style="right: 13%;">
+         <span class="hang-art"> …a picture or svg… </span>
+       </span>
+     </section>
+   --peek  how much shows before hovering (optional) */
+.egg-hang {
+  position: absolute;
+  top: 100%;                     /* starts right at the bar's bottom edge */
+  width: 34px;
+  height: 52px;
+  overflow: hidden;              /* anything above this box is hidden, so it looks tucked under the bar */
+  z-index: 5;
+}
+.hang-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: translateY(calc(-100% + var(--peek, 5px)));
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);   /* drops with a little bounce */
+}
+.hang-art svg { width: 100%; height: 100%; display: block; }
+.egg-hang:hover .hang-art,
+.egg-hang.egg-open .hang-art { transform: none; }
 
 @keyframes egg-pop { from { transform: scale(0.85); opacity: 0; } to { transform: none; opacity: 1; } }
 

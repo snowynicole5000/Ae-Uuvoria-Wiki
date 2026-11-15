@@ -51,7 +51,8 @@
    1b. PICTURE VIEWER
    Clicking a picture inside a .gallery, or anything with
    data-zoom="images/whatever.png", opens it big.
-   Click anywhere (or press Esc) to close.
+   Click the picture again to see it at full size.
+   Click outside it (or press Esc) to close.
 ───────────────────────────────────────────────────────── */
 (function () {
   function show(src, caption, dark) {
@@ -61,6 +62,11 @@
     const close = () => { lb.remove(); document.removeEventListener("keydown", esc); };
     const esc = e => { if (e.key === "Escape") close(); };
     lb.addEventListener("click", close);
+    // click the picture itself to flip between "fit the screen" and full size
+    lb.querySelector("img").addEventListener("click", e => {
+      e.stopPropagation();
+      lb.classList.toggle("full");
+    });
     document.addEventListener("keydown", esc);
     document.body.appendChild(lb);
   }
