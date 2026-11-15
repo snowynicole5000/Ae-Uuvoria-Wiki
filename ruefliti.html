@@ -56,11 +56,22 @@
   <!-- ═══════════════════════════════════════════════════════
        INFO STRIP — four quick facts
   ════════════════════════════════════════════════════════ -->
-  <section class="info">
+  <section class="info" style="position: relative;">
     <div><div class="info-label">Homeland</div><div class="info-value">North-west tip of the south</div></div>
     <div><div class="info-label">Height</div><div class="info-value">115&ndash;135 cm</div></div>
     <div><div class="info-label">Lifespan</div><div class="info-value">~120 Earth years</div></div>
     <div><div class="info-label">Magic</div><div class="info-value"><a href="magic.html#today">Reflection divination</a></div></div>
+
+    <!-- EASTER EGG: a little French flag hiding under the info bar.
+         Move it with right: (or left:). The "hanger" styles are in style.css. -->
+    <span class="egg-hang" data-egg="The Ruefliti are French." style="right: 13%;">
+      <span class="hang-art"><svg viewBox="0 0 34 52" aria-hidden="true">
+        <rect x="0" y="0" width="34" height="17" fill="#2b4fa8"/>
+        <rect x="0" y="17" width="34" height="16" fill="#f4efe6"/>
+        <polygon points="0,33 34,33 34,52 17,45 0,52" fill="#d9393f"/>
+        <rect x="0" y="0" width="34" height="2" fill="#0a0a0a" opacity="0.35"/>
+      </svg></span>
+    </span>
   </section>
 
   <div class="wrap">
@@ -142,14 +153,15 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════════════
-         GALLERY — one <a> per picture, both pointing at the same
-         file. Click a picture on the page to see it big.
+         GALLERY — one <a> per picture. href = the original,
+         src = a lighter -web copy so the page loads fast.
+         Click a picture on the page to see the original big.
          Delete the "Art coming soon" line once there's art.
     ════════════════════════════════════════════════════════ -->
     <div class="section-label" id="gallery">Gallery</div>
     <div class="gallery">
-      <a href="images/ruefliti.png"><img src="images/ruefliti.png" alt="A Ruefliti on the bongos" loading="lazy"></a>
-      <a href="images/ruefliti2.png"><img src="images/ruefliti2.png" alt="Ruefliti concept sketches and references" loading="lazy"></a>
+      <a href="images/ruefliti.png"><img src="images/ruefliti-web.webp" alt="A Ruefliti on the bongos" loading="lazy"></a>
+      <a href="images/ruefliti2.png"><img src="images/ruefliti2-web.webp" alt="Ruefliti concept sketches and references" loading="lazy"></a>
     </div>
 
   </div>
