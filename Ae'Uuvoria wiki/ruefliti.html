@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Ruefliti — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="figure-page.css">
+  <link rel="stylesheet" href="species-page.css">
+  <script src="site.js" defer></script>
+</head>
+
+<!-- ═══════════════════════════════════════════════════════════
+     RUEFLITI — a species page, written from the Obsidian
+     note. Same sections as au-uuvori.html: delete any you don't
+     need, or copy one from another species page.
+     --accent on <body> is the species' color.
+════════════════════════════════════════════════════════════ -->
+<body style="--accent: #5da8dc">
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html">Planets</a></li>
+      <li><a href="peoples.html" class="current">Peoples</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SPLASH — art goes in images/ruefliti.jpg
+       (wide works best). Until then a soft glow shows.
+  ════════════════════════════════════════════════════════ -->
+  <header class="splash">
+    <div class="splash-placeholder"><span>Species art goes here</span></div>
+    <img class="splash-img" src="images/ruefliti1.png" alt="A Ruefliti" onerror="this.remove()">
+
+    <div class="splash-text">
+      <div class="splash-kicker">Oa'Veyra &nbsp;·&nbsp; Southern continent</div>
+      <h1>Ruefliti</h1>
+      <div class="splash-say">Amphibious diviners of reflections</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INFO STRIP — four quick facts
+  ════════════════════════════════════════════════════════ -->
+  <section class="info">
+    <div><div class="info-label">Homeland</div><div class="info-value">North-west tip of the south</div></div>
+    <div><div class="info-label">Height</div><div class="info-value">115&ndash;135 cm</div></div>
+    <div><div class="info-label">Lifespan</div><div class="info-value">~120 Earth years</div></div>
+    <div><div class="info-label">Magic</div><div class="info-value"><a href="magic.html#today">Reflection divination</a></div></div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         OVERVIEW
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Overview</div>
+
+    <div class="bio">
+      <p>The Ruefliti are four-armed amphibians who live in water-level caves beneath the coastal cliffs of the southern continent on <a href="oa-veyra.html">Oa'Veyra</a>. They believe water and reflections reveal everything.</p>
+      <p>They're half right. A reflection really can show whether someone is lying. Reading the future in it, though, doesn't work at all.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ANATOMY — copy a <div class="feature"> to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Anatomy</div>
+
+    <div class="features">
+      <div class="feature"><h3>Body</h3><p>Two legs and four arms, with webbed fingers and toes.</p></div>
+      <div class="feature"><h3>Size</h3><p>115&ndash;135 cm tall.</p></div>
+      <div class="feature"><h3>Eyes</h3><p>Three.</p></div>
+      <div class="feature"><h3>Gills</h3><p>Six, now used mostly for showing emotion, but they still work underwater.</p></div>
+      <div class="feature"><h3>Skin</h3><p>Smooth, and it has to stay moist.</p></div>
+      <div class="feature"><h3>Spit</h3><p>They can spit water like a missile.</p></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         BELIEF &AMP; MAGIC — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Belief &amp; magic</div>
+
+    <div class="legacy">
+      <a class="legacy-card" href="magic.html#today">
+        <h3>Reflections reveal truth</h3>
+        <p>This one is real. A person's reflection can show whether they're lying.</p>
+        <span class="go">Magic today &rarr;</span>
+      </a>
+      <div class="legacy-card">
+        <h3>Reading people</h3>
+        <p>Diviners read a person's reflection to tell their future or their deepest desires. It doesn't work, but it's just vague enough to believe, like tarot or astrology.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Reading the sky</h3>
+        <p>The sky reflected in water, best at night, is read to tell the future of everyone. This doesn't work either.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ORIGINS &AMP; HOME
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Origins &amp; home</div>
+
+    <div class="bio">
+      <p>The Ruefliti come from an amphibious lineage. They slowly specialized for life on land, but kept their strong swimming, their working gills, and their need for moisture.</p>
+      <p>They live at the north-west tip of the southern continent, in caves at the waterline under the coastal cliffs. They rarely deal with their neighbors, the <a href="ventlings.html">Ventlings</a>.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONNECTED TO — copy an <a class="rel"> block to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Connected to</div>
+
+    <div class="related">
+      <a class="rel" href="ventlings.html" style="--accent: #a479f5">
+        <div class="rel-art"><span class="rel-initials">VE</span></div>
+        <div class="rel-text"><div class="rel-name">Ventlings</div><div class="rel-why">Neighbors, rarely met</div></div>
+      </a>
+      <a class="rel" href="the-grove.html" style="--accent: #e3973b">
+        <div class="rel-art"><span class="rel-initials">GR</span></div>
+        <div class="rel-text"><div class="rel-name">The Grove</div><div class="rel-why">Some Ruefliti worship it</div></div>
+      </a>
+      <a class="rel" href="history.html#calendars" style="--accent: #5da8dc">
+        <div class="rel-art"><span class="rel-initials">IS</span></div>
+        <div class="rel-text"><div class="rel-name">Isikitem calendar</div><div class="rel-why">They keep time by it too</div></div>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         GALLERY — one <a> per picture, both pointing at the same
+         file. Click a picture on the page to see it big.
+         Delete the "Art coming soon" line once there's art.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="gallery">Gallery</div>
+    <div class="gallery">
+      <a href="images/ruefliti.png"><img src="images/ruefliti.png" alt="A Ruefliti on the bongos" loading="lazy"></a>
+      <a href="images/ruefliti2.png"><img src="images/ruefliti2.png" alt="Ruefliti concept sketches and references" loading="lazy"></a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>

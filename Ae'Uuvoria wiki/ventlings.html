@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Ventlings — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="figure-page.css">
+  <link rel="stylesheet" href="species-page.css">
+  <script src="site.js" defer></script>
+</head>
+
+<!-- ═══════════════════════════════════════════════════════════
+     VENTLINGS — a species page, written from the Obsidian
+     note. Same sections as au-uuvori.html: delete any you don't
+     need, or copy one from another species page.
+     --accent on <body> is the species' color.
+════════════════════════════════════════════════════════════ -->
+<body style="--accent: #a479f5">
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html">Planets</a></li>
+      <li><a href="peoples.html" class="current">Peoples</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SPLASH — art goes in images/ventlings.jpg
+       (wide works best). Until then a soft glow shows.
+  ════════════════════════════════════════════════════════ -->
+  <header class="splash">
+    <div class="splash-placeholder"><span>Species art goes here</span></div>
+    <img class="splash-img" src="images/ventlings.jpg" alt="A Ventling" onerror="this.remove()">
+
+    <div class="splash-text">
+      <div class="splash-kicker">Oa'Veyra &nbsp;·&nbsp; Southern continent</div>
+      <h1>Ventlings</h1>
+      <div class="splash-say">Bismuth-shelled snails of the volcanic south</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INFO STRIP — four quick facts
+  ════════════════════════════════════════════════════════ -->
+  <section class="info">
+    <div><div class="info-label">Homeland</div><div class="info-value">Volcanic regions of the south</div></div>
+    <div><div class="info-label">Size</div><div class="info-value">40&ndash;60 cm</div></div>
+    <div><div class="info-label">Lifespan</div><div class="info-value">~240 Earth years</div></div>
+    <div><div class="info-label">Age</div><div class="info-value">The oldest civilization today</div></div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         OVERVIEW
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Overview</div>
+
+    <div class="bio">
+      <p>The Ventlings are snail-like extremophiles with shells of iridescent bismuth, scattered across the volcanic regions of the southern continent on <a href="oa-veyra.html">Oa'Veyra</a>. They are the oldest civilization of the current era.</p>
+      <p>They aren't cruel, but they never evolved to be social. They have little interest in anyone, including each other.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ANATOMY — copy a <div class="feature"> to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Anatomy</div>
+
+    <div class="features">
+      <div class="feature"><h3>Body</h3><p>Snail-like, 40&ndash;60 cm.</p></div>
+      <div class="feature"><h3>Shell</h3><p>Iridescent bismuth, inspired by the real scaly-foot snail and its iron shell.</p></div>
+      <div class="feature"><h3>Habitat</h3><p>Extremophiles that thrive in heat and volcanic conditions.</p></div>
+      <div class="feature"><h3>Lifespan</h3><p>About 240 Earth years, the longest of any people today.</p></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         HISTORY — copy a <div class="tl"> to add an event.
+         class="tl dark" makes the dot purple.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">History</div>
+
+    <div class="timeline">
+      <div class="tl dark">
+        <div class="tl-when">The Era of Darkness</div>
+        <h3>Survivors</h3>
+        <p>Their tiny, non-sapient ancestors live through the mass extinction.</p>
+      </div>
+      <div class="tl">
+        <div class="tl-when">The Era of Rebirth</div>
+        <h3>Becoming a people</h3>
+        <p>With almost no competition, they slowly develop into a basic sapient group, the first civilization of the new era.</p>
+      </div>
+      <div class="tl">
+        <div class="tl-when">Today &middot; 5 KKM</div>
+        <h3>Apart</h3>
+        <p>Scattered and few, and irrelevant to world politics.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SOCIETY &AMP; CULTURE — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Society &amp; culture</div>
+
+    <div class="legacy">
+      <div class="legacy-card">
+        <h3>Low empathy</h3>
+        <p>Not cruel, just not social. They only come together to raise families, or now and then to build something bigger that helps themselves.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Distrust of light</h3>
+        <p>An instinctive distrust of light and magic, inherited from ancestors who survived the Era of Darkness.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Bismuth</h3>
+        <p>They don't make art on purpose, but their bismuth creations are highly valued in the Glass City. They get there through indirect trade, since Ventlings don't care for outsiders.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONNECTED TO — copy an <a class="rel"> block to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Connected to</div>
+
+    <div class="related">
+      <a class="rel" href="ruefliti.html" style="--accent: #5da8dc">
+        <div class="rel-art"><span class="rel-initials">RU</span></div>
+        <div class="rel-text"><div class="rel-name">Ruefliti</div><div class="rel-why">Neighbors, rarely met</div></div>
+      </a>
+      <a class="rel" href="glass-city.html" style="--accent: #97c355">
+        <div class="rel-art"><span class="rel-initials">GC</span></div>
+        <div class="rel-text"><div class="rel-name">The Glass City</div><div class="rel-why">Where their bismuth ends up</div></div>
+      </a>
+      <a class="rel" href="history.html#era-darkness" style="--accent: #a479f5">
+        <div class="rel-art"><span class="rel-initials">ED</span></div>
+        <div class="rel-text"><div class="rel-name">Era of Darkness</div><div class="rel-why">What their ancestors survived</div></div>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         GALLERY — one <a> per picture, both pointing at the same
+         file. Click a picture on the page to see it big.
+         Delete the "Art coming soon" line once there's art.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="gallery">Gallery</div>
+    <div class="gallery">
+      <a href="images/ventling.png"><img src="images/ventling.png" alt="Ventling concept sketch and references" loading="lazy"></a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>
