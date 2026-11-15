@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Isikitem — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="figure-page.css">
+  <link rel="stylesheet" href="species-page.css">
+  <script src="site.js" defer></script>
+</head>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ISIKITEM — a species page, written from the Obsidian
+     note. Same sections as au-uuvori.html: delete any you don't
+     need, or copy one from another species page.
+     --accent on <body> is the species' color.
+════════════════════════════════════════════════════════════ -->
+<body style="--accent: #5da8dc">
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html">Planets</a></li>
+      <li><a href="peoples.html" class="current">Peoples</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SPLASH — art goes in images/isikitem.jpg
+       (wide works best). Until then a soft glow shows.
+  ════════════════════════════════════════════════════════ -->
+  <header class="splash">
+    <div class="splash-placeholder"><span>Species art goes here</span></div>
+    <img class="splash-img" src="images/isikitem.jpg" alt="An Isikitem" onerror="this.remove()">
+
+    <div class="splash-text">
+      <div class="splash-kicker">Oa'Veyra &nbsp;·&nbsp; Western continent</div>
+      <h1>Isikitem</h1>
+      <div class="splash-say">Tusked farmers who worship the sister moons</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INFO STRIP — four quick facts
+  ════════════════════════════════════════════════════════ -->
+  <section class="info">
+    <div><div class="info-label">Homeland</div><div class="info-value">Western grasslands</div></div>
+    <div><div class="info-label">Height</div><div class="info-value">65&ndash;80 cm</div></div>
+    <div><div class="info-label">Lifespan</div><div class="info-value">~60 Earth years</div></div>
+    <div><div class="info-label">Counting</div><div class="info-value">Base 8</div></div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         OVERVIEW
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Overview</div>
+
+    <div class="bio">
+      <p>The Isikitem are small, tusked farmers from the grasslands of the western continent on <a href="oa-veyra.html">Oa'Veyra</a>, west of the Glass City. They worship the planet's two moons as sisters and ask them for good harvests.</p>
+      <p>Their calendar, built around the moons, is used for everyday life across the western continent, and by the <a href="ruefliti.html">Ruefliti</a> in the south. <a href="history.html#calendars">How it works &rarr;</a></p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ANATOMY — copy a <div class="feature"> to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Anatomy</div>
+
+    <div class="features">
+      <div class="feature"><h3>Body</h3><p>Four limbs. They run on all fours, but stand upright for most tasks.</p></div>
+      <div class="feature"><h3>Hands</h3><p>Four fingers each: three main digits with two segments, and one minor digit with one. Eight fingers in all, so they count in base 8.</p></div>
+      <div class="feature"><h3>Tusks</h3><p>Two large tusks jutting down from the sides of their face. Once for digging up truffle-like food, now for plowing and harvesting.</p>
+      </div>
+      <div class="feature"><h3>Ears</h3><p>Large, straight or floppy. Their hearing is excellent.</p></div>
+      <div class="feature"><h3>Eyes</h3><p>Set wide for broad awareness, left over from their ancestors being prey.</p></div>
+      <div class="feature"><h3>Fur</h3><p>Soft, in earthy tones that match the grassland and forest edges.</p></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         THE SISTER MOONS — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="moons">The sister moons</div>
+
+    <p class="lede">Both moons are worshipped. They're used to predict the weather and the seasons, which is science, not magic.</p>
+    <div class="legacy">
+      <a class="legacy-card" href="oa-veyra.html#sistermoons">
+        <h3>Atathetem</h3>
+        <p><em>/ӓtaθɛtɛm/</em>, the younger sister. The close, fast moon. Small, joyful prayers greet her return, and mournful ones mark her disappearance.</p>
+        <span class="go">The moons &rarr;</span>
+      </a>
+      <a class="legacy-card" href="oa-veyra.html#sistermoons">
+        <h3>Etathetem</h3>
+        <p><em>/ǝtaθεtεm/</em>, the older sister. The far, slow moon. Her return is celebrated with a big festival.</p>
+        <span class="go">The moons &rarr;</span>
+      </a>
+      <a class="legacy-card" href="magic.html#today">
+        <h3>Moon divination</h3>
+        <p>Reading the moons for weather and seasons, for better harvests.</p>
+        <span class="go">Magic today &rarr;</span>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SOCIETY &AMP; CULTURE — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Society &amp; culture</div>
+
+    <div class="legacy">
+      <div class="legacy-card">
+        <h3>Farming</h3>
+        <p>Herbivores who first dug up truffle-like food with their tusks. As farming developed, the tusks became their tools.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Craft</h3>
+        <p>Sewing, weaving, and loom work.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Technology</h3>
+        <p>Early to mid copper age. They know how to forge metal, but rarely do, since there's so little of it where they're from.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Villages &amp; towns</h3>
+        <p>Mostly small villages and farms. A few central towns serve as hubs where the larger ceremonies happen and village and family leaders gather to make big decisions.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         NORTH &AMP; SOUTH — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">North &amp; south</div>
+
+    <div class="legacy">
+      <div class="legacy-card">
+        <h3>Northern Isikitem</h3>
+        <p>Larger, more organized collectives. They trade with the Glass City and use the railway it built, and hold a trade seat on its council.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Southern &amp; interior Isikitem</h3>
+        <p>Traditionalist and purely agricultural, and suspicious of outside influence.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONNECTED TO — copy an <a class="rel"> block to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Connected to</div>
+
+    <div class="related">
+      <a class="rel" href="makkar.html" style="--accent: #97c355">
+        <div class="rel-art"><span class="rel-initials">MA</span></div>
+        <div class="rel-text"><div class="rel-name">Makk'ar</div><div class="rel-why">Trading partners</div></div>
+      </a>
+      <a class="rel" href="the-grove.html" style="--accent: #e3973b">
+        <div class="rel-art"><span class="rel-initials">GR</span></div>
+        <div class="rel-text"><div class="rel-name">The Grove</div><div class="rel-why">Some Isikitem worship it</div></div>
+      </a>
+      <a class="rel" href="history.html#calendars" style="--accent: #5da8dc">
+        <div class="rel-art"><span class="rel-initials">8</span></div>
+        <div class="rel-text"><div class="rel-name">Their calendar</div><div class="rel-why">Turns, phases, knots and crowns</div></div>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         GALLERY — one <a> per picture, both pointing at the same
+         file. Click a picture on the page to see it big.
+         Delete the "Art coming soon" line once there's art.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="gallery">Gallery</div>
+    <div class="gallery">
+      <p class="gallery-empty">Art coming soon.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>

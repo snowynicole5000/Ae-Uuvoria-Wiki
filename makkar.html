@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Makk'ar — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="figure-page.css">
+  <link rel="stylesheet" href="species-page.css">
+  <script src="site.js" defer></script>
+</head>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAKK'AR — a species page, written from the Obsidian
+     note. Same sections as au-uuvori.html: delete any you don't
+     need, or copy one from another species page.
+     --accent on <body> is the species' color.
+════════════════════════════════════════════════════════════ -->
+<body style="--accent: #97c355">
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html">Planets</a></li>
+      <li><a href="peoples.html" class="current">Peoples</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SPLASH — art goes in images/makkar.jpg
+       (wide works best). Until then a soft glow shows.
+  ════════════════════════════════════════════════════════ -->
+  <header class="splash">
+    <div class="splash-placeholder"><span>Species art goes here</span></div>
+    <img class="splash-img" src="images/makkar.jpg" alt="A Makk'ar" onerror="this.remove()">
+
+    <div class="splash-text">
+      <div class="splash-kicker">Oa'Veyra &nbsp;·&nbsp; Western continent</div>
+      <h1>Makk'ar</h1>
+      <div class="splash-say">Four-eyed forest dwellers of the north-west</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INFO STRIP — four quick facts
+  ════════════════════════════════════════════════════════ -->
+  <section class="info">
+    <div><div class="info-label">Homeland</div><div class="info-value">Northern western continent</div></div>
+    <div><div class="info-label">Height</div><div class="info-value">170&ndash;190 cm</div></div>
+    <div><div class="info-label">Lifespan</div><div class="info-value">~120 Earth years</div></div>
+    <div><div class="info-label">Rule</div><div class="info-value">A council of wealthy families</div></div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         OVERVIEW
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Overview</div>
+
+    <div class="bio">
+      <p>The Makk'ar are omnivorous forest dwellers from the north of the western continent on <a href="oa-veyra.html">Oa'Veyra</a>. They are well into the iron age, and still expanding.</p>
+      <p>They founded the <em>Kar'avaakro Makrhoto</em>, the Foundation of Knowledge. Its founding is year zero of the <a href="history.html#calendars">calendar used on this wiki</a>, and their counting of years in SKM and KKM comes from it.</p>
+      <p>Their reach goes far beyond their forests. The <a href="#glass-city">Glass City</a> began as a Makk'ar colony, the <a href="fulgari.html">Fulgari</a> live under their rule, and they have their eyes on the metal-rich mountains of the <a href="bovidians.html">Bovidians</a>.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ANATOMY — copy a <div class="feature"> to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Anatomy</div>
+
+    <div class="features">
+      <div class="feature"><h3>Body</h3><p>Four legs and two arms, with three fingers on each hand.</p></div>
+      <div class="feature"><h3>Size</h3><p>170&ndash;190 cm tall.</p></div>
+      <div class="feature"><h3>Fur</h3><p>Thick, in grays and dark ambers.</p></div>
+      <div class="feature"><h3>Eyes</h3><p>Four of them, adapted to low light under the forest canopy.</p></div>
+      <div class="feature"><h3>Diet</h3><p>Omnivores.</p></div>
+      <div class="feature"><h3>Lifespan</h3><p>About 120 Earth years, roughly two and a half Makk'ar years.</p></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SOCIETY &AMP; CULTURE — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Society &amp; culture</div>
+
+    <div class="legacy">
+      <a class="legacy-card" href="magic.html#constellations">
+        <h3>The pantheon</h3>
+        <p>Six animals, each governing one of the six major elements. Where the ancients read the stars as writing, the Makk'ar see the animals of their pantheon.</p>
+        <span class="go">Constellation enchanting &rarr;</span>
+      </a>
+      <a class="legacy-card" href="magic.html#constellations">
+        <h3>Constellation enchanting</h3>
+        <p>Carving a constellation onto an object lets it channel that element. It's used almost entirely by the Makk'ar and the people of the Glass City.</p>
+        <span class="go">How it works &rarr;</span>
+      </a>
+      <div class="legacy-card">
+        <h3>Craft &amp; technology</h3>
+        <p>Mostly wood, but well into the iron age. Their academy is researching steam power.</p>
+      </div>
+      <a class="legacy-card" href="history.html#calendars">
+        <h3>Keeping time</h3>
+        <p>Each Makk'ar year is one sixth of Oa'Veyra's orbit, about 48.5 Earth years, named for one of the six elemental constellations. They count in base 6.</p>
+        <span class="go">Makk'ar reckoning &rarr;</span>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         LAND &AMP; GOVERNMENT
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Land &amp; government</div>
+
+    <div class="bio">
+      <p>The Makk'ar live mostly in the north of the western continent, between its northern tip and the mountains. Most settlements sit along rivers, for trade and for floating logs down to build with.</p>
+      <p>The main government is a council of the region's wealthiest families. The head of each family holds its seat. Below the council, regional governments of representatives look after each region.</p>
+      <p>They see the rest of the continent as theirs to take.</p>
+      <p>Besides the council, notable groups include the academy, a trading guild, and the Makk'ar branch of the delvers' guild.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         THE FOUNDATION OF KNOWLEDGE — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="foundation">The Foundation of Knowledge</div>
+
+    <p class="lede">The Kar'avaakro Makrhoto, the Makk'ar academy, and its five departments.</p>
+    <div class="legacy">
+      <div class="legacy-card">
+        <h3>Materials Study</h3>
+        <p>Began looking for better materials for weapons and lenses. Recently given a huge grant to reverse engineer the ancients' building material.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Astronomy</h3>
+        <p>Searches the stars for new constellations to enchant with. A smaller group studies how to apply them.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Biology</h3>
+        <p>Mostly farming. Added as the population grew and trade with the <a href="isikitem.html">Isikitem</a> picked up.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>History &amp; Linguistics</h3>
+        <p>Not just the ancients' languages and history, though all of it is told the Makk'ar way.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Mechanics</h3>
+        <p>Engineering and steam power, with a small section trying to reverse engineer ancient technology.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         THE GLASS CITY — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="glass-city">The Glass City</div>
+
+    <p class="lede">A Makk'ar colony on the south coast that grew into a massive trading hub, between the Fulgari desert to the north and the Isikitem lands to the west. <a href="glass-city.html">The full map and every district &rarr;</a></p>
+    <div class="legacy">
+      <div class="legacy-card">
+        <h3>Who runs it</h3>
+        <p>A council of young heirs from the ruling families, sent to prove themselves. An advisor can veto anything big. The Garrison, the <em>Varrhaku</em>, keeps order.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>The glass ladder</h3>
+        <p>Neighborhoods are named after the glass their people can afford: silvered mirror glass for the richest, then clear, green, leaded panes, broken scrap, and furnace slag outside the wall.</p>
+      </div>
+      <div class="legacy-card">
+        <h3>Appearance is everything</h3>
+        <p>Fashion, jewelry, pets and building materials all signal class. A thriving underground economy keeps the bottom running, and the council pretends it doesn't exist.</p>
+      </div>
+      <a class="legacy-card" href="glass-city.html#sink">
+        <h3>The Sink</h3>
+        <p>A sinkhole in the poor east of the city, once an ancient printworks. Shacks line its rim, a black market fills the old halls, and ruins lie at the bottom.</p>
+        <span class="go">Down into the Sink &rarr;</span>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         RELATIONS — copy a <div class="legacy-card"> to add one
+         A card with href="..." becomes a link.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Relations</div>
+
+    <div class="legacy">
+      <a class="legacy-card" href="fulgari.html">
+        <h3>The Fulgari</h3>
+        <p>Once enslaved by the Makk'ar, and still oppressed and exploited. The Makk'ar are tightening their grip to stamp out a growing rebellion. A species related to the Fulgari was wiped out by the Makk'ar.</p>
+        <span class="go">The Fulgari &rarr;</span>
+      </a>
+      <a class="legacy-card" href="bovidians.html">
+        <h3>The Bovidians</h3>
+        <p>The Makk'ar want Bovidian land, rich in better metal than their own. They're trying to start a war: they invited an envoy from Ironvein Hall, then killed the envoy on the way back to their rooms.</p>
+        <span class="go">The Bovidians &rarr;</span>
+      </a>
+      <a class="legacy-card" href="isikitem.html">
+        <h3>The Isikitem</h3>
+        <p>Trading partners. The northern Isikitem trade with the Glass City and ride the railway it built.</p>
+        <span class="go">The Isikitem &rarr;</span>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONNECTED TO — copy an <a class="rel"> block to add one
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Connected to</div>
+
+    <div class="related">
+      <a class="rel" href="fulgari.html" style="--accent: #f0c75c">
+        <div class="rel-art"><span class="rel-initials">FU</span></div>
+        <div class="rel-text"><div class="rel-name">Fulgari</div><div class="rel-why">Ruled by the Makk'ar</div></div>
+      </a>
+      <a class="rel" href="bovidians.html" style="--accent: #c8b882">
+        <div class="rel-art"><span class="rel-initials">BO</span></div>
+        <div class="rel-text"><div class="rel-name">Bovidians</div><div class="rel-why">The next target</div></div>
+      </a>
+      <a class="rel" href="isikitem.html" style="--accent: #5da8dc">
+        <div class="rel-art"><span class="rel-initials">IS</span></div>
+        <div class="rel-text"><div class="rel-name">Isikitem</div><div class="rel-why">Trading partners</div></div>
+      </a>
+      <a class="rel" href="history.html#foundation" style="--accent: #97c355">
+        <div class="rel-art"><span class="rel-initials">0</span></div>
+        <div class="rel-text"><div class="rel-name">Year zero</div><div class="rel-why">The founding of the Foundation</div></div>
+      </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         GALLERY — one <a> per picture, both pointing at the same
+         file. Click a picture on the page to see it big.
+         Delete the "Art coming soon" line once there's art.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="gallery">Gallery</div>
+    <div class="gallery">
+      <a href="images/makkar.png"><img src="images/makkar.png" alt="Makk'ar concept sketch" loading="lazy"></a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>

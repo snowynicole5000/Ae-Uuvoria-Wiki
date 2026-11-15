@@ -1,0 +1,270 @@
+/* ═══════════════════════════════════════════════════════════
+   style.css — SHARED BY EVERY PAGE
+   Change something here and it changes on the whole site.
+   Each page links this file first, then its own styles.
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+[id] { scroll-margin-top: 90px; }   /* #jump links stop below the fixed menu */
+del { color: #7a7060; }             /* crossed-out text, like an old correction */
+
+/* ─── Base ────────────────────────────────────────────────── */
+body {
+  background: #0a0a0a;
+  color: #e8e0d0;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  min-height: 100vh;
+}
+a { color: inherit; }
+
+/* ─── Nav (the menu at the top) ───────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 56px;
+  background: rgba(10,10,10,0.92);
+  border-bottom: 0.5px solid #2a2420;
+  backdrop-filter: blur(8px);
+}
+.nav-logo {
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #c8b882;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7a7060;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.current { color: #c8b882; }   /* "current" = the page you're on */
+
+/* ─── Section labels ( ──── LIKE THIS ──── ) ─────────────────
+   The spacing above/below is set on each page, since it differs. */
+.section-label {
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #9a8f7a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 0.5px;
+  background: #3a3430;
+}
+
+/* ─── Footer ──────────────────────────────────────────────── */
+footer {
+  border-top: 0.5px solid #2a2420;
+  padding: 2rem;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #3a3430;
+}
+
+footer a {
+  color: #7a7060;
+  text-decoration: none;
+  border-bottom: 0.5px solid #4a4440;
+  transition: color 0.2s, border-color 0.2s;
+}
+footer a:hover { color: #c8b882; border-color: #c8b882; }
+
+/* ─── Phone menu (the ☰ button) ──────────────────────────────
+   site.js adds the button. It stays hidden on computers. */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  margin-right: -8px;
+  padding: 0 9px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle span {                  /* the three lines */
+  display: block;
+  height: 1px;
+  background: #c8b882;
+  transition: transform 0.25s, opacity 0.25s;
+}
+/* when open, the lines turn into an X */
+nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ─── Phones ──────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  nav { padding: 0 1.25rem; }
+  nav.open { z-index: 150; }         /* open menu goes over the planet arrows bar */
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; }
+
+  /* the open menu: a list going down, under the top bar */
+  nav.open .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: rgba(10,10,10,0.97);
+    border-bottom: 0.5px solid #2a2420;
+    padding: 0.5rem 0 1rem;
+  }
+  nav.open .nav-links a {
+    display: block;
+    padding: 0.95rem 1.5rem;         /* big enough to tap with a thumb */
+    font-size: 12px;
+    border-left: 2px solid transparent;
+  }
+  nav.open .nav-links a.current { border-left-color: #c8b882; }
+}
+
+/* ─── Easter eggs ─────────────────────────────────────────────
+   The little box that pops up when you click something with
+   data-egg="..." on it (see site.js). Style it however you
+   like, it doesn't have to match the rest of the site! */
+[data-egg] { cursor: pointer; }
+.egg-bubble {
+  position: absolute;
+  z-index: 200;
+  max-width: 240px;
+  padding: 0.7rem 0.9rem;
+  background: #e8e0d0;
+  color: #0a0a0a;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+  animation: egg-pop 0.2s ease-out;
+}
+/* ─── Gallery ──────────────────────────────────────────────
+   Used on species, figure and location pages:
+     <div class="gallery">
+       <a href="images/big.png"><img src="images/big.png" alt="..."></a>
+     </div>
+   Clicking a picture opens it big (site.js does that). */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.gallery a {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 0.5px solid #2a2420;
+  background: #f4efe6;               /* paper color, so sketches on clear backgrounds show up */
+  transition: border-color 0.2s;
+}
+.gallery a:hover { border-color: var(--accent, #c8b882); }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+.gallery a:hover img { transform: scale(1.04); }
+.gallery-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 13px;
+  font-style: italic;
+  color: #4a4440;
+  border: 0.5px dashed #2a2420;
+  padding: 2.5rem 1rem;
+}
+
+/* the big view when you click a picture */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(5,5,5,0.92);
+  cursor: zoom-out;
+  animation: egg-pop 0.2s ease-out;
+}
+.lightbox img { max-width: 100%; max-height: 100%; background: #f4efe6; box-shadow: 0 10px 50px rgba(0,0,0,0.6); }
+.lightbox.dark img { background: none; }
+.lightbox .lb-cap {
+  position: absolute; left: 0; right: 0; bottom: 1rem;
+  text-align: center; font-size: 12px; font-style: italic; color: #9a8f7a;
+}
+
+@keyframes egg-pop { from { transform: scale(0.85); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Secret click spots: a tiny invisible box on top of a picture.
+   Wrap the picture in <div class="egg-wrap">, then put a
+   <span class="egg-spot" data-egg="..."></span> inside it.
+   Move it with left/top (in %), resize it with width/height. */
+.egg-wrap { position: relative; }
+.egg-spot {
+  position: absolute;
+  width: 18px; height: 18px;
+  transform: translate(-50%, -50%);   /* left/top point at the CENTER of the spot */
+  border-radius: 50%;
+}
+.egg-spot.show { outline: 1px dashed #ff3b3b; }   /* add "show" while placing it, remove when done */
+
+/* Peekers: a little picture hiding BEHIND another picture,
+   that slides out when you hover (or while its box is open).
+     <span class="peek" style="left: 78%; top: 18%; --tilt: 50deg;">
+       <span class="egg-spot" data-egg="..."></span>
+       <span class="peek-art"> …a picture or svg… </span>
+     </span>
+   left/top  where on the picture it hides
+   --tilt    which way it pokes out (0deg = straight up,
+             90deg = right, 180deg = down, -90deg = left)
+   --hide / --out  how far in/out it sits (optional)   */
+.egg-wrap { isolation: isolate; }          /* keeps the layering below inside this picture */
+.egg-wrap > img { position: relative; z-index: 2; }   /* the main picture sits in the middle layer */
+.peek {
+  position: absolute;
+  width: 11%;                               /* size of the peeker, compared to the picture */
+  aspect-ratio: 4 / 5;
+  margin-left: -5.5%;                       /* half its width and…            */
+  margin-top: -6.875%;                      /* …half its height, so left/top point at its center */
+}
+.peek .peek-art {
+  position: absolute;
+  inset: 0;
+  z-index: 1;                               /* bottom layer: BEHIND the main picture */
+  transform: rotate(var(--tilt, 0deg)) translateY(var(--hide, 30%));
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);   /* a little bounce */
+}
+.peek .peek-art svg { width: 100%; height: 100%; display: block; }
+.peek .egg-spot {
+  left: 50%; top: 50%;
+  width: 140%; height: 140%;               /* hover/click area, a bit bigger than the peeker */
+  z-index: 3;                               /* top layer: above everything, but invisible */
+}
+.peek .egg-spot:hover + .peek-art,
+.peek .egg-spot.egg-open + .peek-art {
+  transform: rotate(var(--tilt, 0deg)) translateY(var(--out, -38%));
+}

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eo'Saevoria, the Librarian — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="figure-page.css">
+  <script src="site.js" defer></script>
+</head>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHARACTER PAGE TEMPLATE
+     To make a new character: copy this file, rename it
+     (like thar-vashek.html), then change the content.
+     Every section is marked with a big comment, and you can
+     delete any section you don't need.
+
+     --accent is this character's color. It tints the title,
+     buttons, drop cap and bullets. Try one of the element
+     colors: #5da8dc water, #97c355 order, #f0c75c light,
+     #e3973b nature, #d9579a chaos, #a479f5 darkness.
+════════════════════════════════════════════════════════════ -->
+<body style="--accent: #c8b882">
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html">Planets</a></li>
+      <li><a href="peoples.html">Peoples</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="figures.html" class="current">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SPLASH ART + NAME
+       Save the art as images/eo-saevoria.jpg (a wide picture
+       works best, around 1920 × 1080). Until it exists, a
+       soft glow shows instead. If the face gets cut off,
+       change object-position in figure-page.css.
+  ════════════════════════════════════════════════════════ -->
+  <header class="splash">
+    <div class="splash-placeholder"><span>Splash art goes here</span></div>
+    <img class="splash-img" src="images/eo-saevoria.jpg" alt="Eo'Saevoria, the Librarian" onerror="this.remove()">
+
+    <div class="splash-text">
+      <div class="splash-kicker">The Librarian</div>
+      <h1>Eo'Saevoria</h1>
+      <div class="splash-say">The last, holder of light</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INFO STRIP — four quick facts. Change the labels too,
+       they don't have to stay the same for every character.
+  ════════════════════════════════════════════════════════ -->
+  <section class="info">
+    <div><div class="info-label">Species</div><div class="info-value"><a href="au-uuvori.html">Au'Uuvori</a></div></div>
+    <div><div class="info-label">Home</div><div class="info-value"><a href="oa-veyra.html">The barrier's peak</a></div></div>
+    <div>
+      <div class="info-label">Pronouns</div><div class="info-value"><a href="#">ey/em/eyr</a></div></div>
+    <div><div class="info-label">Role</div><div class="info-value">Keeper of the light</div></div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         QUOTE — optional. Delete this line if you don't want one.
+    ════════════════════════════════════════════════════════ -->
+    <p class="quote">My people banished the Creator, cast them aside. I only wish to bring them home</p>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SHORT BIO — two or three paragraphs. The quick version.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Biography</div>
+
+    <div class="bio">
+      <p>Eo'Saevoria is the last living   Au'Uuvori&mdash;the ancients who lived through the Era of Magic and very nearly all died out after it.</p>
+      <p>The Librarian lives at the peak of the tallest mountain on <a href="oa-veyra.html">Oa'Veyra</a>, the one place in the world that rises above the barrier. From there, Eo'Saevoria keeps the only remaining contact with <a href="ae-uuvoria.html">Ae'Uuvoria</a>, the creator who turned away from the planet after the <a href="magic.html#eras">Era of Darkness</a>.</p>
+      <p>Ey wears a cloak with the night sky embroidered on it in gold with the lines of the constellations in UV-reactive thread.</p>
+<p>The prefix <em>Eo’</em> means “last”: lowest in rank, last in time/place, eldest in family, and, in numbers, infinity. <em>Sae</em> means holder and <em>Vori(a)</em> means light</p>
+
+      <a class="read-story" href="#story">Read eyr story ↓</a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         APPEARANCE + DETAILS
+         Two boxes side by side. Each <li> is one line.
+  
+    <div class="section-label">Gallery</div>
+  ════════════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════════════
+         THE STORY
+         Write it here, one <p> per paragraph.
+           • The first paragraph has class="opening", which
+             makes its first letter a big drop cap.
+           • <div class="scene-break"></div> adds a little
+             core symbol between scenes.
+           • <em>words</em> for italics, like thoughts.
+           • For a picture partway through:
+               <figure>
+                 <img src="images/your-art.jpg" alt="describe it">
+                 <figcaption>A caption</figcaption>
+               </figure>
+         Delete the dashed draft note when you're done.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Story</div>
+
+    <article class="story" id="story">
+      <header class="story-head">
+        <div class="story-kind">Short story</div>
+        <h2>The Sacrifice</h2>
+        <div class="story-meta">Written by Nicole</div>
+      </header>
+      <p class="opening">And so they hid. The six Au’Uuvori were trapped under the rubble of the decimated city , trapped, but safe for now. As more and more people became conduits for magic after the rules were rewritten, channeling  magic through yourself had a price. Whatever you cherished most about yourself, your empathy, your intelligence, your self control, it was corrupted. The six had to escape the collapsing structure, the academy, but how? Outside was total chaos and some <em>thing</em> was still wreaking havoc through the city. They needed a plan to fight back or at least buy them enough time to get away. Au’Yovane went to look through some of the documents in the room, in part to try and find a solution, but mostly to distract emself from the dire situation at hand.</p>
+      <p>Magic was the cause of all of this, but unlike before the banishment, Ae’Uuvoria wasn’t here to clean up the mess.<em><br>
+        Magic was the cause of all of this, maybe she was right, the creator didn’t care about us.</em> Au’Yovane thought to emself as ey read more, not even really reading at this point, just spiraling. <br>
+  <em>Focus, contemplating on the creator’s feelings and motivations isn’t going to get us out of here</em> <br>
+        If magic truly was “the root of all evil”, could they stop it somehow... even if just temporarily...</p>
+      <p>Low rumbling grew louder like a thunderstorm approaching.<br>
+        <em> It</em> was getting closer</p>
+      <p><em>Focus! Perhaps we can mend the divide. The core was the foundation for all of the elements. Perhaps if we all took on an element and tried to call for the creator’s help one last time…</em></p>
+      <p><em></em>Someone outside screams and then — silence <em>It</em> was here</p>
+      <p> “Quick everyone if we call upon the creator one last time perhaps they can stop all of this.”</p>
+      <p>“We’ve been praying to them for years! Why is now going to be any different?”</p>
+      <p>“I’m not sure if they’ve been able to hear us, I think we need to repair the connection with The Core by each taking on a major element and performing an old ritual, one from before the era of progress.”</p>
+      <p>They each carve symbols and glyphs all over their bodies, beneath their feathers and into their flesh. They position themselves in the elemental order around a golden wire-frame icosahedron, each holding hands and chanting the old phrase, barely recognizable after how much their language has changed since.<br>
+        They all feel some kind of energy and the artifact in the center begins to glow and float, and then… nothing.</p>
+      <p>The artifact drops to the ground and nothing happens. Everything is still...</p>
+      <p>“What ha-”</p>
+      <p><em>It</em>, the thing that was no longer Au’Uuvori, blasted a hole in the side of the building the group was hiding in. It smiles.</p>
+      <p>“There you are!”</p>
+      <p>It grabs Ia’Orla, the Au’Uuvori representing the element of chaos, by the neck and into the air, igniting fae in the process. It throws faer charred body to the ground and makes its way over to kill the rest of the group, but as it tries to summon a ball of fire, a little spark appears and fizzles out.</p>
+      <p>Everyone is stunned: terrified and confused.</p>
+      <p>It decided to just charge at Eu’Vothiel instead, but Au’Riivane picked up a rock and smashed it into the back of the creature’s skull. It falls to the ground with a shriek. She straddles the creature and keeps bashing the rock into its face until just a bloody crater is left. The remaining 5 look at each other and without a word they run out of the building, through the hole <em>it</em> had come in through. </p>
+<div class="scene-break"></div>
+
+      <p>The sky outside was dark despite Ae’Uuvoria being high in the sky, just a little after midday. Above was just ash and smoke as if a volcano erupted around the entire planet. This had been the case for several months now, almost all the plants and animals were dead. It was quiet outside the city. There was nothing left to make a single noise.</p>
+      <p>The group gathered in a field far outside the city to talk about what just happened.</p>
+      <p>“It killed Orla!” Oa’Iloris said, almost completely breaking down.</p>
+      <p>“Why did it stop?” Riivane asked.</p>
+      <p>Au’Yovane was standing a bit off from the group, picking the dried blood out of eyr feathers as ey stared off towards the burning city</p>
+      <p>“Yovane! Why the in the void would you think that our creator, who I don’t know if you remember ABANDONED US and left us all to die, would come back and whisk us away to safety” Eu’Vothiel</p>
+      <p>Not turning around Yovane responds quietly “It worked, not as intended but… it worked”</p>
+      <p>Xe responded with a scoff.</p>
+      <p>“What happened?” asked Au’Voliis, “It was going to kill us all but when it went to make the fireball, it just fizzled out. Why was it able to kill Orla but not the rest of us?”</p>
+      <p>Yovane stops picking and becomes very still, that was the connection.<em> The creature used heat based spells and magic, heat is based in nature and chaos. When it killed Orla they had removed chaos magic from the world entirely.</em></p>
+      <p>“The ritual bound us to each element, making us the avatar of that element. When it killed Orla it effectively killed chaos.”</p>
+      <p>Vothiel chuckles, “So what? You’re saying we all have to kill ourselves to fix this shitshow?”</p>
+      <p>“Yes”</p>
+      <p>“Fuck that, fuck all of this, you’re the reason the world is ending in the first place!”</p>
+      <p>Yovane goes back to fidgeting with eyr bloodied feathers</p>
+      <p>“How were ey supposed to know!” Riivane tries to defend Yovane, “It was that bitch from the cult’s fault”</p>
+      <p>“Don’t-” Yovane sighs, “it wasn’t her fault either, she… she didn’t know, no one knew that this is what would happen. We were too comfortable, relied on our caretaker to clean up our mess… every time”</p>
+      <p>A few still moments pass</p>
+      <p>“Where do we go from here?”</p>
+      <p>“Out, maybe try and find survivors or... to find a nice place to see one last time”</p>
+      <p>“I’m not killing myself based off of a hunch, you’re fucking crazy” Vothiel says and storms off</p>
+      <p>It’s now Yovane, Voliis, Iloris, and Riivane. Leaving the embodiments of light, order, darkness, and nature  standing in a field together under a dark sky.</p>
+      <p>“I’ve always wanted to see the (something) Forrest  during era”</p>
+      <p>Yovane turns around and is met with Riivane giving em a hug. Ey reciprocates and they give each other their final goodbyes.</p>
+      <p>Yovane is left alone.</p>
+      <p>Ey wandered for a few days, looking for survivors to help. After a few weeks Yovane  found 28 people and they end up on the west coast, ready to sail to the eastern continent. Ey spent a few years working at the largest terrestrial telescope before the banishment, it was almost entirely underground except for an elevator that went all the way to the top of mount (something). Only a few people ever worked there, Yovane figured it was well hidden and a good place to wait out the apocalypse.</p>
+		<div class="scene-break"></div>
+	  <p>After a few days of sailing they arrived on the east coast, at what used to be an old, small fishing village in the canyons, but is now completely leveled. It was also oddly cold here, snow covers the ground. It’s eerie, everyone is gone, there aren’t even bodies in the streets.</p>
+	  <p>Yovane looks down at a bracelet on eyr left wrist as the once glowing orange bead grows dim. 2/6 are gone. Ey looks back up to see a silhouette of a person that wasn’t there seconds ago.</p>
+	  <p>“<em>Hello</em>…?” Yovane called out as the group of survivors disembarked from the ship.</p>
+	  <p>Ey hears people beginning to shout from behind em and turn around. Yovane sees the water from the ocean begin to rise. </p>
+	  <p>Frantically turning back around the silhouette now inches from eyr face. The creature is smooth and featureless, all of its feathers fused into a fleshy sheet.&nbsp; &nbsp; Ey stumbles backwards into a puddle beginning to grow from the ground. The creature keeps walking forward, making Yovane crawl back towards the rising ocean. Ey finally gets enough distance to reach for eyr blade and swings at the creature’s leg.</p>
+	  <p>It falls and Yovane calls to the remaining survivors that they have to move NOW. Three had been lost, but the remaining 25 sprinted with eyr out of the town.</p>
+	  <p>It was quite a hike, but they followed the ruins of the old rail network up to the base of the mountains. A few times Yovane had thought ey was being followed. Twigs snapping, stones crunching under the group’s feet, everything put em on edge.</p>
+	  <p>It takes another couple of days but they finally reach a small door at the bottom of a cliff, however it has been somewhat buried after years of neglect. Yovane goes to open the door. It’s dark inside. No one had been inside since the banishment. Yovane ushers everyone inside in case that creature had followed them here. As the last survivor went inside a cloaked figure emerged from the forest. Yovane closed the bunker door and unsheathed eyr sword. The figure approached cautiously and removed her hood. It was Iu’Saevin...</p>
+		<p>[pt 2 coming soon]</p>
+<div class="story-end">◆ ◆ ◆</div>
+    </article>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONNECTED TO — like LoL's "related champions".
+         Copy an <a class="rel"> block to add one.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label">Connected to</div>
+
+    <div class="related">
+      <a class="rel" href="ae-uuvoria.html">
+        <div class="rel-art"><img src="svgs/star.svg" alt="" style="object-fit: contain; padding: 1.5rem;"></div>
+        <div class="rel-text"><div class="rel-name">Ae'Uuvoria</div><div class="rel-why">The Architect the Librarian still speaks with</div></div>
+      </a>
+      <a class="rel" href="oa-veyra.html">
+        <div class="rel-art"><img src="svgs/planet3.svg" alt="" style="object-fit: contain; padding: 1rem;"></div>
+        <div class="rel-text"><div class="rel-name">Oa'Veyra</div><div class="rel-why">Location</div></div>
+      </a>
+      <a class="rel" href="magic.html#eras">
+        <div class="rel-art">
+          <svg width="56" height="56" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.6"><polygon points="6.5,3.2 15.5,3.2 20,11 15.5,18.8 6.5,18.8 2,11"/><circle cx="11" cy="11" r="1.6" fill="#c8b882"/></svg>
+        </div>
+        <div class="rel-text"><div class="rel-name">The Eras of Magic</div><div class="rel-why">Survived the Era of Darkness</div></div>
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>
