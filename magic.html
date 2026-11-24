@@ -254,6 +254,51 @@
       .era { grid-template-columns: 1fr; gap: 0.5rem; }
       .panel { min-height: 0; }
     }
+
+    /* ═════════════════════════════════════════════════════
+       THE NIGHT SKY — the star charts and the sky wheel
+    ═════════════════════════════════════════════════════ */
+    .sky-tabs { display: flex; justify-content: center; gap: 0.5rem; margin: 2rem 0 1rem; }
+    .sky-tab {
+      font: inherit; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #7a7060; background: none; border: 0.5px solid #2a2420;
+      padding: 0.5rem 1rem; cursor: pointer; transition: color 0.2s, border-color 0.2s;
+    }
+    .sky-tab:hover { color: #c8b882; }
+    .sky-tab.active { color: #c8b882; border-color: #c8b882; }
+    .chart { max-width: 760px; margin: 0 auto; }
+    .chart.wide-img { background: #0a0f24; }
+
+    .wheel-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 2.5rem;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+    #sky-wheel { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; border-radius: 50%; }
+    .sky-controls label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #7a7060;
+      margin: 1.4rem 0 0.5rem;
+    }
+    .sky-controls label:first-child { margin-top: 0; }
+    .sky-controls label output { font-size: 14px; letter-spacing: 0.04em; text-transform: none; color: #e8e0d0; }
+    .sky-controls input[type=range] { width: 100%; accent-color: #c8b882; }
+    .places { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
+    .places button, #sky-play, #sky-labels {
+      font: inherit; font-size: 11px; color: #9a8f7a; background: none;
+      border: 0.5px solid #2a2420; padding: 0.3rem 0.6rem; cursor: pointer;
+    }
+    .places button:hover, #sky-play:hover, #sky-labels:hover { color: #c8b882; border-color: #c8b882; }
+    .sky-buttons { display: flex; gap: 0.5rem; margin-top: 1.4rem; }
+    .sky-key { margin-top: 1.6rem; font-size: 13px; line-height: 1.8; color: #9a8f7a; }
+    .sky-key div { display: flex; align-items: center; gap: 0.6rem; }
+    .sky-key i { flex-shrink: 0; width: 18px; height: 10px; }
+    .sky-note { font-size: 13px; font-style: italic; color: #7a7060; margin-top: 1rem; line-height: 1.6; }
+    @media (max-width: 760px) {
+      .wheel-box { grid-template-columns: 1fr; }
+    }
   </style>
   <script src="site.js" defer></script>
 </head>
@@ -485,6 +530,49 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════════════
+         THE NIGHT SKY
+         The pictures are in images/sky/. Each has a lighter
+         -web copy for the page and a bigger one that opens
+         when you click.
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="sky">The night sky</div>
+    <p class="lede">The northern sky over Oa'Veyra, split into the element regions. The whole sky turns around the bright pole star at the center, once every 38.4-hour day. Where you stand and the season change which constellations are above you, and a constellation is strongest when it's straight overhead.</p>
+
+    <div class="sky-tabs">
+      <button class="sky-tab active" data-chart="constellations">Constellations</button>
+      <button class="sky-tab" data-chart="starfield">Every star</button>
+    </div>
+    <a class="wide-img chart" id="chart" data-zoom="images/sky/constellations.webp">
+      <img id="chart-img" src="images/sky/constellations-web.webp" alt="Star chart of the northern sky, with the element regions and constellations">
+    </a>
+
+    <!-- The sky wheel. Settings are in the SKY list in the script at the bottom. -->
+    <div class="wheel-box">
+      <canvas id="sky-wheel" width="600" height="600" aria-label="The northern sky, showing which parts are above the horizon"></canvas>
+      <div class="sky-controls">
+        <label for="sky-lat">Where you stand <output id="sky-lat-out"></output></label>
+        <input type="range" id="sky-lat" min="0" max="90" step="1">
+        <div class="places" id="sky-places"></div>
+
+        <label for="sky-season">Season, at midnight <output id="sky-season-out"></output></label>
+        <input type="range" id="sky-season" min="0" max="1000" step="1" value="0">
+
+        <div class="sky-buttons">
+          <button id="sky-play" type="button">&#9654; Play the year</button>
+          <button id="sky-labels" type="button">Labels on</button>
+        </div>
+
+        <div class="sky-key">
+          <div><i style="background:rgba(240,199,92,0.55)"></i>Above the horizon. Brighter is higher, so stronger.</div>
+          <div><i style="background:#04050e;border:0.5px solid #2a2420"></i>Below the horizon. Can't be used.</div>
+          <div><i style="border-top:1.5px dashed #fff;height:0"></i>Never sets, from here.</div>
+          <div><i style="border-top:1.5px dotted #f0c75c;height:0"></i>Passes straight overhead.</div>
+        </div>
+        <p class="sky-note" id="sky-note"></p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
          MAGIC TODAY
     ════════════════════════════════════════════════════════ -->
     <div class="section-label" id="today">Magic today</div>
@@ -569,6 +657,158 @@
         });
       });
     });
+  </script>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       THE NIGHT SKY — chart switcher and sky wheel
+  ════════════════════════════════════════════════════════ -->
+  <script>
+    // ─── Settings you can change ──────────────────────────
+    const SKY = {
+      // Quick-pick places. The latitudes are guesses, change them to match your map!
+      places: [
+        { name: "Makk'ar forests", lat: 55 },
+        { name: "Glass City",      lat: 25 },
+        { name: "Equator",         lat: 0 },
+        { name: "North pole",      lat: 90 },
+      ],
+      startLat: 25,
+      // The four Isikitem seasons, in order through the year
+      seasons: ["Era of Rebirth", "Era of Endurance", "Era of Plenty", "Era of …"],
+      dayHours: 38.4,
+      // Where the sky circle sits in the chart picture (center, and radius as a share of the width)
+      chartCenter: 0.5,
+      chartRadius: 0.463,
+      // Element regions and their colors, for the labels (angle: 90 = top)
+      regions: [["Water",90,"#5da8dc"],["Darkness",30,"#a479f5"],["Chaos",-30,"#d9579a"],
+                ["Nature",-90,"#e3973b"],["Light",210,"#f0c75c"],["Order",150,"#97c355"]],
+    };
+
+    // ─── Chart switcher ───────────────────────────────────
+    document.querySelectorAll(".sky-tab").forEach(tab => tab.addEventListener("click", () => {
+      document.querySelectorAll(".sky-tab").forEach(t => t.classList.toggle("active", t === tab));
+      const n = tab.dataset.chart;
+      document.getElementById("chart-img").src = `images/sky/${n}-web.webp`;
+      document.getElementById("chart").dataset.zoom = `images/sky/${n}.webp`;
+    }));
+
+    // ─── The sky wheel ────────────────────────────────────
+    // How it works: every pixel of the chart is a point in the sky. For the chosen
+    // place and moment, we work out how high that point is above the horizon,
+    // then darken it if it's below, or glow it gold if it's above.
+    (function () {
+      const cv = document.getElementById("sky-wheel"), ctx = cv.getContext("2d");
+      const N = cv.width, C = N / 2, R = N / 2 - 4;
+      const lat = document.getElementById("sky-lat"), season = document.getElementById("sky-season");
+      let labels = true;
+
+      // pre-work out each pixel's position in the sky (only once)
+      const sinD = new Float32Array(N * N), cosD = new Float32Array(N * N), ang = new Float32Array(N * N), inside = new Uint8Array(N * N);
+      for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+        const i = y * N + x, dx = x - C, dy = y - C, r = Math.hypot(dx, dy);
+        if (r > R) continue;
+        inside[i] = 1;
+        const dec = Math.PI / 2 * (1 - r / R);           // center = pole, edge = equator
+        sinD[i] = Math.sin(dec); cosD[i] = Math.cos(dec); ang[i] = Math.atan2(dy, dx);
+      }
+      const shade = document.createElement("canvas"); shade.width = shade.height = N;
+      const sctx = shade.getContext("2d"), img = sctx.createImageData(N, N);
+
+      // the chart picture, cropped to just the sky circle
+      const chart = new Image();
+      chart.src = "images/sky/constellations-web.webp";
+      chart.onload = draw;
+
+      lat.value = SKY.startLat;
+      document.getElementById("sky-places").innerHTML = SKY.places.map(p => `<button type="button" data-lat="${p.lat}">${p.name}</button>`).join("");
+      document.getElementById("sky-places").addEventListener("click", e => {
+        const b = e.target.closest("button"); if (!b) return;
+        lat.value = b.dataset.lat; draw();
+      });
+
+      function draw() {
+        const latDeg = +lat.value, L = latDeg * Math.PI / 180, sl = Math.sin(L), cl = Math.cos(L);
+        const s = +season.value / 1000;                   // 0..1 through the year
+        // the sky at midnight turns once over the whole year
+        const turn = s * 2 * Math.PI;
+        const o = Math.PI / 2 + turn;
+
+        // darkness and glow, pixel by pixel
+        const D = img.data;
+        for (let i = 0; i < N * N; i++) {
+          const j = i * 4;
+          if (!inside[i]) { D[j + 3] = 0; continue; }
+          const alt = sl * sinD[i] + cl * cosD[i] * Math.cos(ang[i] - o);
+          if (alt < 0) { D[j] = 4; D[j + 1] = 5; D[j + 2] = 14; D[j + 3] = 215; }
+          else { D[j] = 240; D[j + 1] = 199; D[j + 2] = 92; D[j + 3] = Math.round(90 * Math.pow(alt, 1.6)); }
+        }
+        sctx.putImageData(img, 0, 0);
+
+        ctx.clearRect(0, 0, N, N);
+        ctx.save(); ctx.beginPath(); ctx.arc(C, C, R, 0, Math.PI * 2); ctx.clip();
+        if (chart.complete && chart.naturalWidth) {
+          const W = chart.naturalWidth, cr = W * SKY.chartRadius, cc = W * SKY.chartCenter;
+          ctx.drawImage(chart, cc - cr, cc - cr, cr * 2, cr * 2, C - R, C - R, R * 2, R * 2);
+        } else { ctx.fillStyle = "#0b1026"; ctx.fillRect(0, 0, N, N); }
+        ctx.drawImage(shade, 0, 0);
+        ctx.restore();
+
+        // the two rings and the overhead point
+        ctx.lineWidth = 1.5;
+        if (latDeg > 0) { ctx.setLineDash([7, 6]); ctx.strokeStyle = "rgba(255,255,255,0.85)"; ctx.beginPath(); ctx.arc(C, C, R * latDeg / 90, 0, Math.PI * 2); ctx.stroke(); }
+        if (latDeg < 90) { ctx.setLineDash([2, 5]); ctx.strokeStyle = "#f0c75c"; ctx.beginPath(); ctx.arc(C, C, R * (90 - latDeg) / 90, 0, Math.PI * 2); ctx.stroke(); }
+        ctx.setLineDash([]);
+        const zr = R * (90 - latDeg) / 90;
+        ctx.fillStyle = "#f0c75c"; ctx.beginPath(); ctx.arc(C + zr * Math.cos(o), C + zr * Math.sin(o), 5, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "rgba(170,185,215,0.9)"; ctx.beginPath(); ctx.arc(C, C, R, 0, Math.PI * 2); ctx.stroke();
+
+        // element names in each region
+        if (labels) {
+          ctx.font = "500 13px 'Palatino Linotype', Palatino, serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+          const hexR = R / 3, side = hexR * Math.sqrt(3);
+          for (const [name, deg, color] of SKY.regions) {
+            const r = hexR * Math.sqrt(3) / 2 + side / 2, a = deg * Math.PI / 180;
+            const x = C + r * Math.cos(a), y = C - r * Math.sin(a), w = ctx.measureText(name).width;
+            ctx.fillStyle = "rgba(8,10,24,0.7)"; ctx.fillRect(x - w / 2 - 5, y - 10, w + 10, 20);
+            ctx.fillStyle = color; ctx.fillText(name, x, y);
+          }
+        }
+
+        // readouts
+        document.getElementById("sky-lat-out").textContent = latDeg + "° N";
+        const q = Math.min(3, Math.floor(s * 4));
+        document.getElementById("sky-season-out").textContent = SKY.seasons[q];
+        document.getElementById("sky-note").textContent =
+          latDeg === 0 ? "At the equator nothing stays up all night: every constellation rises and sets." :
+          latDeg === 90 ? "At the pole nothing ever rises or sets. Half the sky is always up, the other half never." :
+          `From ${latDeg}° N, everything inside the dashed circle is up all night, all year.`;
+      }
+
+      [lat, season].forEach(el => el.addEventListener("input", draw));
+      document.getElementById("sky-labels").addEventListener("click", e => {
+        labels = !labels; e.target.textContent = labels ? "Labels on" : "Labels off"; draw();
+      });
+
+      // play: runs through the year
+      let playing = false, last = 0;
+      const play = document.getElementById("sky-play");
+      function tick(now) {
+        if (!playing) return;
+        if (now - last > 40) {
+          last = now;
+          season.value = (+season.value + 4) % 1001; draw();
+        }
+        requestAnimationFrame(tick);
+      }
+      play.addEventListener("click", () => {
+        playing = !playing;
+        play.innerHTML = playing ? "&#10074;&#10074; Pause" : "&#9654; Play the year";
+        if (playing) requestAnimationFrame(tick);
+      });
+
+      draw();
+    })();
   </script>
 
 </body>
