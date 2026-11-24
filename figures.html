@@ -82,6 +82,87 @@
       opacity: 0.5;
     }
 
+    /* ─── Groups ─────────────────────────────────────────── */
+    .group { margin-top: 4.5rem; }
+    .group:first-child { margin-top: 0; }
+    .group-label { margin-bottom: 1rem; }
+    .group-intro {
+      max-width: 620px; margin: 0 auto 1.8rem; text-align: center;
+      font-size: 14.5px; line-height: 1.75; color: #9a8f7a;
+    }
+    .group-intro a { color: #e8e0d0; text-decoration: none; border-bottom: 0.5px solid #4a4440; }
+    button.card { font: inherit; color: inherit; padding: 0; cursor: pointer; width: 100%; text-align: left; }
+    .card .initials {          /* big faint letters until there's a portrait */
+      position: absolute; inset: 0 0 25% 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 54px; letter-spacing: 0.08em; color: color-mix(in srgb, var(--accent) 30%, #2a2420);
+    }
+    .card .card-tag {          /* "profile" vs "full page" */
+      position: absolute; top: 0.8rem; right: 0.9rem; z-index: 2;
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #4a4440;
+    }
+
+    /* ═════════════════════════════════════════════════════
+       PROFILE BOX — opens when you click a profile card
+    ═════════════════════════════════════════════════════ */
+    .profile-bg {
+      position: fixed; inset: 0; z-index: 250;
+      background: rgba(5,5,5,0.82);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      animation: pf-in 0.2s ease-out;
+    }
+    @keyframes pf-in { from { opacity: 0; } to { opacity: 1; } }
+    .profile {
+      position: relative;
+      width: 100%; max-width: 700px; max-height: 100%; overflow-y: auto;
+      background: #0e0d0c;
+      border: 0.5px solid #2a2420; border-top: 2px solid var(--accent);
+      display: grid; grid-template-columns: 200px 1fr;
+    }
+    .pf-art {
+      position: relative; min-height: 260px;
+      background: radial-gradient(ellipse at 50% 35%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%), #0a0a0a;
+      border-right: 0.5px solid #2a2420;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 60px; letter-spacing: 0.08em; color: color-mix(in srgb, var(--accent) 35%, #2a2420);
+    }
+    .pf-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .pf-body { padding: 1.8rem 2rem 2rem; }
+    .pf-title { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); }
+    .pf-body h2 { font-size: 24px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; margin: 0.4rem 0 0.2rem; }
+    .pf-aka { font-size: 13px; font-style: italic; color: #7a7060; }
+    .pf-facts { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; margin: 1.2rem 0; padding: 1rem 0; border-top: 0.5px solid #2a2420; border-bottom: 0.5px solid #2a2420; font-size: 13.5px; }
+    .pf-facts dt { font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #7a7060; padding-top: 0.2rem; }
+    .pf-facts dd { color: #e8e0d0; }
+    .pf-body p { font-size: 15px; line-height: 1.75; color: #b8ae9a; }
+    .pf-body p + p { margin-top: 0.7rem; }
+    .pf-body a { color: #e8e0d0; text-decoration: none; border-bottom: 0.5px solid #4a4440; }
+    .pf-body a:hover { border-color: var(--accent); }
+    .pf-close {
+      position: absolute; top: 0.6rem; right: 0.7rem; z-index: 2;
+      background: none; border: none; color: #7a7060; font-size: 22px; cursor: pointer; line-height: 1;
+    }
+    .pf-close:hover { color: #e8e0d0; }
+
+    /* spoilers: hidden until clicked */
+    .spoiler { margin-top: 1.3rem; border: 0.5px dashed #3a3430; }
+    .spoiler summary {
+      cursor: pointer; padding: 0.6rem 0.9rem; list-style: none;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #9a8f7a;
+    }
+    .spoiler summary::-webkit-details-marker { display: none; }
+    .spoiler summary::before { content: "\25B8  "; }
+    .spoiler[open] summary::before { content: "\25BE  "; }
+    .spoiler[open] summary { color: var(--accent); }
+    .spoiler div { padding: 0 0.9rem 0.9rem; font-size: 14.5px; line-height: 1.7; color: #b8ae9a; }
+
+    @media (max-width: 640px) {
+      .profile { grid-template-columns: 1fr; }
+      .pf-art { min-height: 150px; border-right: none; border-bottom: 0.5px solid #2a2420; }
+      .pf-body { padding: 1.4rem 1.3rem 1.6rem; }
+    }
+
     footer { margin-top: 5rem; }
   </style>
   <script src="site.js" defer></script>
@@ -114,11 +195,11 @@
   <header class="figures-hero">
     <div class="kicker">The people who shaped the world</div>
     <h1>Key Figures</h1>
-    <p>Architects, ancients, and the people of Oa'Veyra today. Select a figure to read their story.</p>
+    <p>Architects, ancients, and the people of Oa'Veyra today. Select a figure to read about them.</p>
   </header>
 
   <div class="wrap">
-    <div class="grid" id="grid"></div>
+    <div id="groups"></div>
   </div>
 
   <footer>
@@ -127,36 +208,189 @@
 
   <script>
     // ═══════════════════════════════════════════════════════════
-    //  FIGURES — one line per character card.
-    //    name    — their name
-    //    title   — the small line above the name ("The Librarian")
-    //    href    — their page ("" = no page yet, the card is dimmed)
-    //    img     — portrait art, tall works best (3:4). "" = none yet
-    //    contain — true for art that shouldn't be cropped (like the star)
-    //    accent  — their color (same as --accent on their page)
+    //  FIGURES — grouped into sections. One { } per character.
+    //
+    //  Every card has:
+    //    name    their name
+    //    title   the small line above the name
+    //    img     portrait art, tall works best (3:4). "" = none yet
+    //    accent  their color (species colors work well)
+    //
+    //  Then EITHER:
+    //    href    their own full page (for big characters)
+    //  OR a profile that opens in a box when you click:
+    //    id      a short name with no spaces, so links like
+    //            figures.html#thar-vashek open their profile
+    //    aka     other names (optional)
+    //    facts   little label/value pairs, HTML is fine
+    //    about   paragraphs about them
+    //    spoiler hidden until someone clicks it (optional)
+    //
+    //  A character can move from a profile to a full page any
+    //  time: just give them an href.
     // ═══════════════════════════════════════════════════════════
-    const FIGURES = [
-      { name: "Eo'Saevoria", title: "The Librarian", href: "eo-saevoria.html", img: "images/eo-saevoria.jpg", accent: "#c8b882" },
-      { name: "Ae'Uuvoria", title: "The Δ Architect", href: "ae-uuvoria.html", img: "svgs/star.svg", contain: true, accent: "#9fc0ff" },
+    const GROUPS = [
+      {
+        label: "Gods & legends",
+        items: [
+          { name: "Eo'Saevoria", title: "The Librarian", href: "eo-saevoria.html", img: "images/eo-saevoria.jpg", accent: "#c8b882" },
+          { name: "Ae'Uuvoria", title: "The Δ Architect", href: "ae-uuvoria.html", img: "svgs/star.svg", contain: true, accent: "#9fc0ff" },
+        ]
+      },
+      {
+        label: "The Glass City council",
+        intro: "The local government of the <a href=\"glass-city.html#council\">Glass City</a>, meets in the Spire. Mostly young heirs of the Makk'ar ruling families, sent to prove themselves. They're ambitious, reckless, and always competing, however the advisor's veto keeps their tantrums from doing too much damage.",
+        items: [
+          { id: "thar-vashek", name: "Thar'Vashek", title: "Heir of the Thar family", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "he/him", Lives: "<a href=\"glass-city.html#d-argent\">The Argent</a>" },
+            about: [
+              "A young heir who never stops talking about &ldquo;innovation&rdquo; and &ldquo;unlocking the ancients' potential&rdquo;... whatever that means.",
+              "His parents were always too busy with trade and politics to give him much attention. He wants to put his name on a major discovery and/or have a tighter grip on the <a href=\"fulgari.html\">Fulgari</a>, to finally get his parents attention and more than a &ldquo;that's nice, honey.&rdquo; However sad or pathetic this may be, it certainly does not justify &ldquo;doing a facism.&rdquo;",
+            ],
+            spoiler: "Heir behind the false flag operation. He wants a crackdown on the Fulgari as well as whatever is behind the sealed door at the bottom of the <a href=\"glass-city.html#sink\">Sink</a>." },
+
+          { id: "med-ishka", name: "Med'Ishka", title: "Heir of the Med family", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "he/him", Lives: "<a href=\"glass-city.html#d-argent\">The Argent</a>", Family: "Med'Ambrasha's nephew by marriage" },
+            about: [ "Cautious and pragmatic." ],
+		  },
+
+          { id: "esh-vellan", name: "Esh'Vellan", title: "Heir of the Esh family", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "he/him", Lives: "<a href=\"glass-city.html#d-argent\">The Argent</a>" },
+            about: [ "Pious, polished, and obsessed with appearances. Always seen in the <a href=\"glass-city.html#d-arcade\">Arcade</a>." ] },
+
+          { id: "mok-drassa", name: "Mok'Drassa", title: "Heir of the Mok family", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "she/her", Lives: "<a href=\"glass-city.html#d-argent\">The Argent</a>", Role: "Runs the treasury in the Spire" },
+            about: [ "Cynical, and careful with money." ],
+            spoiler: "The fresh-minted Bi used to buy the bombing charges came from the treasury. Someone with access took it: <a href=\"#thar-vashek\">Thar'Vashek</a>." },
+
+          { id: "lumi-lathekel", name: "Lumi Lathekel", title: "Isikitem trade seat", img: "", accent: "#5da8dc",
+            facts: { Species: "<a href=\"isikitem.html\">Isikitem</a>", Pronouns: "she/her", From: "The Northern Isikitem Territory" },
+            about: [ "Keeps trade and the railway running between the Glass City and the Isikitem lands. Put on the council to keep trade with the Isikitem steady." ],
+		  },
+
+          { id: "lustre", name: "Lustre", title: "Fulgari seat", aka: "Fulgari name: Saiarng", img: "", accent: "#f0c75c",
+            facts: { Species: "<a href=\"fulgari.html\">Fulgari</a>", Pronouns: "they/them", Lives: "<a href=\"glass-city.html#d-argent\">The Argent</a>", Family: "Parent of <a href=\"#beerair\">Beerair</a>" },
+            about: [
+              "Head of the wealthiest Fulgari family, who made their fortune by welcoming the Makk'ar and exploiting other Fulgari.",
+              "Seen as a traitor by the <a href=\"fulgari.html#groups\">Insurgents</a>, and as a puppet by most others. Put on the council to <em>attempt</em> to quell political unrest.",
+            ] },
+
+          { id: "varr-okhesh", name: "Varr'Okhesh", title: "The advisor", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "she/her", Works: "<a href=\"glass-city.html#d-spire\">The Spire</a>" },
+            about: [
+              "The Makk'ar advisor. She sits above the council and holds the veto over anything that &ldquo;affects trade.&rdquo;",
+              "An older bureaucrat who just wants a quiet posting. She'd rather not know what the heirs are up to.",
+            ] },
+        ]
+      },
+      {
+        label: "The Foundation of Knowledge",
+        intro: "Department heads of The Glass City branch of the <a href=\"makkar.html#foundation\">Kar'avaakro Makrhoto</a> aka the Makk'ar academy.",
+        items: [
+          { id: "rhak-kashka", name: "Rhak'Kashka", title: "Director of Materials Study", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "she/her", Department: "<a href=\"makkar.html#foundation\">Materials Study</a>", Family: "The Rhak family, academics with no council seat" },
+            about: [
+              "Runs the materials department, freshly handed a huge grant to reverse engineer the ancients' building material.",
+              "Did her military service like every Makk'ar, and still carries an iron hammer. Very much dissaproves of the council and doesn't do a great job of hidng it.",
+            ],
+            spoiler: "She isn't actually &ldquo;out on business. She is currently trapped down there. She also never returned the old Sink survey maps the archive pulled for her." },
+
+          { id: "orr-varrika", name: "Orr'Varrika", title: "Director of Astronomy &amp; Enchantments", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "they/them", Department: "<a href=\"magic.html#sky\">Astronomy</a>" },
+            about: [
+              "Smooth, polite, and very careful never to upset the merchant families who fund them.",
+              "On the hunt for a constellation that can heal.",
+            ] },
+
+          { id: "mira-muzelis", name: "Mira Muzelis", title: "Director of Biology", img: "", accent: "#5da8dc",
+            facts: { Species: "<a href=\"isikitem.html\">Isikitem</a>", Pronouns: "she/her", From: "The northern Isikitem", Department: "Biology" },
+            about: [
+              "Warm, diplomatic, and very good at keeping Makk'ar funders happy.",
+              "Boss to Hiri Hedgens, the two of them seem like total opposites&hellip;",
+            ],
+            spoiler: "&hellip;but that's just because she's better at hiding it. She would love to <del>dissect</del> an escaped member of <a href=\"the-grove.html\">the Grove</a>." },
+
+          { id: "beerair", name: "Ember", title: "Director of Mechanics", aka: "Fulgari name: Beerair", img: "", accent: "#f0c75c",
+            facts: { Species: "<a href=\"fulgari.html\">Fulgari</a>", Pronouns: "she/her", Department: "Mechanics", Family: "Child of <a href=\"#lustre\">Lustre</a>" },
+            about: [
+              "Runs the department working on steam power and ancient technology. Nepo baby.",
+              "Child of the wealthiest Fulgari family, who made their fortune by welcoming the Makk'ar and exploiting other Fulgari.",
+            ] },
+
+          { id: "shah-gheshkar", name: "Shah'Gheshkar", title: "History &amp; Linguistics", img: "", accent: "#97c355",
+            facts: { Species: "MAKKAR", Pronouns: "he/she", Department: "History &amp; Linguistics" },
+            about: [
+              "Old, pompous, and the main source of most of the &ldquo;Makk'ar-washed&rdquo; history.",
+              "A relic seeker. He wants anything and everything ancient to &ldquo;keep it safe&rdquo; in the <del>British Museum</del> Foundation archives.",
+            ] },
+        ]
+      },
     ];
 
     // ═══════════════════════════════════════════════════════════
     //  ENGINE — no need to edit below this line
     // ═══════════════════════════════════════════════════════════
     const CORE = `<svg width="64" height="64" viewBox="0 0 22 22" fill="none" stroke="#c8b882" stroke-width="0.6"><polygon points="6.5,3.2 15.5,3.2 20,11 15.5,18.8 6.5,18.8 2,11"/><circle cx="11" cy="11" r="1.6" fill="#c8b882"/></svg>`;
+    const fill = html => html.replaceAll("MAKKAR", "<a href=\"makkar.html\">Makk'ar</a>");
+    const initials = name => name.split(/['\s]/).filter(Boolean).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+    const PROFILES = {};
 
-    document.getElementById("grid").innerHTML = FIGURES.map(f => {
+    function card(f) {
+      const blank = f.href ? `<div class="glyph">${CORE}</div>` : `<div class="initials">${initials(f.name)}</div>`;
       const art = f.img
-        ? `<div class="glyph">${CORE}</div><img src="${f.img}" alt=""${f.contain ? ' class="contain"' : ""} onload="this.previousElementSibling.remove()" onerror="this.remove()">`
-        : `<div class="glyph">${CORE}</div>`;
-      return `<a class="card${f.href ? "" : " soon"}" href="${f.href || "#"}" style="--accent:${f.accent || "#c8b882"}">
-        ${art}
-        <div class="card-text">
-          <div class="card-title">${f.title}</div>
-          <div class="card-name">${f.name}</div>
-        </div>
-      </a>`;
-    }).join("");
+        ? `${blank}<img src="${f.img}" alt=""${f.contain ? ' class="contain"' : ""} onload="this.previousElementSibling.remove()" onerror="this.remove()">`
+        : blank;
+      const text = `<div class="card-text"><div class="card-title">${f.title}</div><div class="card-name">${f.name}</div></div>`;
+      if (f.href) return `<a class="card" href="${f.href}" style="--accent:${f.accent}">${art}${text}</a>`;
+      if (f.id) { PROFILES[f.id] = f; return `<button type="button" class="card" data-id="${f.id}" style="--accent:${f.accent}">${art}<span class="card-tag">Profile</span>${text}</button>`; }
+      return `<div class="card soon" style="--accent:${f.accent}">${art}${text}</div>`;
+    }
+
+    document.getElementById("groups").innerHTML = GROUPS.map(g => `
+      <section class="group">
+        <div class="section-label group-label">${g.label}</div>
+        ${g.intro ? `<p class="group-intro">${g.intro}</p>` : ""}
+        <div class="grid">${g.items.map(card).join("")}</div>
+      </section>`).join("");
+
+    // the profile box
+    function openProfile(id, fromLink) {
+      const f = PROFILES[id];
+      if (!f) return;
+      closeProfile();
+      const facts = Object.entries(f.facts || {}).map(([k, v]) => `<dt>${k}</dt><dd>${fill(v)}</dd>`).join("");
+      const bg = document.createElement("div");
+      bg.className = "profile-bg";
+      bg.innerHTML = `
+        <article class="profile" style="--accent:${f.accent}" role="dialog" aria-label="${f.name}">
+          <button class="pf-close" aria-label="Close">&times;</button>
+          <div class="pf-art">${initials(f.name)}${f.img ? `<img src="${f.img}" alt="${f.name}" onerror="this.remove()">` : ""}</div>
+          <div class="pf-body">
+            <div class="pf-title">${f.title}</div>
+            <h2>${f.name}</h2>
+            ${f.aka ? `<div class="pf-aka">${f.aka}</div>` : ""}
+            ${facts ? `<dl class="pf-facts">${facts}</dl>` : ""}
+            ${(f.about || []).map(p => `<p>${fill(p)}</p>`).join("")}
+            ${f.spoiler ? `<details class="spoiler"><summary>Spoiler, click to reveal</summary><div>${fill(f.spoiler)}</div></details>` : ""}
+          </div>
+        </article>`;
+      bg.addEventListener("click", e => { if (e.target === bg || e.target.closest(".pf-close")) closeProfile(); });
+      document.body.appendChild(bg);
+      if (!fromLink) history.replaceState(null, "", "#" + id);
+    }
+    function closeProfile() {
+      document.querySelectorAll(".profile-bg").forEach(b => b.remove());
+      if (location.hash) history.replaceState(null, "", location.pathname);
+    }
+    document.addEventListener("click", e => {
+      const c = e.target.closest("button.card[data-id]");
+      if (c) openProfile(c.dataset.id);
+      const inner = e.target.closest('.profile a[href^="#"]');       // links between profiles
+      if (inner) { e.preventDefault(); openProfile(inner.getAttribute("href").slice(1)); }
+    });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeProfile(); });
+    window.addEventListener("hashchange", () => openProfile(location.hash.slice(1), true));
+    if (location.hash) openProfile(location.hash.slice(1), true);
   </script>
 
 </body>

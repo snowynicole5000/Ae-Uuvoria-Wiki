@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fulgari Beads — Ae'Uuvoria</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+  <script src="beads.js" defer></script>
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       FULGARI BEADS — the look of this page only.
+       The bead writer itself is in beads.js.
+       --accent is the site gold (#c8b882), same as the menu.
+    ═══════════════════════════════════════════════════════════ */
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+    /* ─── Top of the page ─────────────────────────────────── */
+    .page-head { padding: 120px 2rem 2.2rem; text-align: center; }
+    .kicker { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); }
+    .kicker a { text-decoration: none; border-bottom: 0.5px solid #4a4440; }
+    .page-head h1 { font-weight: normal; font-size: clamp(34px, 5vw, 52px); letter-spacing: 0.04em; margin: 0.6rem 0 0.8rem; }
+    .page-head p { max-width: 640px; margin: 0 auto; color: #9a8f7a; line-height: 1.7; font-size: 16px; }
+    .page-head p b { color: #e8e0d0; font-weight: normal; }
+
+    /* ─── The two halves: typing (left), beads (right) ──────── */
+    .writer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 1.5rem; align-items: start; margin: 2rem 0 3.5rem; }
+    .left { display: grid; gap: 1.5rem; }
+    .panel { border: 0.5px solid #2a2420; background: #100f0d; padding: 1.4rem; }
+    .panel h2 { font-weight: normal; font-size: 20px; margin-bottom: 0.4rem; }
+    .hint { color: #7a7060; font-size: 14px; line-height: 1.5; margin: 0.2rem 0 0.8rem; }
+    .note { color: #e0a35a; font-size: 13px; margin-top: 0.5rem; }
+    .ipa, .chip b, .key b, #edIpa, #ipaIn { font-family: "Noto Sans", "Segoe UI", Arial, sans-serif; }
+
+    /* Words / IPA switch */
+    .tabs { display: flex; justify-content: center; gap: 0; margin-top: 1.6rem; }
+    .tabs button { background: none; border: 0.5px solid #3a3430; color: #7a7060; font: 11px 'Palatino Linotype', Palatino, Georgia, serif; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.8rem 1.4rem; cursor: pointer; min-height: 44px; }
+    .tabs button + button { border-left: none; }
+    .tabs button[aria-selected=true] { color: #0a0a0a; background: var(--accent); border-color: var(--accent); }
+
+    textarea, input[type=text] { width: 100%; background: #0a0a0a; color: #e8e0d0; border: 0.5px solid #3a3430; padding: 0.8rem 0.9rem; font: 18px/1.5 'Palatino Linotype', Palatino, Georgia, serif; }
+    textarea { min-height: 110px; resize: vertical; }
+    #ipaIn { font-size: 20px; }
+    textarea:focus, input:focus, button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+    .btn { background: none; border: 0.5px solid #3a3430; color: #c8b882; font: 11px 'Palatino Linotype', Palatino, Georgia, serif; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.7rem 1.1rem; cursor: pointer; min-height: 44px; transition: border-color 0.2s; }
+    .btn:hover { border-color: var(--accent); }
+    .row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+
+    /* The word buttons under the box */
+    .words { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .wd { background: #0a0a0a; border: 0.5px solid #3a3430; color: #e8e0d0; padding: 0.45rem 0.8rem; text-align: left; cursor: pointer; min-height: 44px; font: 15px 'Palatino Linotype', Palatino, Georgia, serif; }
+    .wd b { display: block; font-weight: normal; }
+    .wd .ipa { color: #7a7060; font-size: 13px; }
+    .wd .tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .wd.guess { border-style: dashed; border-color: #a06a2a; } .wd.guess .tag { color: #e0a35a; }
+    .wd.fix .tag { color: var(--accent); }
+    .wd[aria-pressed=true] { border-color: var(--accent); background: #1d1a12; }
+
+    /* The editor for one word */
+    .ed-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    #edWord { font-weight: normal; font-size: 24px; }
+    .badge { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #7a7060; border: 0.5px solid #3a3430; padding: 0.3rem 0.6rem; }
+    .badge.guess { color: #e0a35a; border-color: #a06a2a; } .badge.fix { color: var(--accent); border-color: var(--accent); }
+    .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin: 1.2rem 0; min-height: 60px; }
+    .chip { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; border: 0.5px solid #3a3430; background: #0a0a0a; padding: 6px 8px 4px; cursor: pointer; color: #e8e0d0; min-width: 48px; }
+    .chip svg { width: 32px; height: 32px; background: #f4efe6; border-radius: 6px; padding: 2px; }
+    .chip b { font-size: 18px; font-weight: normal; }
+    .chip.on { border-color: var(--accent); background: #1d1a12; }
+    .chip .x { position: absolute; top: -9px; right: -9px; width: 22px; height: 22px; border-radius: 50%; border: 0; background: #e8e0d0; color: #0a0a0a; font: 13px/22px Arial, sans-serif; cursor: pointer; padding: 0; }
+    .slot { width: 14px; height: 52px; border: 0; background: none; cursor: pointer; padding: 0; position: relative; }
+    .slot::after { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: #3a3430; }
+    .slot.on::after { background: var(--accent); width: 3px; left: 5px; }
+    .alts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+    .alts .btn { text-transform: none; letter-spacing: 0; font-size: 15px; color: #e8e0d0; }
+    .alts .btn.on { border-color: var(--accent); background: #1d1a12; }
+
+    /* The sound buttons (also the key) */
+    .pal h2 { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+    .pal h2 small { font-size: 12px; color: #7a7060; font-style: italic; }
+    .keys { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 6px; margin: 0.8rem 0 1.2rem; }
+    .key { display: flex; flex-direction: column; align-items: center; background: #0a0a0a; border: 0.5px solid #2a2420; color: #e8e0d0; padding: 6px 2px 5px; cursor: pointer; font: 12px 'Palatino Linotype', Palatino, Georgia, serif; min-height: 44px; transition: border-color 0.2s; }
+    .key:hover { border-color: var(--accent); }
+    .key svg { width: 38px; height: 38px; background: #f4efe6; border-radius: 6px; padding: 3px; }
+    .key b { font-size: 17px; font-weight: normal; line-height: 1.3; }
+    .key span { color: #7a7060; line-height: 1.1; }
+	.key span b { font-size: inherit; font-family: inherit; font-weight: bold; color: #e8e0d0; }
+
+    /* The bead board. Its colors are set here:
+         background   — behind the beads (#100f0d = same as the panels)
+         --string     — the string and the knots between words
+         --label      — the sound written beside each bead
+         --label-dim  — the word written beside its first bead
+         --bead-edge  — outline for dark beads, so they show on a dark board
+         --glass      — how see-through glass beads are (0 = clear, 1 = solid) */
+    .boardwrap { position: sticky; top: 72px; }
+    .tools { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; align-items: center; margin-bottom: 0.8rem; font-size: 14px; color: #9a8f7a; }
+    .tools label { display: flex; gap: 0.45rem; align-items: center; cursor: pointer; min-height: 44px; }
+    .tools input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--accent); }
+    .tools input[type=range] { width: 110px; accent-color: var(--accent); }
+    .board { background: #100f0d; --string: #c8b882; --label: #9a8f7a; --label-dim: #5a5248; --bead-edge: #7a7060; --glass: 0.14; border: 0.5px solid #2a2420; overflow: auto; max-height: calc(100vh - 170px); min-height: 340px; padding: 10px; }
+    .board svg { display: block; margin: 0 auto; }
+    .board .bead { cursor: pointer; }
+    .board .bead.sel { filter: drop-shadow(0 0 6px #c8b882); }
+    .empty { color: #7a7060; text-align: center; padding: 120px 20px; font-style: italic; }
+
+    /* Saved-image popup and little messages */
+    .modal { position: fixed; inset: 0; z-index: 300; background: rgba(5,5,5,0.92); display: grid; place-items: center; padding: 2rem; }
+    .modal[hidden] { display: none; }
+    .modal .panel { max-width: min(92vw, 720px); max-height: 90vh; overflow: auto; text-align: center; }
+    .modal img { max-width: 100%; max-height: 65vh; background: #fff; }
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #e8e0d0; color: #0a0a0a; padding: 0.7rem 1.2rem; font-size: 14px; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 400; }
+    .toast.show { opacity: 1; }
+
+    .key-chart { margin-bottom: 4rem; }
+    .section-label { margin-bottom: 1.5rem; }
+
+    /* ─── Phones and narrow windows: input, beads, editor, key ── */
+    @media (max-width: 960px) {
+      .writer { grid-template-columns: minmax(0, 1fr); }
+      .left { display: contents; }
+      .boardwrap { position: static; order: -1; }
+      #inCard { order: -2; }
+      .board { max-height: 70vh; }
+      .wrap { padding: 0 1rem 3rem; }
+    }
+  </style>
+</head>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FULGARI BEADS — write anything in the Fulgari bead language.
+     The page is in two parts: the bead writer (all its working
+     parts are in beads.js), then the original chart.
+════════════════════════════════════════════════════════════ -->
+<body style="--accent: #c8b882">
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="#c8b882" stroke-width="1.6" stroke-linejoin="round">
+        <polygon points="20,3 34.72,11.5 34.72,28.5 20,37 5.28,28.5 5.28,11.5"/>
+        <path d="M20,3 V37 M20,3 L5.28,28.5 M20,3 L34.72,28.5 M20,37 L5.28,11.5 M20,37 L34.72,11.5 M5.28,11.5 H34.72 M5.28,28.5 H34.72 M5.28,11.5 L34.72,28.5 M34.72,11.5 L5.28,28.5"/>
+      </svg>
+      Ae'Uuvoria
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planets.html">Planets</a></li>
+      <li><a href="peoples.html" class="current">Peoples</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="figures.html">Figures</a></li>
+      <li><a href="magic.html">Magic</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="a-to-z.html">Index</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-head">
+    <div class="kicker"><a href="fulgari.html#language">Fulgari</a> &nbsp;·&nbsp; Language</div>
+    <h1>Fulgari Writing</h1>
+    <p>Every bead is a sound. Its <b>shape</b> is the consonant, its <b>color</b> is the vowel after it, and <b>clear glass</b> means no vowel. Knots go between words. The consonant is read first unless there is a notch.</p>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabW" aria-selected="true">Type words</button>
+      <button role="tab" id="tabI" aria-selected="false">Type IPA</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         THE BEAD WRITER — don't rename the id="..." parts,
+         beads.js looks for them by name.
+    ════════════════════════════════════════════════════════ -->
+    <div class="writer">
+      <div class="left">
+
+        <section class="panel" id="inCard">
+          <div id="wordsPane">
+            <h2>Words</h2>
+            <p class="hint">One strand per line. Tap a word below, or a bead, to check or fix its sounds.</p>
+            <textarea id="txt" spellcheck="false" aria-label="Words to write in beads"></textarea>
+            <div class="words" id="words"></div>
+            <div class="row" style="margin-top: 1rem;"><button class="btn" id="toIpa">Edit all of this as IPA</button></div>
+          </div>
+          <div id="ipaPane" hidden>
+            <h2>IPA</h2>
+            <p class="hint">Type sounds, or click them below. Spaces split words, new lines start a new strand.</p>
+            <textarea id="ipaIn" spellcheck="false" aria-label="IPA to write in beads"></textarea>
+            <div class="note" id="ipaNote"></div>
+          </div>
+        </section>
+
+        <section class="panel" id="editor" hidden>
+          <div class="ed-top"><h3 id="edWord"></h3><span id="edSrc" class="badge"></span></div>
+          <div class="chips" id="chips"></div>
+          <label class="hint" for="edIpa" style="display: block; margin-bottom: 0.3rem;">Or type the IPA for this word</label>
+          <input type="text" id="edIpa" spellcheck="false" autocomplete="off">
+          <div class="note" id="edNote"></div>
+          <div class="alts" id="alts"></div>
+          <div class="row" style="margin-top: 1rem;"><button class="btn" id="edReset">Back to dictionary</button><button class="btn" id="edDone">Done</button></div>
+        </section>
+
+        <section class="panel pal">
+          <h2>Sounds <small id="palHint">Pick a word to start editing</small></h2>
+          <div class="keys" id="consKeys"></div>
+          <div class="keys" id="vowKeys"></div>
+        </section>
+
+      </div>
+
+      <div class="boardwrap">
+        <div class="tools">
+          <label><input type="checkbox" id="optLab" checked> Labels</label>
+          <label title="A vowel with no consonant before it shares the next bead, marked with a notch"><input type="checkbox" id="optNotch" checked> Notch vowel-first</label>
+          <label>Size <input type="range" id="optSize" min="35" max="95" value="58"></label>
+          <button class="btn" id="saveImg">Save image</button>
+          <button class="btn" id="copySvg">Copy SVG</button>
+        </div>
+        <div class="board" id="board"><div class="empty">Loading the dictionary…</div></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         THE ORIGINAL CHART — same picture as on fulgari.html
+    ════════════════════════════════════════════════════════ -->
+    <div class="section-label" id="chart">The chart</div>
+    <div class="key-chart">
+      <a class="wide-img" data-zoom="images/language1.png">
+        <img src="images/language1-web.png" alt="The Fulgari bead language: each bead shape is a consonant and each color a vowel">
+      </a>
+    </div>
+
+  </div>
+
+  <div class="modal" id="modal" hidden><div class="panel"><img id="modalImg" alt="Bead strands"><div class="row" style="justify-content: center; margin-top: 1rem;"><a class="btn" id="modalDl" download="fulgari-beads.png" style="text-decoration: none;">Download</a><button class="btn" id="modalClose">Close</button></div></div></div>
+  <div class="toast" id="toast"></div>
+
+  <footer>
+    <p>Ae'Uuvoria &mdash; A worldbuilding project by <a href="about-me.html">Nicole</a></p>
+  </footer>
+
+</body>
+</html>
